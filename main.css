@@ -39,6 +39,10 @@ a:visited {
 	color: inherit;
 }
 
+h1, h2, h3, h4, h5, p, a {
+	color: whitesmoke;
+}
+
 p {
 	font-family: 'Indie Flower', cursive;
 }
