@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 @import url("fontawesome-all.min.css");
 
+/* from HTML5UP */ 
 html, body, div, span, h1, h2, h3, h4, h5, h6, 
 p, a, img, ol, ul, li, form, article, aside,
 footer, header, menu, nav, section, audio, video {
@@ -39,13 +40,103 @@ a:visited {
 	color: inherit;
 }
 
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body, input, textarea, select {
+	/* edit main text font */
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+	color: #eeeeee;
+	font-size: 20pt;
+	line-height: 1.75em;
+}
+
+	@media screen and (max-width: 1680px) {
+
+		body, input, textarea, select {
+			font-size: 15pt;
+		}
+
+	}
+
+	@media screen and (max-width: 1280px) {
+
+		body, input, textarea, select {
+			font-size: 14pt;
+		}
+
+	}
+
+	@media screen and (max-width: 736px) {
+
+		body, input, textarea, select {
+			font-size: 12pt;
+		}
+
+	}
+
+	@media screen and (max-width: 360px) {
+
+		body, input, textarea, select {
+			font-size: 11pt;
+		}
+
+	}
+
+strong, b, h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+h1 {
+	font-size: 2.4em;
+	letter-spacing: -0.015em;
+}
+
+h2 {
+	font-size: 1.8em;
+	letter-spacing: -0.015em;
+}
+
+h3, h4, h5, h6 {
+	font-size: 1.25em;
+	letter-spacing: -0.015em;
+}
+
+@media screen and (max-width: 736px) {
+
+	h1 {
+		font-size: 1.75em;
+	}
+
+	h2 {
+		font-size: 1.375em;
+	}
+
+	h3, h4, h5, h6 {
+		font-size: 1em;
+	}
+
+}
+
+p, ul, ol, form {
+	/* ### used to be 2em */
+	margin-bottom: 0.5em;
+}
+
 h1, h2, h3, h4, h5, p, a {
-	color: whitesmoke;
 	font-family: 'Indie Flower', cursive;
 }
 
 body {
 	background-image: url('background_large.jpg');
-	background-position: center;
-	background-size: cover;
+	background-repeat: repeat, no-repeat;
+	background-size: auto, cover;
+	background-attachment: fixed;
+	background-position: center, center;
 }
