@@ -44,5 +44,5 @@ p {
 }
 
 body {
-	background-image: 'background_large.jpg';
+	background-image: url('background_large.jpg');
 }
