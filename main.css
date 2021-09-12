@@ -45,4 +45,6 @@ p {
 
 body {
 	background-image: url('background_large.jpg');
+	background-position: center;
+	background-size: cover;
 }
