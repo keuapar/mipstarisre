@@ -135,8 +135,39 @@ h1, h2, h3, h4, h5, p, a {
 
 body {
 	background-image: url('background_large.jpg');
-	background-repeat: repeat, no-repeat;
-	background-size: auto, cover;
+	background-size: cover;
 	background-attachment: fixed;
-	background-position: center, center;
+	background-position: center;
+}
+
+.frame {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.button {
+	width: 50%;
+	padding: 5px 33px;
+}
+
+.b-blue {
+	background-image: url('assets/frame_blue.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.b-red {
+	background-image: url('assets/frame_red.png');
+	background-size: cover;
+	background-position: center;
 }
