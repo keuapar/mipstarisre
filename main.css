@@ -155,6 +155,10 @@ body {
 	justify-content: space-around;
 }
 
+.main {
+	height: 75%;
+}
+
 .button {
 	width: 50%;
 	margin: 20px 0px;
@@ -174,4 +178,16 @@ body {
 
 .b-red {
 	background-image: url('assets/frame_red.png');
+}
+
+.b-green {
+	background-image: url('assets/frame_green.png');
+}
+
+.b-orange {
+	background-image: url('assets/frame_orange.png');
+}
+
+.b-purple {
+	background-image: url('assets/frame_purple.png');
 }
