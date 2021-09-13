@@ -157,8 +157,8 @@ body {
 
 .button {
 	width: 50%;
-	margin: 10px 50px;
-	background-size: contain;
+	margin: 10px 0px;
+	background-size: 30% 100%;
 	background-position: center;
 	background-repeat: no-repeat;
 	display: flex;
