@@ -148,6 +148,8 @@ body {
 	align-items: center;
 }
 
+
+/* ROW DEFINITIONS */
 .row {
 	width: 100%;
 	display: flex;
@@ -163,6 +165,12 @@ body {
 	height: 40vh;
 }
 
+/* MATH */
+.eqL {
+	size: 3em;
+}
+
+/* BUTTONS */
 .button {
 	width: 50%;
 	margin: 20px 0px;
