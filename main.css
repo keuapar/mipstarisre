@@ -148,6 +148,10 @@ body {
 	align-items: center;
 }
 
+.main {
+	width: 100%;
+}
+
 
 /* ROW DEFINITIONS */
 .row {
@@ -167,7 +171,7 @@ body {
 
 /* MATH */
 .eqL {
-	size: 3em;
+	font-size: 3em;
 }
 
 /* BUTTONS */
@@ -187,19 +191,34 @@ body {
 .b-blue {
 	background-image: url('assets/frame_blue.png');
 }
+.b-blue:hover, .b-blue:active {
+	background-color: blue;
+}
 
 .b-red {
 	background-image: url('assets/frame_red.png');
+}
+.b-red:hover, .b-red:active {
+	background-color: red;
 }
 
 .b-green {
 	background-image: url('assets/frame_green.png');
 }
+.b-green:hover, .b-green:active {
+	background-color: green;
+}
 
 .b-orange {
 	background-image: url('assets/frame_orange.png');
 }
+.b-orange:hover, .b-orange:active {
+	background-color: orange;
+}
 
 .b-purple {
 	background-image: url('assets/frame_purple.png');
+}
+.b-purple:hover, .b-purple:active {
+	background-color: purple;
 }
