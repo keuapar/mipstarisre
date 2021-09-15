@@ -155,8 +155,12 @@ body {
 	justify-content: space-around;
 }
 
-.main {
-	height: 75%;
+.row20 {
+	height: 20vh;
+}
+
+.row40 {
+	height: 40vh;
 }
 
 .button {
