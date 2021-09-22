@@ -16,7 +16,7 @@
 	var polynomials = [
 		'a^2 - b^2 \\stackrel{?}{=} (a+b)(a-b)',
 		'(a+b)^2 \\stackrel{?}{=} a^2 + b^2',
-		'x^3-4x^2-7x+10 \\stackrel{?}{=} (a+b)(a-b)',
+		'x^3-4x^2-7x+10 \\stackrel{?}{=} (x-1)(x+2)(x-5)',
 		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
 		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
 	];
@@ -29,7 +29,6 @@
 		katex.render(polynomials[round], $('#EQ1')[0], {
 			throwOnError: false
 		});	
-		round += 1;
 	});
 
 	function check(bt) {
@@ -56,10 +55,10 @@
 
 	/* on demand display next equation */
 	$B3.on('click', function() {
+		round += 1;
 		katex.render(polynomials[round], $('#EQ1')[0], {
 			throwOnError: false
 		});
-		round += 1;
 		ans = 'none';
 	});
 
