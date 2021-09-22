@@ -15,10 +15,12 @@
 
 	var polynomials = [
 		'a^2 - b^2 \\stackrel{?}{=} (a+b)(a-b)',
-		'x^3-4x^2-7x+10\\stackrel{?}{=}(a+b)(a-b)',
-		'(x+3)(x^2-6)\\stackrel{?}{=}x^3+3x^2-6x-18'
+		'(a+b)^2 \\stackrel{?}{=} a^2 + b^2',
+		'x^3-4x^2-7x+10 \\stackrel{?}{=} (a+b)(a-b)',
+		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
+		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
 	];
-	var truths = [true, true, true];
+	var truths = [true, false, true, false, true];
 	var round = 0;
 	var ans = 'none';
 
