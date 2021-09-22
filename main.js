@@ -59,6 +59,7 @@
 		katex.render(polynomials[round], $('#EQ1')[0], {
 			throwOnError: false
 		});
+		$EQ1A.text('');
 		ans = 'none';
 	});
 
