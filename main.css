@@ -185,14 +185,14 @@ nav {
 	align-items: center;
 }
 
-#nav_btns i:first-child {
+#nav_btns a:first-child {
 	border-radius: 0% 25% 0% 0%;
 }
-#nav_btns i:last-child {
+#nav_btns a:last-child {
 	border-radius: 0% 0% 25% 0%;
 }
 
-#nav_btns i {
+#nav_btns a {
 	display: block;
 	min-width: 50px;
 	background-color: rgb(218, 214, 33);
