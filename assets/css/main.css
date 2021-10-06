@@ -135,7 +135,7 @@ h1, h2, h3, h4, h5, p, a {
 
 /* MAIN PAGE ELEMENTS */
 body {
-	background-image: url('background_large.jpg');
+	background-image: url('../background_large.jpg');
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;
@@ -245,7 +245,7 @@ nav {
 }
 
 .b-blue {
-	background-image: url('assets/frame_blue.png');
+	background-image: url('../frames/frame_blue.png');
 }
 .b-blue:hover, .b-blue:active {
 	background-color: rgb(56, 113, 219);
@@ -253,7 +253,7 @@ nav {
 }
 
 .b-red {
-	background-image: url('assets/frame_red.png');
+	background-image: url('../frames/frame_red.png');
 }
 .b-red:hover, .b-red:active {
 	background-color: red;
@@ -261,7 +261,7 @@ nav {
 }
 
 .b-green {
-	background-image: url('assets/frame_green.png');
+	background-image: url('../frames/frame_green.png');
 }
 .b-green:hover, .b-green:active {
 	background-color: green;
@@ -269,7 +269,7 @@ nav {
 }
 
 .b-orange {
-	background-image: url('assets/frame_orange.png');
+	background-image: url('../frames/frame_orange.png');
 }
 .b-orange:hover, .b-orange:active {
 	background-color: orange;
@@ -277,7 +277,7 @@ nav {
 }
 
 .b-purple {
-	background-image: url('assets/frame_purple.png');
+	background-image: url('../frames/frame_purple.png');
 }
 .b-purple:hover, .b-purple:active {
 	background-color: purple;
