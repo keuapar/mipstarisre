@@ -19,66 +19,62 @@
     <body>
         <!-- Navigation hiearchy -->
         <nav>
-            <div id="nav_list">
+            <div class="nav_list nav_CLOSED">
                 <a href="#sec_00">Section 0</a>
                 <a href="#sec_01">Section 1</a>
                 <a href="#sec_02">Section 2</a>
                 <a href="#sec_03">Section 3</a>
             </div>
-            <div id="nav_btns">
-                <a class="fas fa-angle-double-up"></a>
-                <a class="fas fa-angle-up"></a>
-                <a class="fas fa-angle-double-right"></a>
-                <a class="fas fa-angle-down"></a>
-                <a class="fas fa-angle-double-down"></a>
+            <div class="nav_btns">
+                <a href="#sec_00" class="fas fa-angle-double-up"></a>
+                <a href="#sec_00" class="fas fa-angle-up"></a>
+                <a href="#sec_00" class="fas fa-angle-double-right" id="Bnav"></a>
+                <a href="#sec_00" class="fas fa-angle-down"></a>
+                <a href="#sec_00" class="fas fa-angle-double-down"></a>
             </div>
         </nav>
 
-        <div class="main">
+        <div class="main main_WIDE">
             <section id="sec_00">
-
+                <div class="row row20">
+                    <div class="button b-blue" id="B1">
+                        <h3>BACK to TOP</h3>
+                    </div>
+                    <div class="button b-blue" id="B2">
+                        <h3>Previous Section</h3>
+                    </div>
+                </div>
+                <div class="main_inner">
+                    <div class="row row40">
+                        <div class="column">
+                            <h2>Are the following two polynomials equal?</h2>
+                            <p class="eqL" id="EQ1">
+                                $$x$$
+                            </p>
+                            <p id="EQ1A">.</p>
+                        </div>
+                    </div>
+                    <div class="row row20">
+                        <div class="button b-green" id="B5">
+                            <h3>TRUE</h3>
+                        </div>
+                        <div class="button b-red" id="B6">
+                            <h3>FALSE</h3>
+                        </div>    
+                    </div>
+                </div>
+                <div class="row row20">
+                    <div class="button b-orange" id="B3">
+                        <h3>Try me again!</h3>
+                    </div>
+                    <div class="button b-purple" id="B4">
+                        <h3>Why am I doing this?</h3>
+                    </div>
+                </div>
             </section>
             <section id="sec_01">
     
             </section>
-        </div>
-
-        <div class="frame">
-            <div class="row row20">
-                <div class="button b-blue" id="B1">
-                    <h3>BACK to TOP</h3>
-                </div>
-                <div class="button b-blue" id="B2">
-                    <h3>Previous Section</h3>
-                </div>
-            </div>
-            <div class="main">
-                <div class="row row40">
-                    <div class="column">
-                        <h2>Are the following two polynomials equal?</h2>
-                        <p class="eqL" id="EQ1">
-                            $$x$$
-                        </p>
-                        <p id="EQ1A">.</p>
-                    </div>
-                </div>
-                <div class="row row20">
-                    <div class="button b-green" id="B5">
-                        <h3>TRUE</h3>
-                    </div>
-                    <div class="button b-red" id="B6">
-                        <h3>FALSE</h3>
-                    </div>    
-                </div>
-            </div>
-            <div class="row row20">
-                <div class="button b-orange" id="B3">
-                    <h3>Try me again!</h3>
-                </div>
-                <div class="button b-purple" id="B4">
-                    <h3>Why am I doing this?</h3>
-                </div>
-            </div>
         </div>
 
 

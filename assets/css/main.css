@@ -37,7 +37,6 @@ a {
 
 a:visited {
 	text-decoration: none;
-	color: inherit;
 }
 
 html {
@@ -142,61 +141,89 @@ body {
 }
 
 .main {
-	width: 100vw;
-}
-
-.frame {
 	height: 100vh;
-	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	transition: width 0.5s, margin-left 0.5s;
+
 }
 
-/* NAVIGATION MENU */
+section {
+	width: 100%;
+}
+
+/* NAVIGATION OPENING */
+.main_WIDE {
+	width: 100vw;
+}
+
+.main_NARROW {
+	width: 80vw;
+	margin-left: 20vw;
+}
+
+.nav_CLOSED {
+	width: 0vw;
+	overflow: hidden;
+}
+
+.nav_OPEN {
+	width: 20vw;
+}
+
+/* NAVIGATION BUTTONS */
 nav {
 	height: 100vh;
-	width: 5%;
 	position: fixed;
 	z-index: 10;
 	top: 0;
-	left: 0vw;
-	transition: 0.5s;
+	left: 0;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 }
 
-#nav_list {
-	display: none;
+.nav_list {
+	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
-	background: rgba(11, 11, 11, 0.5);
+	background: rgb(250, 247, 99);
+	height: 100%;
+	transition: width 0.5s;
 }
 
-#nav_list a:hover {
+.nav_list a:hover {
 	background-color: violet;
 }
 
-#nav_btns {
+.nav_btns {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-#nav_btns a:first-child {
+.nav_btns a:first-child {
 	border-radius: 0% 25% 0% 0%;
 }
-#nav_btns a:last-child {
+.nav_btns a:last-child {
 	border-radius: 0% 0% 25% 0%;
 }
 
-#nav_btns a {
-	display: block;
+.nav_btns a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	min-width: 50px;
-	background-color: rgb(218, 214, 33);
+	min-height: 50px;
+	background-color: rgb(250, 247, 99);
 	text-align: center;
+	color: black;
+}
+
+.nav_btns a:hover {
+	font-size: 1.5em;
 }
 
 

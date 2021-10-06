@@ -2,7 +2,32 @@
 (function($) {
 
 	var $window = $(window),
-		$body = $('body');
+		$body = $('body'),
+		$main = $('.main'),
+		$nav_list = $('.nav_list');
+
+	var $nav_btn = $('#Bnav'),
+		nav_closed = true;
+
+	$nav_btn.on('click', function() {
+		if (nav_closed == true) {
+			$main.removeClass('main_WIDE');
+			$main.addClass('main_NARROW');
+			$nav_list.removeClass('nav_CLOSED');
+			$nav_list.addClass('nav_OPEN');
+			$nav_btn.removeClass('fa-angle-double-right');
+			$nav_btn.addClass('fa-angle-double-left');
+			nav_closed = false;
+		} else {
+			$main.removeClass('main_NARROW');
+			$main.addClass('main_WIDE');
+			$nav_list.removeClass('nav_OPEN');
+			$nav_list.addClass('nav_CLOSED');
+			$nav_btn.removeClass('fa-angle-double-left');
+			$nav_btn.addClass('fa-angle-double-right');
+			nav_closed = true;
+		}
+	});
 
 	var $B1 = $('#B1'),
 		$B2 = $('#B2'),
