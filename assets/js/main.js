@@ -1,30 +1,51 @@
 
 (function($) {
 
+	// main DOM variables
 	var $window = $(window),
 		$body = $('body'),
 		$main = $('.main'),
-		$nav_list = $('.nav_list');
+		$nav_list = $('.nav_list'),
+		max_sec = 3;
 
-	var $nav_btn = $('#Bnav'),
+	// navigation variables setup
+	var $Bup = $('#Bup'),
+		$Bnav = $('#Bnav'),
+		$Bdown = $('#Bdown'),
+		curr_sec = 0,
 		nav_closed = true;
 
-	$nav_btn.on('click', function() {
+	$Bup.on('click', function() {
+		if (curr_sec > 0) {
+			curr_sec -= 1;
+		}
+		// scroll to curr_sec
+	});
+
+	$Bdown.on('click', function() {
+		if (curr_sec < max_sec) {
+			curr_sec += 1;
+		}
+		// scroll to curr_sec
+	});
+
+	// navigation window opening
+	$Bnav.on('click', function() {
 		if (nav_closed == true) {
 			$main.removeClass('main_WIDE');
 			$main.addClass('main_NARROW');
 			$nav_list.removeClass('nav_CLOSED');
 			$nav_list.addClass('nav_OPEN');
-			$nav_btn.removeClass('fa-angle-double-right');
-			$nav_btn.addClass('fa-angle-double-left');
+			$Bnav.removeClass('fa-angle-double-right');
+			$Bnav.addClass('fa-angle-double-left');
 			nav_closed = false;
 		} else {
 			$main.removeClass('main_NARROW');
 			$main.addClass('main_WIDE');
 			$nav_list.removeClass('nav_OPEN');
 			$nav_list.addClass('nav_CLOSED');
-			$nav_btn.removeClass('fa-angle-double-left');
-			$nav_btn.addClass('fa-angle-double-right');
+			$Bnav.removeClass('fa-angle-double-left');
+			$Bnav.addClass('fa-angle-double-right');
 			nav_closed = true;
 		}
 	});

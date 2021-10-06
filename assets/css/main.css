@@ -164,11 +164,13 @@ section {
 }
 
 .nav_CLOSED {
+	display: hidden;
 	width: 0vw;
 	overflow: hidden;
 }
 
 .nav_OPEN {
+	display: flex;
 	width: 20vw;
 }
 
@@ -192,10 +194,15 @@ nav {
 	background: rgb(250, 247, 99);
 	height: 100%;
 	transition: width 0.5s;
+	font-size: 1.3em;
+}
+
+.nav_list a {
+	padding: 5px 0;
 }
 
 .nav_list a:hover {
-	background-color: violet;
+	font-size: 1.5em;
 }
 
 .nav_btns {
