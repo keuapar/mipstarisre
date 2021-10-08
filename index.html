@@ -68,7 +68,29 @@
                     </div>
                 </div>
                 <div class="overlay hide">
-                    <p>BPP: The combination of the ideas from RP and coRP allows us to define the BPP complexity class, which is bounded by the possibility of error in both directions. This means that a positive answer is really positive only with a given > 0.5 probability, and a negative answer is similarly only true under a certain probability. The probability bounds can generally be determined and improved by repetition and can be almost arbitrarily small. There are important problems that used to considered BPP but have later been shown to actually lie in P as more efficient algorithms have been discovered, leading to a blurring of lines between the complexity classes.</p>
+                    <p>
+                        How many complicated polynomials have you tried to solve?
+                        It gets difficult very quickly.
+                    </p>
+                    <p>
+                        In fact, the difficulty of deciding whether an equation like that on screen
+                        is true or false scales exponentially with the highest polynomial degree
+                        and also scales exponentially with the number of variables involved.
+                    </p>
+                    <p>
+                        This makes it an exceptionally difficult problem for computers to solve efficiently,
+                        unless we allow for a specific margin of error.
+                    </p>
+                    <p>
+                        Imagine reformulating the equation like this:
+                        $$(x+y)(x-y) - (x^2 - y^2) = 0$$
+                    </p>
+                    <p>
+                        Then, you can just evaluate it at more and more random points.
+                        The more $$0$$ answers you get, the higher your confidence that
+                        the polynomials are indeed equal!
+                    </p>
+                    <div class="button b-purple Boverlay">Close me</div>
                 </div>
             </section>
 
