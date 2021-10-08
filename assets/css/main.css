@@ -257,7 +257,7 @@ nav {
 	top: 0;
 	left: 0;
 	background-image: url('../page.png');
-	background-size: contain;
+	background-size: 95% 95%;
 	background-position: center;
 	background-repeat: no-repeat;
 	
