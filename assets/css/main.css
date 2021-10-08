@@ -133,6 +133,11 @@ h1, h2, h3, h4, h5, p, a {
 }
 
 /* MAIN PAGE ELEMENTS */
+html {
+	scroll-behavior: smooth;
+	scroll-snap-type: y mandatory;
+}
+
 body {
 	background-image: url('../background_large.jpg');
 	background-size: cover;
@@ -146,11 +151,21 @@ body {
 	flex-direction: column;
 	align-items: center;
 	transition: width 0.5s, margin-left 0.5s;
+}
 
+/* SCROLLING */
+body::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera */
+}
+  
+body {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
 }
 
 section {
 	width: 100%;
+	scroll-snap-align: start;
 }
 
 /* NAVIGATION OPENING */
@@ -233,6 +248,25 @@ nav {
 	font-size: 1.5em;
 }
 
+/* OVERLAY */
+.overlay {
+	min-height: 80%;
+	min-width: 80%;
+	position: fixed;
+	z-index: 5;
+	top: 10%;
+	left: 10%;
+	background-image: url('../page.png');
+	background-size: cover;
+	background-position: center;
+	
+	padding: 7% 20%;
+	color: black;
+}
+
+.hide {
+	display: none;
+}
 
 /* ROW DEFINITIONS */
 .row {
@@ -249,6 +283,10 @@ nav {
 
 .row40 {
 	height: 40vh;
+}
+
+.row100 {
+	height: 100vh;
 }
 
 .column {

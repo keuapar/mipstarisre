@@ -6,27 +6,30 @@
 		$body = $('body'),
 		$main = $('.main'),
 		$nav_list = $('.nav_list'),
-		max_sec = 3;
+		sec_arr = $.map($('section'), function(n, i){return n.id;}),
+		max_sec = $('section').length;
+
+	console.log(sec_arr);
+	console.log(max_sec);
 
 	// navigation variables setup
 	var $Bup = $('#Bup'),
 		$Bnav = $('#Bnav'),
 		$Bdown = $('#Bdown'),
-		curr_sec = 0,
+		curr_sec = 0;
 		nav_closed = true;
 
+	// change section on scroll
+	$(window).scroll(function (event) {
+		// scroll to
+     });
+
 	$Bup.on('click', function() {
-		if (curr_sec > 0) {
-			curr_sec -= 1;
-		}
-		// scroll to curr_sec
+		// scroll to
 	});
 
 	$Bdown.on('click', function() {
-		if (curr_sec < max_sec) {
-			curr_sec += 1;
-		}
-		// scroll to curr_sec
+		// scroll to 
 	});
 
 	// navigation window opening
@@ -50,6 +53,13 @@
 		}
 	});
 
+	var $Boverlay = $('.Boverlay');
+
+	$Boverlay.on('click', function() {
+		$('.overlay').toggleClass('hide');
+	});
+
+	/* page buttons */
 	var $B1 = $('#B1'),
 		$B2 = $('#B2'),
 		$B3 = $('#B3'),
