@@ -179,13 +179,11 @@ section {
 }
 
 .nav_CLOSED {
-	display: hidden;
 	width: 0vw;
 	overflow: hidden;
 }
 
 .nav_OPEN {
-	display: flex;
 	width: 20vw;
 }
 
@@ -242,10 +240,11 @@ nav {
 	background-color: rgb(250, 247, 99);
 	text-align: center;
 	color: black;
+	font-size: 1.3em;
 }
 
 .nav_btns a:hover {
-	font-size: 1.5em;
+	font-size: 1.8em;
 }
 
 /* OVERLAY */

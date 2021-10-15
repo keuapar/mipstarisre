@@ -1,4 +1,16 @@
 
+// extension by Stephan Muller
+// from https://stackoverflow.com/questions/3701311/event-when-user-stops-scrolling
+$.fn.scrollEnd = function(callback, timeout) {          
+	$(this).on('scroll', function(){
+	  var $this = $(this);
+	  if ($this.data('scrollTimeout')) {
+		clearTimeout($this.data('scrollTimeout'));
+	  }
+	  $this.data('scrollTimeout', setTimeout(callback,timeout));
+	});
+  };
+
 (function($) {
 
 	// main DOM variables
@@ -9,28 +21,31 @@
 		sec_arr = $.map($('section'), function(n, i){return n.id;}),
 		max_sec = $('section').length;
 
-	console.log(sec_arr);
-	console.log(max_sec);
-
-	// navigation variables setup
+	// NAVIGATION
+	// variables setup
 	var $Bup = $('#Bup'),
 		$Bnav = $('#Bnav'),
 		$Bdown = $('#Bdown'),
-		curr_sec = 0;
 		nav_closed = true;
 
-	// change section on scroll
-	$(window).scroll(function (event) {
-		// scroll to
-     });
+	// "all the way down"
+	$('#Bdowndown').attr('href', '#' + sec_arr[sec_arr.length -1])
 
-	$Bup.on('click', function() {
-		// scroll to
+	// scrolling buttons
+	$Bup.on('click', function(event) {
+		window.scrollBy(0, -1*$window.height());
+		event.preventDefault();
+	});
+	$Bdown.on('click', function(event) {
+		window.scrollBy(0, $window.height());
+		event.preventDefault();
 	});
 
-	$Bdown.on('click', function() {
-		// scroll to 
-	});
+	// update hash on scroll
+	$window.scrollEnd(function() {
+		var sec = Math.round(this.scrollY / $window.height());
+		history.replaceState(undefined, undefined, '#'+sec_arr[sec]);
+	}, 200);
 
 	// navigation window opening
 	$Bnav.on('click', function() {
