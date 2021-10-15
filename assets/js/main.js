@@ -15,7 +15,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// main DOM variables
 	var $window = $(window),
-		$body = $('body'),
 		$main = $('.main'),
 		$nav_list = $('.nav_list'),
 		sec_arr = $.map($('section'), function(n, i){return n.id;}),
@@ -29,7 +28,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		nav_closed = true;
 
 	// "all the way down"
-	$('#Bdowndown').attr('href', '#' + sec_arr[sec_arr.length -1])
+	$('#Bdowndown').attr('href', '#' + sec_arr[max_sec -1])
 
 	// scrolling buttons
 	$Bup.on('click', function(event) {
