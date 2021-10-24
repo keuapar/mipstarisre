@@ -128,7 +128,7 @@ p, ul, ol, form {
 	margin-bottom: 0.5em;
 }
 
-h1, h2, h3, h4, h5, p, a {
+h1, h2, h3, h4, h5, a {
 	font-family: 'Indie Flower', cursive;
 }
 
@@ -164,8 +164,9 @@ body {
 }
 
 section {
-	width: 100%;
 	scroll-snap-align: start;
+	min-width: 100%;
+	min-height: 100%;
 }
 
 /* NAVIGATION OPENING */
@@ -208,6 +209,7 @@ nav {
 	height: 100%;
 	transition: width 0.5s;
 	font-size: 1.3em;
+	text-align: center;
 }
 
 .nav_list a {
@@ -259,7 +261,6 @@ nav {
 	background-size: 95% 95%;
 	background-position: center;
 	background-repeat: no-repeat;
-	
 	padding: 10% 10%;
 	color: black;
 }
@@ -268,33 +269,91 @@ nav {
 	display: none;
 }
 
-/* ROW DEFINITIONS */
-.row {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
-}
-
-.row20 {
-	height: 20vh;
-}
-
-.row40 {
-	height: 40vh;
-}
-
-.row100 {
-	height: 100vh;
-}
-
-.column {
-	height: 100%;
+/* INTRODUCTION */
+#sec_00 {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
+}
+
+/* MAIN CSS GRID */
+.grid {
+	display: grid;
+	grid-template-columns: 50px 2fr 1fr;
+	grid-template-rows: 15vh 0.3fr 1fr 0.2fr 10vh;
+	grid-template-areas: 
+		'nav head head'
+		'nav main-intro plot'
+		'nav main-act plot'
+		'nav main-butt plot'
+		'nav foot foot';
+	gap: 10px 20px;
+	place-items: center;
+}
+
+.head {
+	grid-area: head;
+}
+.main-intro {
+	grid-area: main-intro;
+}
+.main-act {
+	grid-area: main-act;
+}
+.main-butt {
+	grid-area: main-butt;
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+.plot {
+	grid-area: plot;
+}
+.foot {
+	grid-area: foot;
+}
+
+/* 01: SORTING */
+.s01_main {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.s01_shelf {
+	width: 100%;
+	min-height: 25px;
+	border-radius: 10%;
+	background-color: brown;
+}
+
+.s01_wrap {
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	margin-bottom: 0;
+}
+
+.s01_book {	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	writing-mode: vertical-rl;
+	text-align: center;
+	max-height: 250px;
+	padding: 2%;
+	line-height: 1;
+	cursor: grab;
+}
+
+.s01_timer {
+	font-size: 2em;
+	text-align: center;
+	min-width: 150px;
+	font-weight: 900;
 }
 
 /* MATH */

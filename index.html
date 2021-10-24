@@ -6,6 +6,8 @@
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="assets/css/jquery-ui.min.css" />
+      <link rel="stylesheet" href="assets/css/jquery-ui.structure.min.css" />
 
       <!--- KaTeX for rendering math equations -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
@@ -20,8 +22,8 @@
         <!-- Navigation hiearchy -->
         <nav>
             <div class="nav_list nav_CLOSED">
-                <a href="#sec_00">Introduction</a>
-                <a href="#sec_01">Randomness</a>
+                <a href="#sec_00">Home</a>
+                <a href="#sec_01">Class P: Sorting</a>
                 <a href="#sec_02">Section II</a>
                 <a href="#sec_03">Conclusion</a>
             </div>
@@ -36,16 +38,60 @@
 
         <div class="main main_WIDE">
 
-            <!-- INTRODUCTION SECTION -->
+            <!-- SECTION 00 -->
+            <!-- INTRODUCTION -->
             <section id="sec_00">
-                <div class="row row100">
-                    <h1>Understanding MIP*=RE</h1>
-                </div>
+                <h2>Welcome to</h2>
+                <h1>Understanding of MIP* = RE</h1>
             </section>
 
             <!-- SECTION 01 -->
-            <section id="sec_01">
+            <!-- COMPLEXITY CLASSES: SORTING -->
+            <section class="grid" id="sec_01">
+                <div class="head">
+                    <h2>Introduction to Complexity Clasess: Sorting</h2>
+                </div>
+                <div class="main-intro">
+                    <p>
+                        One of the more straightforward ways to understand the notion of computational complexity is via the traditional exercises on sorting.
+                    </p>
+                    <p>
+                        How long does it take you to sort the library below from shortest to tallest book?
+                    </p>
+                </div>
+                <div class="main-act s01_main">
+                    <ul class="s01_wrap" id="s01_wrap">
+                    </ul>
+                    <div class="s01_shelf"></div>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-green s01_reset">TRY AGAIN</div>
+                    <p class="s01_timer">
+                        <span id="s01_min">00</span>
+                        :
+                        <span id="s01_sec">00</span>
+                        :
+                        <span id="s01_msec">00</span>
+                    </p>
+                    <div class="button b-purple s01_harder">TRY HARDER</div>
+                </div>
+                <div class="plot">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore hic odio eaque, iusto sapiente labore. Numquam corporis alias dolorem, doloribus saepe debitis, possimus, aperiam a voluptates laborum natus doloremque nemo?
+                </div>
+                <div class="foot">
+                    That's it for this section :) Move on!
+                </div>
+            </section>
 
+            <!-- SECTION 02 -->
+            <section class="grid" id="sec_02">
+                <div class="main-act">
+                    SECTION 02
+                </div>
+            </section>
+
+            <!-- SECTION 03 -->
+            <section id="sec_03">
                 <div class="row row20">
                 </div>
                 <div class="main_inner">
@@ -100,28 +146,15 @@
                         the polynomials are indeed equal!
                     </p>
                     <div class="button b-purple Boverlay">Close me</div>
-                </div>
-            </section>
-
-            <!-- SECTION 02 -->
-            <section id="sec_02">
-                <div class="row row100">
-                    <span>Section II</span>
-                </div>
-            </section>
-
-            <!-- SECTION 03 -->
-            <section id="sec_03">
-                <div class="row row100">
-                    <span>That's it!</span>
-                </div>
-            </section>
+                </div>            </section>
         </div>
 
 
         <!-- Scripts -->
+        <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/jquery-ui.min.js"></script>
         <script src="assets/js/main.js"></script>
 
     </body>
