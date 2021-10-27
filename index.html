@@ -61,22 +61,25 @@
                 </div>
                 <div class="main-act s01_main">
                     <ul class="s01_wrap" id="s01_wrap">
+                        <!-- dynamically populated -->
                     </ul>
                     <div class="s01_shelf"></div>
                 </div>
                 <div class="main-butt">
                     <div class="button b-green s01_reset">TRY AGAIN</div>
-                    <p class="s01_timer">
+                    <div class="s01_timer">
                         <span id="s01_min">00</span>
                         :
                         <span id="s01_sec">00</span>
                         :
                         <span id="s01_msec">00</span>
-                    </p>
+                    </div>
                     <div class="button b-purple s01_harder">TRY HARDER</div>
                 </div>
                 <div class="plot">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore hic odio eaque, iusto sapiente labore. Numquam corporis alias dolorem, doloribus saepe debitis, possimus, aperiam a voluptates laborum natus doloremque nemo?
+                    <div class="plot_wrap s01_plot" id="s01_plot">
+                        <!-- dynamically populated -->
+                    </div>
                 </div>
                 <div class="foot">
                     That's it for this section :) Move on!
@@ -153,9 +156,13 @@
         <!-- Scripts -->
         <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.canvaswrapper.js"></script>
+        <script src="assets/js/jquery.colorhelpers.js"></script>
         <script src="assets/js/browser.min.js"></script>
-        <script src="assets/js/jquery-ui.min.js"></script>
-        <script src="assets/js/main.js"></script>
+        <!-- <script src="assets/js/jquery-ui.min.js"></script> -->
+        <script src="assets/js/jquery.flot.js"></script>
+        <script src="assets/js/jquery.flot.axislabels.js"></script>
+            <script src="assets/js/main.js"></script>
 
     </body>
 </html>

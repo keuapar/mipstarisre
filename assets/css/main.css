@@ -286,7 +286,7 @@ nav {
 		'nav head head'
 		'nav main-intro plot'
 		'nav main-act plot'
-		'nav main-butt plot'
+		'nav main-butt plot-butt'
 		'nav foot foot';
 	gap: 10px 20px;
 	place-items: center;
@@ -306,12 +306,31 @@ nav {
 	display: flex;
 	width: 100%;
 	justify-content: space-around;
+	align-items: center;
 }
 .plot {
 	grid-area: plot;
+	place-self: stretch;
+	margin-right: 5%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	background-color: whitesmoke;
+	border-radius: 5%;
 }
 .foot {
 	grid-area: foot;
+}
+
+/* plotting general */
+.plot_wrap {
+	height: 90%;
+	width: 90%;
+}
+
+.axisLabels {
+	color: black
 }
 
 /* 01: SORTING */

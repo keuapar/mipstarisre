@@ -108,8 +108,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// 01: SORTING
 	var num_books = 5,
 		// plot axis elements
-		s01_x = [],
-		s01_y = [],
+		s01_pts = [],
 		book_names = [],
 		picked = [],
 		running = false,
@@ -234,14 +233,16 @@ $.fn.scrollEnd = function(callback, timeout) {
 		$('.s01_book').each(function(i, item) {
 			arr.push($(item).data('bookid'));
 		})
-		console.log(arr);
+		// console.log(arr);
 		if (sorted(arr)) {
 			$('.s01_timer').css({'color': '#00FA9A'});
 			running = false;
 			s01_clock.pause();
-			s01_x.push(num_books);
-			s01_y.push(s01_clock.totalSeconds);
-			console.log(s01_y);
+			// save the user time for display in plot
+			s01_pts.push([num_books, s01_clock.totalSeconds/100]);
+			// redraw plot
+			s01_plt.setData([s01_pts]);
+			s01_plt.draw();
 		}
 	};
 	// $library.sortable();
@@ -260,6 +261,45 @@ $.fn.scrollEnd = function(callback, timeout) {
 		num_books = Math.max(num_books, 3);
 		resetlibrary();
 	})
+
+	// plot for Section 01
+	var placeholder_data = {
+			data: [[0, 0], [10, 10]],
+			lines: { show: false }
+		},
+		s01_options = {
+			series: {
+				lines: { show: false },
+				points: { 
+					show: true, 
+					radius: 5, 
+					fillColor: 'red',
+					lineWidth: 0 
+				}
+			},
+			xaxis: {
+				autoScale: false,
+				min: 0,
+				max: 10
+			},
+			yaxis: {
+				autoScale: false,
+				min: 0,
+				max: 10
+			},
+			axisLabels: {
+				show: true
+			},
+			xaxes: [{
+				axisLabel: 'number of books',
+			}],
+			yaxes: [{
+				position: 'left',
+				axisLabel: 'time to sort (seconds)',
+			}]
+		};
+
+	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_options);
 
 	/* OVERLAY */
 	var $Boverlay = $('.Boverlay');
