@@ -20,6 +20,15 @@ $.fn.scrollEnd = function(callback, timeout) {
 		sec_arr = $.map($('section'), function(n, i){return n.id;}),
 		max_sec = $('section').length;
 
+	// plot update function, on adding new points
+	function update(plot, pts, xmax, ymax) {
+		plot.setData([pts]);
+		plot.getAxes().xaxis.options.max = Math.max(xmax +1, 10);
+		plot.getAxes().yaxis.options.max = Math.max(ymax +1, 10);
+		plot.setupGrid();
+		plot.draw();
+	}
+
 	// NAVIGATION
 	// variables setup
 	var $Bup = $('#Bup'),
@@ -109,6 +118,8 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var num_books = 5,
 		// plot axis elements
 		s01_pts = [],
+		s01_xmax = 1,
+		s01_ymax = 1,
 		book_names = [],
 		picked = [],
 		running = false,
@@ -238,16 +249,18 @@ $.fn.scrollEnd = function(callback, timeout) {
 			$('.s01_timer').css({'color': '#00FA9A'});
 			running = false;
 			s01_clock.pause();
+			time = s01_clock.totalSeconds/100;
 			// save the user time for display in plot
-			s01_pts.push([num_books, s01_clock.totalSeconds/100]);
+			s01_pts.push([num_books, time]);
+			s01_xmax = Math.max(s01_xmax, num_books);
+			s01_ymax = Math.max(s01_ymax, time);
 			// redraw plot
-			s01_plt.setData([s01_pts]);
-			s01_plt.draw();
+			update(s01_plt, s01_pts, s01_xmax, s01_ymax);
 		}
 	};
 	// $library.sortable();
 
-	// library button functionality
+	// library buttons functionality
 	function resetlibrary() {
 		$('.s01_timer').css({'color': 'white'});
 		s01_clock.reset();
@@ -263,11 +276,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	})
 
 	// plot for Section 01
-	var placeholder_data = {
-			data: [[0, 0], [10, 10]],
-			lines: { show: false }
-		},
-		s01_options = {
+	var s01_options = {
 			series: {
 				lines: { show: false },
 				points: { 
@@ -301,11 +310,17 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_options);
 
-	/* OVERLAY */
-	var $Boverlay = $('.Boverlay');
-
-	$Boverlay.on('click', function() {
+	/* OVERLAYS */
+	var btext = false;
+	$('.b-overlay').on('click', function() {
 		$('.overlay').toggleClass('hide');
+		if (btext == false) {
+			$('.b-text').text('CLOSE');
+			btext = true;
+		} else {
+			$('.b-text').text('EXPLAIN');
+			btext = false;
+		}
 	});
 
 	/* page buttons */

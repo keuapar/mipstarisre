@@ -249,26 +249,6 @@ nav {
 	font-size: 1.8em;
 }
 
-/* OVERLAY */
-.overlay {
-	min-height: 100%;
-	min-width: 100%;
-	position: fixed;
-	z-index: 5;
-	top: 0;
-	left: 0;
-	background-image: url('../page.png');
-	background-size: 95% 95%;
-	background-position: center;
-	background-repeat: no-repeat;
-	padding: 10% 10%;
-	color: black;
-}
-
-.hide {
-	display: none;
-}
-
 /* INTRODUCTION */
 #sec_00 {
 	display: flex;
@@ -281,15 +261,15 @@ nav {
 .grid {
 	display: grid;
 	grid-template-columns: 50px 2fr 1fr;
-	grid-template-rows: 15vh 0.3fr 1fr 0.2fr 10vh;
+	grid-template-rows: 15vh 5fr 25fr 5vh;
 	grid-template-areas: 
 		'nav head head'
 		'nav main-intro plot'
 		'nav main-act plot'
-		'nav main-butt plot-butt'
-		'nav foot foot';
+		'nav main-butt plot-butt';
 	gap: 10px 20px;
 	place-items: center;
+	padding-bottom: 30px;
 }
 
 .head {
@@ -305,7 +285,7 @@ nav {
 	grid-area: main-butt;
 	display: flex;
 	width: 100%;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 }
 .plot {
@@ -316,11 +296,13 @@ nav {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	background-color: whitesmoke;
-	border-radius: 5%;
+	background-image: url('/assets/sticky.png');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
-.foot {
-	grid-area: foot;
+.plot-butt {
+	grid-area: plot-butt;
 }
 
 /* plotting general */
@@ -332,6 +314,27 @@ nav {
 .axisLabels {
 	color: black
 }
+/* OVERLAY */
+.overlay {
+	grid-area: 2 / 2 / 5 / 3;
+	place-self: stretch;
+	z-index: 5;
+	background-color: yellowgreen;
+	border-radius: 3%;
+	color: black;
+	overflow-y: scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	padding: 3%;
+}
+.overlay::-webkit-scrollbar {
+	display: none;
+}
+
+.hide {
+	display: none;
+}
+
 
 /* 01: SORTING */
 .s01_main {
@@ -371,8 +374,8 @@ nav {
 .s01_timer {
 	font-size: 2em;
 	text-align: center;
-	min-width: 150px;
 	font-weight: 900;
+	padding: 0 20px;
 }
 
 /* MATH */
@@ -382,16 +385,12 @@ nav {
 
 /* BUTTONS */
 .button {
-	width: 33%;
-	margin: 20px 0px;
-	padding: 10px;
 	background-size: 100% 100%;
 	background-position: center;
 	background-repeat: no-repeat;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+	padding: 10px 20px;
+	min-width: 150px;
+	text-align: center;
 }
 
 .b-blue {
@@ -422,7 +421,7 @@ nav {
 	background-image: url('../frames/frame_orange.png');
 }
 .b-orange:hover, .b-orange:active {
-	background-color: orange;
+	background-color: rgba(255, 163, 24, 0.842);
 	cursor: pointer;
 }
 
