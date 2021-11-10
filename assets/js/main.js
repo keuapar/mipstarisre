@@ -20,64 +20,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		sec_arr = $.map($('section'), function(n, i){return n.id;}),
 		max_sec = $('section').length;
 
-	// plot update function, on adding new points
-	function update(plot, pts, xmax, ymax) {
-		plot.setData([pts]);
-		plot.getAxes().xaxis.options.max = Math.max(xmax +1, 10);
-		plot.getAxes().yaxis.options.max = Math.max(ymax +1, 10);
-		plot.setupGrid();
-		plot.draw();
-	}
-
-	// NAVIGATION
-	// variables setup
-	var $Bup = $('#Bup'),
-		$Bnav = $('#Bnav'),
-		$Bdown = $('#Bdown'),
-		nav_closed = true;
-
-	// "all the way down"
-	$('#Bdowndown').attr('href', '#' + sec_arr[max_sec -1])
-
-	// scrolling buttons
-	$Bup.on('click', function(event) {
-		window.scrollBy(0, -1*$window.height());
-		event.preventDefault();
-	});
-	$Bdown.on('click', function(event) {
-		window.scrollBy(0, $window.height());
-		event.preventDefault();
-	});
-
-	// update hash on scroll
-	$window.scrollEnd(function() {
-		var sec = Math.round(this.scrollY / $window.height());
-		history.replaceState(undefined, undefined, '#'+sec_arr[sec]);
-	}, 200);
-
-	// navigation window opening
-	$Bnav.on('click', function() {
-		// navigation is opening
-		if (nav_closed == true) {
-			$main.removeClass('main_WIDE');
-			$main.addClass('main_NARROW');
-			$nav_list.removeClass('nav_CLOSED');
-			$nav_list.addClass('nav_OPEN');
-			$Bnav.removeClass('fa-angle-double-right');
-			$Bnav.addClass('fa-angle-double-left');
-			nav_closed = false;
-		} else {
-			// navigation is closing
-			$main.removeClass('main_NARROW');
-			$main.addClass('main_WIDE');
-			$nav_list.removeClass('nav_OPEN');
-			$nav_list.addClass('nav_CLOSED');
-			$Bnav.removeClass('fa-angle-double-left');
-			$Bnav.addClass('fa-angle-double-right');
-			nav_closed = true;
-		}
-	});
-
+	// UTILITY FUNCTIONS
 	// shuffling utility by communitywiki
 	// @ https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 	function shuffle(array) {
@@ -113,6 +56,109 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 		return color;
 	}
+	// get a normal distribution sample by joshuakcockrell
+	function rand_norm(min = -1, max = 1) {
+		let u = 0, v = 0;
+		while(u === 0) u = Math.random() //Converting [0,1) to (0,1)
+		while(v === 0) v = Math.random()
+		let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )
+		
+		num = num / 10.0 + 0.5 // Translate to 0 -> 1
+		if (num > 1 || num < 0) 
+		  num = randn_bm(min, max) // resample between 0 and 1 if out of range
+		
+		else{
+		  num *= max - min // Stretch to fill range
+		  num += min // offset to min
+		}
+		return num
+	  }	  
+
+	// plot update function, on adding new points
+	// expl changes behaviour if the user already clicked the explain button
+	function update(plot, dta, dta_full, expl, xmax = null, ymax = null) {
+		if (expl == false) {
+			plot.setData([dta]);
+			plot.getAxes().xaxis.options.max = Math.max(xmax +1, 10);
+			plot.getAxes().yaxis.options.max = Math.max(ymax +1, 10);
+			plot.setupGrid();
+			plot.draw();
+		} else {
+			plot.setData(dta_full);
+			plot.draw();
+		}
+	}
+
+	// plot points of different scaling
+	var flot_n2 = [],
+		flot_nlogn = [],
+		flot_max = 33,
+		flot_divisor = 100;
+
+	for (let i=0; i <= flot_max; i++) {
+		flot_n2.push([i, (i**2)*(1 + rand_norm()/3)/flot_divisor]);
+		flot_nlogn.push([i, (i*Math.log2(i))*(1+rand_norm()/3)/flot_divisor]);
+	}
+
+	// NAVIGATION
+	// variables setup
+	var $Bup = $('#Bup'),
+		$Bnav = $('#Bnav'),
+		$Bdown = $('#Bdown'),
+		nav_closed = true;
+
+	// "all the way down"
+	$('#Bdowndown').attr('href', '#' + sec_arr[max_sec -1])
+
+	// scrolling buttons
+	$Bup.on('click', function(event) {
+		window.scrollBy(0, -1*$window.height());
+		event.preventDefault();
+	});
+	$Bdown.on('click', function(event) {
+		window.scrollBy(0, $window.height());
+		event.preventDefault();
+	});
+
+	// update hash on scroll
+	// also close any open overlays
+	$window.scrollEnd(function() {
+		var sec = Math.round(this.scrollY / $window.height());
+		history.replaceState(undefined, undefined, '#'+sec_arr[sec]);
+		if (bexplain == true) {
+			$('.overlay_explains').toggleClass('visible');
+			$('.b-explain').text('EXPLAIN');
+			bexplain = false;
+		}
+		if (blinks == true) {
+			$('.overlay_links').toggleClass('visible');
+			$('.b-link').text('LINKS');
+			blinks = false;
+		}
+	}, 200);
+
+	// navigation window opening
+	$Bnav.on('click', function() {
+		// navigation is opening
+		if (nav_closed == true) {
+			$main.removeClass('main_WIDE');
+			$main.addClass('main_NARROW');
+			$nav_list.removeClass('nav_CLOSED');
+			$nav_list.addClass('nav_OPEN');
+			$Bnav.removeClass('fa-angle-double-right');
+			$Bnav.addClass('fa-angle-double-left');
+			nav_closed = false;
+		} else {
+			// navigation is closing
+			$main.removeClass('main_NARROW');
+			$main.addClass('main_WIDE');
+			$nav_list.removeClass('nav_OPEN');
+			$nav_list.addClass('nav_CLOSED');
+			$Bnav.removeClass('fa-angle-double-left');
+			$Bnav.addClass('fa-angle-double-right');
+			nav_closed = true;
+		}
+	});
 
 	// 01: SORTING
 	var num_books = 5,
@@ -186,7 +232,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 			book_ids = Array.from(Array(num_books).keys()),
 			book_id = 0;
 		
-		console.log(book_ids);
 		shuffle(book_ids);
 			
 		for (let i = 0; i < num_books; i++) {
@@ -255,7 +300,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 			s01_xmax = Math.max(s01_xmax, num_books);
 			s01_ymax = Math.max(s01_ymax, time);
 			// redraw plot
-			update(s01_plt, s01_pts, s01_xmax, s01_ymax);
+			update(s01_plt, s01_pts, s01_pts_full, s01_expl, s01_xmax, s01_ymax);
 		}
 	};
 	// $library.sortable();
@@ -276,7 +321,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	})
 
 	// plot for Section 01
-	var s01_options = {
+	var s01_opt = {
 			series: {
 				lines: { show: false },
 				points: { 
@@ -308,18 +353,84 @@ $.fn.scrollEnd = function(callback, timeout) {
 			}]
 		};
 
-	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_options);
+	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_opt);
+
+	// SECTION 02: Polynomial Identity Testing
+	var s01_pts_full = [{
+		'label': 'O(n*n)',
+		'data': flot_n2,
+		'points': { fillColor: 'purple' }
+	},{
+		'label': 'O(n*log(n))',
+		'data': flot_nlogn,
+		'points': { fillColor: 'blue' }
+	},{
+		'label': 'Your algorithm',
+		'data': s01_pts,
+		'points': { fillColor: 'red' }
+	}];
+	var s01_opt_full = {
+		series: {
+			lines: { show: false },
+			points: { 
+				show: true, 
+				radius: 3, 
+				lineWidth: 0,
+			}
+		},
+		legend: {
+			show: true,
+			position: 'nw',
+			margin: [50, 5]
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of books',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'time to sort (seconds)',
+		}]
+	};
 
 	/* OVERLAYS */
-	var btext = false;
-	$('.b-overlay').on('click', function() {
-		$('.overlay').toggleClass('hide');
-		if (btext == false) {
-			$('.b-text').text('CLOSE');
-			btext = true;
+	var bexplain = false;
+	var blinks = false;
+	var s01_expl = false
+	$('.b-explains').on('click', function() {
+		if (s01_expl == false) {
+			s01_expl = true;
+			s01_plt = $.plot('#s01_plot', s01_pts_full, s01_opt_full);
+		}
+		$('.overlay_explains').toggleClass('visible');
+		if (bexplain == false) {
+			if (blinks == true) {
+				$('.overlay_links').toggleClass('visible');
+				$('.b-link').text('LINKS');
+				blinks = false;
+			}
+			$('.b-explain').text('CLOSE');
+			bexplain = true;
 		} else {
-			$('.b-text').text('EXPLAIN');
-			btext = false;
+			$('.b-explain').text('EXPLAIN');
+			bexplain = false;
+		}
+	});
+	$('.b-links').on('click', function() {
+		$('.overlay_links').toggleClass('visible');
+		if (blinks == false) {
+			if (bexplain == true) {
+				$('.overlay_explains').toggleClass('visible');
+				$('.b-explain').text('EXPLAIN');
+				bexplain = false;
+			}
+			$('.b-link').text('CLOSE');
+			blinks = true;
+		} else {
+			$('.b-link').text('LINKS');
+			blinks = false;
 		}
 	});
 

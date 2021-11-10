@@ -24,7 +24,7 @@
             <div class="nav_list nav_CLOSED">
                 <a href="#sec_00">Home</a>
                 <a href="#sec_01">Class P: Sorting</a>
-                <a href="#sec_02">Section II</a>
+                <a href="#sec_02">Class BPP: Polynomial Identity Testing</a>
                 <a href="#sec_03">Conclusion</a>
             </div>
             <div class="nav_btns">
@@ -49,7 +49,7 @@
             <!-- COMPLEXITY CLASSES: SORTING -->
             <section class="grid" id="sec_01">
                 <div class="head">
-                    <h2>Introduction to Complexity Clasess: Sorting</h2>
+                    <h2>Class P: Sorting</h2>
                 </div>
                 <div class="main-intro">
                     <p>
@@ -86,9 +86,100 @@
                     </div>
                 </div>
                 <div class="plot-butt">
+                    <div class="button b-blue b-explains">
+                        <h3 class="b-explain">EXPLAIN</h3>
+                    </div>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
+                </div>
+                <div class="overlay hide overlay_explains">
+                    <p>
+                        &emsp;Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
+                        If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
+                        The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
+                    </p>
+                    <p>
+                        &emsp;In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
+                        the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
+                        (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
+                    </p>
+                    <p>
+                        &emsp;However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
+                        So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
+                        can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
+                    </p>
+                    <p>
+                        &emsp;You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
+                        to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
+                    </p>
+                </div>
+                <div class="overlay hide overlay_links">
+                    <p>
+                        &emsp;Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
+                        If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
+                        The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
+                    </p>
+                    <p>
+                        &emsp;In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
+                        the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
+                        (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
+                    </p>
+                    <p>
+                        &emsp;However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
+                        So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
+                        can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
+                    </p>
+                    <p>
+                        &emsp;You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
+                        to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
+                    </p>
+                </div>       
+            </section>
+
+            <!-- SECTION 02 -->
+            <section class="grid" id="sec_02">
+                <div class="head">
+                    <h2>Class BPP: Polynomial Identity Testing</h2>
+                </div>
+                <div class="main-intro">
+                    <p>
+                        Next up, we introduce another toy problem. Can you tell whether the following two polynomials are equal?
+                        How much harder does it get as you increase the highest degree, or number of variables?
+                    </p>
+                </div>
+                <div class="main-act s02_main">
+                    <ul class="s02_wrap" id="s02_wrap">
+                        <!-- dynamically populated -->
+                    </ul>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-green s02_reset">
+                        <h3>TRY AGAIN</h3>
+                    </div>
+                    <div class="s02_timer">
+                        <span id="s02_min">00</span>
+                        :
+                        <span id="s02_sec">00</span>
+                        :
+                        <span id="s02_msec">00</span>
+                    </div>
+                    <div class="button b-orange s02_harder">
+                        <h3>HARDER QUESTION</h3>
+                    </div>
+                </div>
+                <div class="plot">
+                    <div class="plot_wrap s02_plot" id="s02_plot">
+                        <!-- dynamically populated -->
+                    </div>
+                </div>
+                <div class="plot-butt">
                     <div class="button b-blue b-overlay">
                         <h3 class="b-text">EXPLAIN</h3>
-                    </div>    
+                    </div>
+                    <div class="button b-purple">
+                        <h3>LINKS</h3>
+                    </div>
                 </div>
                 <div class="overlay hide overlay">
                     <p>
@@ -111,13 +202,6 @@
                         to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
                     </p>
                 </div>            
-            </section>
-
-            <!-- SECTION 02 -->
-            <section class="grid" id="sec_02">
-                <div class="main-act">
-                    SECTION 02
-                </div>
             </section>
 
             <!-- SECTION 03 -->
@@ -189,6 +273,7 @@
         <script src="assets/js/browser.min.js"></script>
         <!-- <script src="assets/js/jquery-ui.min.js"></script> -->
         <script src="assets/js/jquery.flot.js"></script>
+        <script src="assets/js/jquery.flot.legend.js"></script>
         <script src="assets/js/jquery.flot.axislabels.js"></script>
         <script src="assets/js/jquery.flot.resize.js"></script>
         <script src="assets/js/main.js"></script>
