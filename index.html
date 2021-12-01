@@ -25,7 +25,7 @@
                 <a href="#sec_00">Home</a>
                 <a href="#sec_01">Class P: Sorting</a>
                 <a href="#sec_02">Class BPP: Polynomial Identity Testing</a>
-                <a href="#sec_03">Conclusion</a>
+                <a href="#sec_03">Class IP: Graph Non-Isomorphism</a>
             </div>
             <div class="nav_btns">
                 <a title="Scroll to Top" href="#sec_00" class="fas fa-angle-double-up" id="Bupup"></a>
@@ -172,14 +172,14 @@
                     </div>
                 </div>
                 <div class="plot-butt">
-                    <div class="button b-blue b-overlay">
-                        <h3 class="b-text">EXPLAIN</h3>
+                    <div class="button b-blue b-explains">
+                        <h3 class="b-explain">EXPLAIN</h3>
                     </div>
-                    <div class="button b-purple">
-                        <h3>LINKS</h3>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
                     </div>
                 </div>
-                <div class="overlay hide overlay">
+                <div class="overlay hide overlay_explains">
                     <p>
                         &emsp;Explain how badly runtime scales with degree & number of variables
                     </p>
@@ -189,65 +189,70 @@
                     <p>
                         &emsp;Explain the probabilistic answer strategy -- PIL
                     </p>
-                </div>            
+                </div>
+                <div class="overlay hide overlay_links">
+                    <p>
+                        &emsp;here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
+                    </p>
+                </div>
             </section>
 
             <!-- SECTION 03 -->
-            <section id="sec_03">
-                <div class="row row20">
+            <section class="grid" id="sec_03">
+                <div class="head">
+                    <h2>Class IP: Graph Non-Isomorphism</h2>
                 </div>
-                <div class="main_inner">
-                    <div class="row row40">
-                        <div class="column">
-                            <h2>Are the following two polynomials equal?</h2>
-                            <p class="eqL" id="EQ1">
-                                $$x$$
-                            </p>
-                            <p id="EQ1A">.</p>
-                        </div>
-                    </div>
-                    <div class="row row20">
-                        <div class="button b-green" id="B5">
-                            <h3>TRUE</h3>
-                        </div>
-                        <div class="button b-red" id="B6">
-                            <h3>FALSE</h3>
-                        </div>    
-                    </div>
+                <div class="main-intro">
+                    <p>
+                        The problem set-up is as follows: You are Arthur, and have two graphs, G1 & G2, and want to know if they are not isomorphic.
+                        You have a supercomputer, Merlin, that can find out in no time, but is malicious and will always try to convince you that
+                        G1 and G2 are not isomorphic. You toss a coin to choose one of G1 and G2. Then create a random isomorphism of the selected graph and send it to Merlin. 
+                        If the graphs are not isomorphic, he can easily determine which graph you used for your transformation and tell you.
+                        Otherwise, he has a 50/50 chance of getting it right. Thus, if he answers you incorrectly, you are sure the graphs are isomorphic.
+                        If he answers you correctly, you think they are not isomorphic but only with a 50% certainty. Now, how about asking that question several times..?
+                    </p>
                 </div>
-                <div class="row row20">
-                    <div class="button b-orange" id="B3">
-                        <h3>Try me again!</h3>
+                <div class="main-act s03_main">
+                </div>
+                <div class="main-butt">
+                    <div class="button b-orange s03_y">
+                        <h3>YUP</h3>
                     </div>
-                    <div class="button b-purple Boverlay" id="B4">
-                        <h3>Why am I doing this?</h3>
+                    <div class="s03_timer timer">
+                        <!-- dynamically populated -->
+                    </div>
+                    <div class="button b-orange s03_n">
+                        <h3>NUP</h3>
                     </div>
                 </div>
-                <div class="overlay hide">
+                <div class="plot">
+                    <div class="plot_wrap s03_plot" id="s03_plot">
+                        <!-- dynamically populated -->
+                    </div>
+                </div>
+                <div class="plot-butt">
+                    <div class="button b-blue b-explains">
+                        <h3 class="b-explain">EXPLAIN</h3>
+                    </div>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
+                </div>
+                <div class="overlay hide overlay_explains">
                     <p>
-                        How many complicated polynomials have you tried to solve?
-                        It gets difficult very quickly.
+                        &emsp;Explain how badly runtime scales with degree & number of variables
                     </p>
                     <p>
-                        In fact, the difficulty of deciding whether an equation like that on screen
-                        is true or false scales exponentially with the highest polynomial degree
-                        and also scales exponentially with the number of variables involved.
+                        &emsp;Explain the strategy to evaluate equivalence of difference to 0
                     </p>
                     <p>
-                        This makes it an exceptionally difficult problem for computers to solve efficiently,
-                        unless we allow for a specific margin of error.
+                        &emsp;Explain the probabilistic answer strategy -- PIL
                     </p>
+                </div>
+                <div class="overlay hide overlay_links">
                     <p>
-                        Imagine reformulating the equation like this:
-                        $$(x+y)(x-y) - (x^2 - y^2) = 0$$
+                        &emsp;here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
                     </p>
-                    <p>
-                        Then, you can just evaluate it at more and more random points:
-                        $$f(x=5, y=9) = 0 ?$$
-                        The more =0 answers you get, the higher your confidence that
-                        the polynomials are indeed equal!
-                    </p>
-                    <div class="button b-purple Boverlay">Close me</div>
                 </div>
             </section>
         </div>
