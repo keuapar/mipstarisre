@@ -263,7 +263,7 @@ nav {
 	grid-template-columns: 50px 2fr 1fr;
 	grid-template-rows: 10vh 5fr 25fr 10vh;
 	grid-template-areas: 
-		'nav head head'
+		'nav head plot'
 		'nav main-intro plot'
 		'nav main-act plot'
 		'nav main-butt plot-butt';
@@ -424,6 +424,26 @@ nav {
 	line-height: 1;
 	cursor: grab;
 }
+
+/* 02: PIL */
+.s02_main {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.s02_eq {
+	font-size: 2em;
+	text-align: center;
+}
+.s02_TF {
+	grid-area: main-butt;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
 
 /* MATH */
 .eqL {

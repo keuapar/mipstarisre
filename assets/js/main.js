@@ -363,6 +363,48 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_opt);
 
 	// SECTION 02: Polynomial Identity Testing
+	var polynomials = [
+		'k^2 - l^2 \\stackrel{?}{=} (k+l)(k-l)',
+		'(a+b)^2 \\stackrel{?}{=} a^2 + b^2',
+		'x^3-4x^2-7x+10 \\stackrel{?}{=} (x-1)(x+2)(x-5)',
+		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
+		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
+		],
+		truths = [true, false, true, false, true],
+		round = -1,
+		ans = 'none';
+
+	function check(bt) {
+		corrbt = bt == truths[round];
+		if (corrbt && (ans == 'none' || ans == 'wrong')) {
+			s02_clock.pause(green = true);
+			ans = 'right';
+		} else { // used to say  if (!corrbt && (ans == 'none' || ans == 'right'))
+			s02_clock.div.css({'color': 'red'});
+			setTimeout(() => {
+				s02_clock.div.css({'color': 'white'});
+			}, 100);
+			ans = 'wrong';
+		}
+	};
+
+	$('.s02_true').on('click', function() {
+		check(true)
+	});
+	$('.s02_false').on('click', function() {
+		check(false)
+	});
+
+	/* on demand display next equation */
+	$('.s02_next').on('click', function() {
+		round += 1;
+		s02_clock.restart();
+		katex.render(polynomials[round], $('.s02_eq')[0], {
+			throwOnError: false
+		});
+		ans = 'none';
+	});
+
 	// test clock s02
 	var s02_clock = new clock(2, $('.s02_timer'));
 	$('.s02_reset').on('click', function() {s02_clock.start()});
@@ -444,66 +486,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 			$('.b-link').text('LINKS');
 			blinks = false;
 		}
-	});
-
-	/* page buttons */
-	var $B1 = $('#B1'),
-		$B2 = $('#B2'),
-		$B3 = $('#B3'),
-		$B4 = $('#B4'),
-		$B5 = $('#B5'),
-		$B6 = $('#B6'),
-		$EQ1 = $('#EQ1'),
-		$EQ1A = $('#EQ1A');
-
-	var polynomials = [
-		'a^2 - b^2 \\stackrel{?}{=} (a+b)(a-b)',
-		'(a+b)^2 \\stackrel{?}{=} a^2 + b^2',
-		'x^3-4x^2-7x+10 \\stackrel{?}{=} (x-1)(x+2)(x-5)',
-		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
-		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
-	];
-	var truths = [true, false, true, false, true];
-	var round = 0;
-	var ans = 'none';
-
-	/* on load display first equation */
-	$(document).ready(function() {
-		katex.render(polynomials[round], $('#EQ1')[0], {
-			throwOnError: false
-		});	
-	});
-
-	function check(bt) {
-		corrbt = bt == truths[round];
-		console.log(bt);
-		console.log(truths[round]);
-		console.log(corrbt);
-
-		if (corrbt && (ans == 'none' || ans == 'wrong')) {
-			$EQ1A.text('You are right!');
-			ans = 'right';
-		} else if (!corrbt && (ans == 'none' || ans == 'right')) {
-			$EQ1A.text('Think about that ;)');
-			ans = 'wrong';
-		}
-	};
-
-	$B5.on('click', function() {
-		check(true)
-	});
-	$B6.on('click', function() {
-		check(false)
-	});
-
-	/* on demand display next equation */
-	$B3.on('click', function() {
-		round += 1;
-		katex.render(polynomials[round], $('#EQ1')[0], {
-			throwOnError: false
-		});
-		$EQ1A.text('.');
-		ans = 'none';
 	});
 
 })(jQuery);

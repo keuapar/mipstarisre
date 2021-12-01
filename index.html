@@ -60,9 +60,9 @@
                     </p>
                 </div>
                 <div class="main-act s01_main">
-                    <ul class="s01_wrap" id="s01_wrap">
+                    <div class="s01_wrap" id="s01_wrap">
                         <!-- dynamically populated -->
-                    </ul>
+                    </div>
                     <div class="s01_shelf"></div>
                 </div>
                 <div class="main-butt">
@@ -141,23 +141,29 @@
                 <div class="main-intro">
                     <p>
                         Next up, we introduce another toy problem. Can you tell whether the following two polynomials are equal?
-                        How much harder does it get as you increase the highest degree, or number of variables?
+                        How much harder does it get as you increase the highest degree, or number of variables (guessing doesn't count!)?
                     </p>
                 </div>
                 <div class="main-act s02_main">
-                    <ul class="s02_wrap" id="s02_wrap">
-                        <!-- dynamically populated -->
-                    </ul>
+                    <span class="s02_eq">$$\stackrel{?}{=}$$</span>
+                    <div class="s02_TF">
+                        <div class="button b-green s02_true">
+                            <h3>TRUE</h3>
+                        </div>
+                        <div class="button b-red s02_false">
+                            <h3>FALSE</h3>
+                        </div>
+                    </div>
                 </div>
                 <div class="main-butt">
-                    <div class="button b-green s02_reset">
+                    <div class="button b-orange s02_next">
                         <h3>START</h3>
                     </div>
                     <div class="s02_timer timer">
                         <!-- dynamically populated -->
                     </div>
-                    <div class="button b-orange s02_harder">
-                        <h3>PAUSE</h3>
+                    <div class="button b-orange s02_next">
+                        <h3>NEXT</h3>
                     </div>
                 </div>
                 <div class="plot">
@@ -175,23 +181,13 @@
                 </div>
                 <div class="overlay hide overlay">
                     <p>
-                        &emsp;Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
-                        If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
-                        The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
+                        &emsp;Explain how badly runtime scales with degree & number of variables
                     </p>
                     <p>
-                        &emsp;In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
-                        the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
-                        (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
+                        &emsp;Explain the strategy to evaluate equivalence of difference to 0
                     </p>
                     <p>
-                        &emsp;However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
-                        So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
-                        can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
-                    </p>
-                    <p>
-                        &emsp;You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
-                        to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
+                        &emsp;Explain the probabilistic answer strategy -- PIL
                     </p>
                 </div>            
             </section>
