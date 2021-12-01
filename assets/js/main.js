@@ -303,7 +303,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		// console.log(arr);
 		if (sorted(arr)) {
 			s01_clock.pause(green = true);
-			time = s01_clock.totalSeconds/100;
+			time = s01_clock.time/100;
 			// save the user time for display in plot
 			s01_pts.push([num_books, time]);
 			s01_xmax = Math.max(s01_xmax, num_books);
@@ -410,7 +410,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	/* OVERLAYS */
 	var bexplain = false;
 	var blinks = false;
-	var s01_expl = false
+	var s01_expl = false;
 	$('.b-explains').on('click', function() {
 		if (s01_expl == false) {
 			s01_expl = true;
