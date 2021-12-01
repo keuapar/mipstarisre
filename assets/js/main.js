@@ -72,8 +72,70 @@ $.fn.scrollEnd = function(callback, timeout) {
 		  num += min // offset to min
 		}
 		return num
-	  }	  
+	}	
+	
+	// clock timer inspired by the clock timer
+	// @ https://jsfiddle.net/wizajay/rro5pna3/305/
+	class clock {
+		constructor(id, div) {
+			this.id = id;
+			this.div = div;
+			this.time = 0;
+			// create important elements
+			this.min = $('<span></span>').text('00');
+			this.sec = $('<span></span>').text('00');
+			this.msec = $('<span></span>').text('00');
+			// build the clock
+			div.append(this.min, ':', this.sec, ':', this.msec);
+		}
+		// starts the clock & updates it as it runs
+		start() {
+			this.div.css({'color': 'white'});
+			if (!this.interval) {
+				function pad(val) { return val > 9 ? val : "0" + val; }
+				// reference to 'this' changed inside the interval
+				var self = this;
+				this.interval = setInterval(function () {
+					self.time += 1;
+			
+					if (self.time >= 6000) {
+						self.min.text(pad(Math.floor(self.time / 6000 % 60)))
+					}
+			
+					self.sec.text(pad(Math.floor(self.time / 100 % 60)));
+					self.msec.text(pad(parseInt(self.time % 100)));
+				}, 10);
+			}
+		}
+		// resets the clock
+		reset() {
+			this.div.css({'color': 'white'});
+			this.time = 0; 
+			clearInterval(this.interval);
+			this.min.text("00");
+			this.sec.text("00");
+			this.msec.text("00");
+			delete this.interval;
+		}
+		// other convenience methods
+		pause(green = false) {
+			// on successful completion of some activity turn green
+			if (green == true) {
+				this.div.css({'color': '#00FA9A'});
+			}
+			clearInterval(this.interval);
+			delete this.interval;
+		}
+		resume() {
+			this.start();
+		}
+		restart() {
+			this.reset();
+			this.start();
+		}
+	}
 
+	// PLOTTING UTILITIES
 	// plot update function, on adding new points
 	// expl changes behaviour if the user already clicked the explain button
 	function update(plot, dta, dta_full, expl, xmax = null, ymax = null) {
@@ -168,52 +230,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 		s01_ymax = 1,
 		book_names = [],
 		picked = [],
-		running = false,
 		$library = $('.s01_wrap');
 
-	// clock timer adapted from the clock timer
-	// @ https://jsfiddle.net/wizajay/rro5pna3/305/
-	var s01_clock = {
-		totalSeconds: 0,
-		start: function () {
-			if (!this.interval) {
-				var self = this;
-				function pad(val) { return val > 9 ? val : "0" + val; }
-				this.interval = setInterval(function () {
-				self.totalSeconds += 1;
-		
-				if (self.totalSeconds >= 6000) {
-					$("#s01_min").text(pad(Math.floor(self.totalSeconds / 6000 % 60)))
-				}
-		
-				$("#s01_sec").text(pad(Math.floor(self.totalSeconds / 100 % 60)));
-				$("#s01_msec").text(pad(parseInt(self.totalSeconds % 100)));
-				}, 10);
-			}
-		},
-		
-		reset: function () {
-			s01_clock.totalSeconds = null; 
-			clearInterval(this.interval);
-			$("#s01_min").text("00");
-			$("#s01_sec").text("00");
-			$("#s01_msec").text("00");
-			delete this.interval;
-		},
-		pause: function () {
-			clearInterval(this.interval);
-			delete this.interval;
-		},
-		
-		resume: function () {
-			this.start();
-		},
-		
-		restart: function () {
-				this.reset();
-			s01_clock.start();
-		}
-	};
+	var s01_clock = new clock(1, $('.s01_timer'));
 
 	// method for picking a random book
 	book_names.random = function() {
@@ -270,17 +289,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 		animation: 300,
 		ghostClass: 'sortable-ghost',
 		onEnd: s01_check,
-		onStart: s01_start
+		onStart: function() {s01_clock.start()}
 	});
-
-	// call to start timer
-	function s01_start() {
-		if (running == false) {
-			$('.s01_timer').css({'color': 'white'});
-			running == true;
-			s01_clock.start();
-		}
-	};
+	// $library.sortable();
 
 	// call whenever user drops a book into the library
 	// checks if it is sorted and ends the game if so
@@ -291,9 +302,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		})
 		// console.log(arr);
 		if (sorted(arr)) {
-			$('.s01_timer').css({'color': '#00FA9A'});
-			running = false;
-			s01_clock.pause();
+			s01_clock.pause(green = true);
 			time = s01_clock.totalSeconds/100;
 			// save the user time for display in plot
 			s01_pts.push([num_books, time]);
@@ -303,11 +312,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 			update(s01_plt, s01_pts, s01_pts_full, s01_expl, s01_xmax, s01_ymax);
 		}
 	};
-	// $library.sortable();
 
 	// library buttons functionality
 	function resetlibrary() {
-		$('.s01_timer').css({'color': 'white'});
 		s01_clock.reset();
 		$library.children().replaceWith();
 		build_library(num_books);
@@ -356,6 +363,11 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_opt);
 
 	// SECTION 02: Polynomial Identity Testing
+	// test clock s02
+	var s02_clock = new clock(2, $('.s02_timer'));
+	$('.s02_reset').on('click', function() {s02_clock.start()});
+	$('.s02_harder').on('click', function() {s02_clock.pause(green = true)});
+
 	var s01_pts_full = [{
 		'label': 'O(n*n)',
 		'data': flot_n2,
