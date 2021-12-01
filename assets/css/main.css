@@ -263,7 +263,7 @@ nav {
 	grid-template-columns: 50px 2fr 1fr;
 	grid-template-rows: 10vh 5fr 25fr 10vh;
 	grid-template-areas: 
-		'nav head plot'
+		'nav head .'
 		'nav main-intro plot'
 		'nav main-act plot'
 		'nav main-butt plot-butt';
@@ -281,6 +281,7 @@ nav {
 }
 .main-act {
 	grid-area: main-act;
+	place-self: stretch;
 }
 .main-butt {
 	grid-area: main-butt;
@@ -328,7 +329,7 @@ nav {
 	stroke-width: 0;
 }
 
-/* OVERLAY */
+/* OVERLAYS */
 .overlay {
 	grid-area: 2 / 2 / 5 / 3;
 	place-self: stretch;
@@ -407,6 +408,7 @@ nav {
 
 .s01_wrap {
 	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
@@ -419,7 +421,6 @@ nav {
 	align-items: center;
 	writing-mode: vertical-rl;
 	text-align: center;
-	max-height: 250px;
 	padding: 2%;
 	line-height: 1;
 	cursor: grab;

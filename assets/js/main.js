@@ -248,9 +248,10 @@ $.fn.scrollEnd = function(callback, timeout) {
 	function build_library(num_books) {
 		var book = 'x',
 			hor_space = $library.width()/num_books,
+			ver_space = $library.height(),
 			book_ids = Array.from(Array(num_books).keys()),
 			book_id = 0;
-		
+		console.log(ver_space);
 		shuffle(book_ids);
 			
 		for (let i = 0; i < num_books; i++) {
@@ -263,7 +264,8 @@ $.fn.scrollEnd = function(callback, timeout) {
 			.text(book_names.random())
 			.css({
 				'width': Math.min(60, hor_space),
-				'height': 150 + 100*(1+book_id)/num_books,
+				'height': 150 + book_id*(ver_space-150)/num_books,
+				//'height': 150 + 100*(1+book_id)/num_books,
 				'background-color': getDarkColor()
 			});
 			$library.append(book);
