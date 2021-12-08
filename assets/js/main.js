@@ -606,21 +606,27 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var s02_plt = $.plot('#s02_plot', s02_pts, s02_opt);
 
 	/* OVERLAYS */
-	var bexplain = false;
-	var blinks = false;
-	var s01_expl = false,
+	var bexplain = false,
+		blinks = false,
+		s01_expl = false,
 		s02_expl = false;
 
-	$('.b-explains').on('click', function(ev) {
-		console.log(ev.target.getAttribute('data-plot'));
+	$('.b-explain-01').on('click', function() {
 		if (s01_expl == false) {
 			s01_expl = true;
 			s01_plt = $.plot('#s01_plot', s01_pts_full, s01_opt_full);
 		}
+		toggle_explains();
+	});
+	$('.b-explain-02').on('click', function() {
 		if (s02_expl == false) {
 			s02_expl = true;
 			s02_plt = $.plot('#s02_plot', s02_pts_full, s02_opt_full);
 		}
+		toggle_explains();
+	});
+
+	function toggle_explains() {
 		$('.overlay_explains').toggleClass('visible');
 		if (bexplain == false) {
 			if (blinks == true) {
@@ -634,8 +640,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 			$('.b-explain').text('EXPLAIN');
 			bexplain = false;
 		}
-	});
-	$('.b-links').on('click', function() {
+	}
+	$('.b-links').on('click', toggle_links);
+	function toggle_links() {
 		$('.overlay_links').toggleClass('visible');
 		if (blinks == false) {
 			if (bexplain == true) {
@@ -649,6 +656,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 			$('.b-link').text('LINKS');
 			blinks = false;
 		}
-	});
+	}
 
 })(jQuery);
