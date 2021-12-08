@@ -257,17 +257,17 @@ $.fn.scrollEnd = function(callback, timeout) {
 		for (let i = 0; i < num_books; i++) {
 			book_id = book_ids[i];
 			book = $('<li></li>')
-			.attr({
-				'class': 's01_book',
-				'data-bookid': book_id
-			})
-			.text(book_names.random())
-			.css({
-				'width': Math.min(60, hor_space),
-				'height': 150 + book_id*(ver_space-150)/num_books,
-				//'height': 150 + 100*(1+book_id)/num_books,
-				'background-color': getDarkColor()
-			});
+				.attr({
+					'class': 's01_book',
+					'data-bookid': book_id
+				})
+				.text(book_names.random())
+				.css({
+					'width': Math.min(60, hor_space),
+					'height': 150 + book_id*(ver_space-150)/num_books,
+					//'height': 150 + 100*(1+book_id)/num_books,
+					'background-color': getDarkColor()
+				});
 			$library.append(book);
 		}
 
@@ -372,6 +372,15 @@ $.fn.scrollEnd = function(callback, timeout) {
 		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
 		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
 		],
+		poly_animations = [
+			['k^2 - l^2 &\\stackrel{?}{=} k^2 + kl - kl - l^2',
+			 'k^2 - l^2 &\\stackrel{?}{=} k^2 - l^2',
+			 '0 &= 0'],
+			['(a+b)^2 &\\stackrel{?}{=} a^2 + b^2',
+			 'a^2 + ab + ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
+			 'a^2 + 2ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
+			 '2ab &\\neq 0']
+		],
 		truths = [true, false, true, false, true],
 		round = -1,
 		ans = 'none';
@@ -381,6 +390,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		if (corrbt && (ans == 'none' || ans == 'wrong')) {
 			s02_clock.pause(green = true);
 			ans = 'right';
+			poly_animate(round);
 		} else { // used to say  if (!corrbt && (ans == 'none' || ans == 'right'))
 			s02_clock.div.css({'color': 'red'});
 			setTimeout(() => {
@@ -389,6 +399,33 @@ $.fn.scrollEnd = function(callback, timeout) {
 			ans = 'wrong';
 		}
 	};
+
+	function poly_animate(round) {
+		let anims = poly_animations[round],
+			count = 0,
+			mx = anims.length;
+		var intro = $('<p></p>')
+				.text('What steps does the computer take?')
+				.css({'font-size': '0.8em'});
+		
+		$('.s02_anim').append(intro);
+		
+		s02int = setInterval(function() {
+			var div = $('<div></div>');
+			let txt = '\\begin{aligned}'
+					+ anims.slice(0, count+1).join(' \\\\')
+					+ '\\end{aligned}';
+
+			katex.render(txt, $('.s02_anim')[0], {
+				throwOnError: false
+			});
+			$('.s02_anim').append(div);
+			count++;
+			if (count >= mx) {
+				clearInterval(s02int);
+			}
+		}, 888)
+	}
 
 	$('.s02_true').on('click', function() {
 		check(true)
@@ -401,6 +438,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	$('.s02_next').on('click', function() {
 		round += 1;
 		s02_clock.restart();
+		$('.s02_anim').empty();
 		katex.render(polynomials[round], $('.s02_eq')[0], {
 			throwOnError: false
 		});

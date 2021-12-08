@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
 @import url("fontawesome-all.min.css");
+
+@font-face {
+	font-family: 'sandbox';
+	src: url('../webfonts/Sandbox\ Melodrama.ttf');
+}
 
 /* from HTML5UP */ 
 html, body, div, span, h1, h2, h3, h4, h5, h6, 
@@ -9,7 +15,6 @@ footer, header, menu, nav, section, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 }
 
@@ -33,10 +38,12 @@ input::-moz-focus-inner {
 
 a {
 	text-decoration: none;
+	color: black;
 }
 
 a:visited {
 	text-decoration: none;
+	color: black;
 }
 
 html {
@@ -93,12 +100,12 @@ strong, b, h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-	font-size: 2.4em;
+	font-size: 2.5em;
 	letter-spacing: -0.015em;
 }
 
 h2 {
-	font-size: 1.8em;
+	font-size: 2em;
 	letter-spacing: -0.015em;
 }
 
@@ -129,7 +136,7 @@ p, ul, ol, form {
 }
 
 h1, h2, h3, h4, h5, a {
-	font-family: 'Indie Flower', cursive;
+	font-family: 'sandbox', cursive;
 }
 
 /* MAIN PAGE ELEMENTS */
@@ -290,18 +297,25 @@ nav {
 	justify-content: center;
 	align-items: center;
 }
+.main-full {
+	grid-area: main-intro-start / main-intro-start / main-butt-end / main-intro-end;
+	height: 100%;
+	text-indent: 30px;
+}
 .plot {
 	grid-area: plot;
 	place-self: stretch;
 	margin-right: 5%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 	background-image: url('/assets/sticky.png');
 	background-position: center;
 	background-size: cover;
 	background-repeat: no-repeat;
+	color: black;
+	text-align: center;
 }
 .plot-butt {
 	grid-area: plot-butt;
@@ -327,6 +341,9 @@ nav {
 	fill: rgba(255, 255, 255, 0.5);
 	stroke: rgba(0, 0, 0);
 	stroke-width: 0;
+}
+.plot p {
+	padding: 0% 3%;
 }
 
 /* OVERLAYS */
@@ -356,20 +373,14 @@ nav {
 	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 }
 
-.overlay_explains {
-	background-color: rgb(102, 102, 255);
-}
-.overlay_explains::-webkit-scrollbar-track {
-	background-color: rgb(102, 102, 255);
+.overlay_explains, .overlay_explains::-webkit-scrollbar-track {
+	background-color: rgb(113, 113, 173);
 }
 .overlay_explains::-webkit-scrollbar-thumb {
 	background-color: rgb(65, 65, 255);
 }
-.overlay_links {
-	background-color: rgb(126, 83, 126);
-}
-.overlay_links::-webkit-scrollbar-track {
-	background-color: rgb(126, 83, 126);
+.overlay_links, .overlay_links::-webkit-scrollbar-track {
+	background-color: rgb(151, 100, 151);
 }
 .overlay_links::-webkit-scrollbar-thumb {
 	background-color: rgb(122, 44, 122);
@@ -432,9 +443,15 @@ nav {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 .s02_eq {
 	font-size: 2em;
+	text-align: center;
+}
+.s02_anim {
+	margin-top: 20px;
+	font-size: 1.5em;
 	text-align: center;
 }
 .s02_TF {
