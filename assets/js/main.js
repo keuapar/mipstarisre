@@ -57,6 +57,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		return color;
 	}
 	// get a normal distribution sample by joshuakcockrell
+	// @ https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
 	function rand_norm(min = -1, max = 1) {
 		let u = 0, v = 0;
 		while(u === 0) u = Math.random() //Converting [0,1) to (0,1)
@@ -72,7 +73,34 @@ $.fn.scrollEnd = function(callback, timeout) {
 		  num += min // offset to min
 		}
 		return num
-	}	
+	}
+	// N choose K utility by Mike Pomax Kamermans
+	// @ https://stackoverflow.com/questions/37679987/efficient-computation-of-n-choose-k-in-node-js
+	var binomial_coeffs = [
+		[1],
+		[1,1],
+		[1,2,1],
+		[1,3,3,1],
+		[1,4,6,4,1],
+		[1,5,10,10,5,1],
+		[1,6,15,20,15,6,1],
+		[1,7,21,35,35,21,7,1],
+		[1,8,28,56,70,56,28,8,1]
+	];
+	function binomial(n,k) {
+		while(n >= binomial_coeffs.length) {
+		  let s = binomial_coeffs.length;
+		  let nextRow = [];
+		  nextRow[0] = 1;
+		  for(let i=1, prev=s-1; i<s; i++) {
+			nextRow[i] = binomial_coeffs[prev][i-1] + binomial_coeffs[prev][i];
+		  }
+		  nextRow[s] = 1;
+		  binomial_coeffs.push(nextRow);
+		}
+		return binomial_coeffs[n][k];
+	}
+	
 	
 	// clock timer inspired by the clock timer
 	// @ https://jsfiddle.net/wizajay/rro5pna3/305/
@@ -141,8 +169,12 @@ $.fn.scrollEnd = function(callback, timeout) {
 	function update(plot, dta, dta_full, expl, xmax = null, ymax = null) {
 		if (expl == false) {
 			plot.setData([dta]);
-			plot.getAxes().xaxis.options.max = Math.max(xmax +1, 10);
-			plot.getAxes().yaxis.options.max = Math.max(ymax +1, 10);
+			if (xmax) {
+				plot.getAxes().xaxis.options.max = Math.max(xmax +1, 10);
+			}
+			if (ymax) {
+				plot.getAxes().yaxis.options.max = Math.max(ymax +1, 10);
+			}
 			plot.setupGrid();
 			plot.draw();
 		} else {
@@ -154,12 +186,18 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// plot points of different scaling
 	var flot_n2 = [],
 		flot_nlogn = [],
+		flot_ncrexp = [],
 		flot_max = 33,
 		flot_divisor = 100;
 
+	function sugar(n) {
+		return n*(1 + rand_norm()/3)/flot_divisor
+	}
+
 	for (let i=0; i <= flot_max; i++) {
-		flot_n2.push([i, (i**2)*(1 + rand_norm()/3)/flot_divisor]);
-		flot_nlogn.push([i, (i*Math.log2(i))*(1+rand_norm()/3)/flot_divisor]);
+		flot_n2.push([i, sugar(i**2)]);
+		flot_nlogn.push([i, sugar(i*Math.log2(i))]);
+		flot_ncrexp.push([i, sugar(binomial(2*i+5,2*i))/100]);
 	}
 
 	// NAVIGATION
@@ -360,7 +398,45 @@ $.fn.scrollEnd = function(callback, timeout) {
 				position: 'left',
 				axisLabel: 'time to sort (seconds)',
 			}]
-		};
+	};
+	var s01_pts_full = [{
+		'label': 'O(n*n)',
+		'data': flot_n2,
+		'points': { fillColor: 'purple' }
+	},{
+		'label': 'O(n*log(n))',
+		'data': flot_nlogn,
+		'points': { fillColor: 'blue' }
+	},{
+		'label': 'Your algorithm',
+		'data': s01_pts,
+		'points': { fillColor: 'red' }
+	}];
+	var s01_opt_full = {
+		series: {
+			lines: { show: false },
+			points: { 
+				show: true, 
+				radius: 3, 
+				lineWidth: 0,
+			}
+		},
+		legend: {
+			show: true,
+			position: 'nw',
+			margin: [50, 5]
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of books',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'time to sort (seconds)',
+		}]
+	};
 
 	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_opt);
 
@@ -383,6 +459,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		],
 		truths = [true, false, true, false, true],
 		round = -1,
+		s02_pts = [[4, 6], [4, 7], [5, 10]],
 		ans = 'none';
 
 	function check(bt) {
@@ -391,7 +468,11 @@ $.fn.scrollEnd = function(callback, timeout) {
 			s02_clock.pause(green = true);
 			ans = 'right';
 			poly_animate(round);
-		} else { // used to say  if (!corrbt && (ans == 'none' || ans == 'right'))
+			// redraw plot
+			let pts = s02_pts.slice(0, round+1);
+			update(s02_plt, pts, s02_pts_full, s02_expl);
+		} else {
+			// used to say / if (!corrbt && (ans == 'none' || ans == 'right'))
 			s02_clock.div.css({'color': 'red'});
 			setTimeout(() => {
 				s02_clock.div.css({'color': 'white'});
@@ -445,25 +526,57 @@ $.fn.scrollEnd = function(callback, timeout) {
 		ans = 'none';
 	});
 
-	// test clock s02
+	// clock s02
 	var s02_clock = new clock(2, $('.s02_timer'));
 	$('.s02_reset').on('click', function() {s02_clock.start()});
 	$('.s02_harder').on('click', function() {s02_clock.pause(green = true)});
 
-	var s01_pts_full = [{
+	// plot for Section 02
+	var s02_opt = {
+		series: {
+			lines: { show: false },
+			points: { 
+				show: true, 
+				radius: 5, 
+				fillColor: 'red',
+				lineWidth: 0 
+			}
+		},
+		xaxis: {
+			autoScale: false,
+			min: 0,
+			max: 10
+		},
+		yaxis: {
+			autoScale: false,
+			min: 0,
+			max: 20
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: '~ highest degree + n. variables',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: '~ steps to decide (FLOPS)',
+		}]
+	};
+	var s02_pts_full = [{
 		'label': 'O(n*n)',
 		'data': flot_n2,
 		'points': { fillColor: 'purple' }
 	},{
-		'label': 'O(n*log(n))',
-		'data': flot_nlogn,
+		'label': 'O((n+d)choose(n))',
+		'data': flot_ncrexp,
 		'points': { fillColor: 'blue' }
 	},{
-		'label': 'Your algorithm',
-		'data': s01_pts,
+		'label': 'Our experiment',
+		'data': s02_pts,
 		'points': { fillColor: 'red' }
 	}];
-	var s01_opt_full = {
+	var s02_opt_full = {
 		series: {
 			lines: { show: false },
 			points: { 
@@ -481,22 +594,32 @@ $.fn.scrollEnd = function(callback, timeout) {
 			show: true
 		},
 		xaxes: [{
-			axisLabel: 'number of books',
+			axisLabel: '~ highest degree + n. variables',
 		}],
 		yaxes: [{
 			position: 'left',
-			axisLabel: 'time to sort (seconds)',
+			axisLabel: '~ steps to decide (FLOPS)',
 		}]
 	};
+
+	// ochcavka kdyz chci nic nezobrazovat protoze musi byt [s02_pts]
+	var s02_plt = $.plot('#s02_plot', s02_pts, s02_opt);
 
 	/* OVERLAYS */
 	var bexplain = false;
 	var blinks = false;
-	var s01_expl = false;
-	$('.b-explains').on('click', function() {
+	var s01_expl = false,
+		s02_expl = false;
+
+	$('.b-explains').on('click', function(ev) {
+		console.log(ev.target.getAttribute('data-plot'));
 		if (s01_expl == false) {
 			s01_expl = true;
 			s01_plt = $.plot('#s01_plot', s01_pts_full, s01_opt_full);
+		}
+		if (s02_expl == false) {
+			s02_expl = true;
+			s02_plt = $.plot('#s02_plot', s02_pts_full, s02_opt_full);
 		}
 		$('.overlay_explains').toggleClass('visible');
 		if (bexplain == false) {
