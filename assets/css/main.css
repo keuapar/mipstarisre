@@ -301,6 +301,7 @@ nav {
 	grid-area: main-intro-start / main-intro-start / main-butt-end / main-intro-end;
 	height: 100%;
 	text-indent: 30px;
+	overflow: auto;
 }
 .plot {
 	grid-area: plot;
@@ -356,6 +357,7 @@ nav {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 	padding: 3%;
+	text-indent: 30px;
 }
 
 .overlay::-webkit-scrollbar-track

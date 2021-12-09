@@ -26,6 +26,7 @@
                 <a href="#classP">Class P: Sorting</a>
                 <a href="#decisionproblems">Decision problems</a>
                 <a href="#classBPP">Class BPP: Polynomial Identity Testing</a>
+                <a href="#verifiers">Solvers and verifiers</a>
                 <a href="#classIP">Class IP: Graph Non-Isomorphism</a>
             </div>
             <div class="nav_btns">
@@ -92,43 +93,43 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        &emsp;Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
+                        Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
                         If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
                         The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
                     </p>
                     <p>
-                        &emsp;In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
+                        In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
                         the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
                         (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
                     </p>
                     <p>
-                        &emsp;However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
+                        However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
                         So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
                         can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
                     </p>
                     <p>
-                        &emsp;You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
+                        You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
                         to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
                     <p>
-                        &emsp;Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
+                        Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
                         If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
                         The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
                     </p>
                     <p>
-                        &emsp;In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
+                        In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
                         the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
                         (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
                     </p>
                     <p>
-                        &emsp;However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
+                        However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
                         So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
                         can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
                     </p>
                     <p>
-                        &emsp;You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
+                        You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
                         to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
                     </p>
                 </div>       
@@ -216,7 +217,7 @@
                     </div>
                 </div>
                 <div class="plot">
-                    <div class="plot_wrap s02_plot">
+                    <div class="plot_wrap s02_plot" id="s02_plot">
                         <!-- dynamically populated -->
                     </div>
                 </div>
@@ -230,21 +231,88 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        &emsp;Explain how badly runtime scales with degree & number of variables
+                        The algorithmic approach to find out whether two polynomials are equivalent is to expand all terms and then compare their coefficients. 
+                        We can find some time savings by removing like terms as soon as they appear, without doing all addition, but that's rather coincidental. 
+                        Overall, this brute-force approach is very inefficient, and scales as \({n+d \choose d}\) for number of variables \(n\) and degree \(d\).
                     </p>
                     <p>
-                        &emsp;Explain the strategy to evaluate equivalence of difference to 0
+                        However, with some leeway we can make solving this problem way more efficient. The first step is to transform it: 
+                        Instead of asking whether two polynomials are equal, \(p\stackrel{?}=q\), we ask whether their difference is equal to the zero polynomial, \(p-q\stackrel{?}=0\). 
+                        This is the same as asking whether a polynomial \(p'=p-q\) is equal to \(0\).
                     </p>
                     <p>
-                        &emsp;Explain the probabilistic answer strategy -- PIL
+                        One way to find out is to evaluate it at any point/vector \(x\): \(p'(x)\). If the result is anything but \(0\), we can be very certaint that the polynomial is non-zero.
+                        If the result is \(0\), the polynomial could very well be zero. We can try another point to verify... and as we increase the number of points, if all evaluate to zero,
+                        we become very confident that the polynomial is indeed equal to the zero polynomial, or that the two polynomials are equal.
+                    </p>
+                    <p>
+                        With some smart choice of points to evaluate at and a surprisingly reasonable number of repetitions (in hundreds), we can achieve very high probability of a YES answer being a true YES.
+                        This makes the algorithm highly practical - for example Horner's method for polynomial evaluation runs in \(O(n^2)\), which you can see plotted on the graph.
+                    </p> 
+                    <p>
+                        The algorithm we have defined always returns a NO if the true answer is NO, and almost always returns a YES if the true answer is YES. It can do this in polynomial time.
+                        We call this class of problems \(RP\), for Randomized Polynomial time. If the roles of YES and NO were reversed, the class would be \(co-RP\).
+                        If we allow either answer to be probabilistic with some constant confidence, the class putting that together is \(BPP\), bounded-error probabilistic polynomial time.
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
                     <p>
-                        &emsp;here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
+                        here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
                     </p>
                 </div>
             </section>
+
+            <!-- SECTION 02.5 -->
+            <!-- PROVERS AND VERIFIERS -->
+            <section class="grid" id="verifiers">
+                <div class="head">
+                    <h2>Solvers and verifiers</h2>
+                </div>
+                <div class="main-full">
+                    <p>
+                        Up until now, the machines we were dealing with were solvers. Given an input, they worked through it and showed the process by which to determine the YES/NO answer.
+                        Another typical machine used in the theoretical models of decision problems is a verifier.
+                        Instead of solving the problem itself, a verifier receives a proof that the problem is solvable, and checks it in some given timeframe.
+                    </p>
+                    <p>
+                        Take for example a partially filled sudoku grid. Is it solvable? To determine the answer, the computer can try all possible fills for each possible cell, and check if all
+                        the conditions are satisfied, but this will take a lot of time. For a 9x9 grid, with each cell having 9 options, the runtime will be \(O(9^{9^2})\).
+                        However, given a valid fill for the sudoku as proof, a verifier can check that it's valid in linear time. The proof is called a certificate.
+                    </p>
+                    <p>
+                        Another similar situation is in the sorting example - a machine can take a long time to sort a list, but checking that it's sorted is a strictly linear operation - 
+                        just check that all neighbouring pairs are in the right order.
+                    </p>
+                    <p>
+                        The question remains how to generate such certificates. Since it's useful to work with them, the theory of computation has an all-powerful machine that can generate
+                        such a certificate instantly, called an oracle. The set-up is such that once the verifier receives the problem, it sends it over to the oracle, who responds with a certificate.
+                    </p>
+                    <p>
+                        However, if it responded with no certificate for problems without a solution, it wouldn't be a very useful theoretical construct (the verifier wouldn't have to do any work, just trust the oracle).
+                        Instead the oracle is malicious, and always sends a certificate. The verifier must work through it to determine whether it's a valid proof.
+                    </p>
+                    <p>
+                        To solidify the ideas a little, we impose two constraints on our system. If the true answer is YES, the verifier should accept the oracle's proof in a certain percentage of cases (e.g. 95%), 
+                        and similarly for NO, the verifier should reject in a given percentage of cases (e.g. 95%). Similarly to the previous problem, we can amend this probability by making this a multi-round game,
+                        with the verifier asking more questions.
+                    </p>
+                </div>
+                <div class="plot">
+                    <h5>SOLVER</h5>
+                    <p>A machine that accepts a problem, determines whether it's answer is YES or NO in its runtime, and returns the answer.</p>
+                    <h5>VERIFIER</h5>
+                    <p>A machine that accepts a problem and a certificate, and in its runtime verifies whether the certificate provides a true answer to the problem.</p>
+                    <h5>ORACLE</h5>
+                    <p>An all-knowing machine that solves any problem, and returns the YES/NO answer or a certificate for the answer.</p>
+                </div>
+                <div class="plot-butt">
+                </div>
+                <div class="overlay hide overlay_explains">
+                </div>
+                <div class="overlay hide overlay_links">
+                </div>       
+            </section>
+
 
             <!-- SECTION 03 -->
             <section class="grid" id="classIP">
@@ -289,18 +357,18 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        &emsp;Explain how badly runtime scales with degree & number of variables
+                        Explain how badly runtime scales with degree & number of variables
                     </p>
                     <p>
-                        &emsp;Explain the strategy to evaluate equivalence of difference to 0
+                        Explain the strategy to evaluate equivalence of difference to 0
                     </p>
                     <p>
-                        &emsp;Explain the probabilistic answer strategy -- PIL
+                        Explain the probabilistic answer strategy -- PIL
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
                     <p>
-                        &emsp;here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
+                        here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
                     </p>
                 </div>
             </section>

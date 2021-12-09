@@ -454,11 +454,14 @@ $.fn.scrollEnd = function(callback, timeout) {
 			['(a+b)^2 &\\stackrel{?}{=} a^2 + b^2',
 			 'a^2 + ab + ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
 			 'a^2 + 2ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
-			 '2ab &\\neq 0']
+			 '2ab &\\neq 0'],
+			 [''],
+			 [''],
+			 ['']
 		],
 		truths = [true, false, true, false, true],
 		round = -1,
-		s02_pts = [[4, 6], [4, 7], [5, 10]],
+		s02_pts = [[4, 6], [4, 7], [5, 10], [4, 15], [5, 8]],
 		ans = 'none';
 
 	function check(bt) {
@@ -488,7 +491,10 @@ $.fn.scrollEnd = function(callback, timeout) {
 				.text('What steps does the computer take?')
 				.css({'font-size': '0.8em'});
 		
-		$('.s02_anim').append(intro);
+		// change later -- append intro if there's text
+		if (mx > 1) {
+			$('.s02_anim').append(intro);
+		}
 		
 		s02int = setInterval(function() {
 			var div = $('<div></div>');
