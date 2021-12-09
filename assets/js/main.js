@@ -101,7 +101,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 		return binomial_coeffs[n][k];
 	}
 	
-	
 	// clock timer inspired by the clock timer
 	// @ https://jsfiddle.net/wizajay/rro5pna3/305/
 	class clock {
@@ -479,7 +478,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 			}, 100);
 			ans = 'wrong';
 		}
-	};
+	}
 
 	function poly_animate(round) {
 		let anims = poly_animations[round],
