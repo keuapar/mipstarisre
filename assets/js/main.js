@@ -633,6 +633,12 @@ $.fn.scrollEnd = function(callback, timeout) {
 		{ selector: 'edge',
 		  style: {'width': 3, 'line-color': '#333'}}
 		],
+		s03_style_perm = [
+			{ selector: 'node', style: {'width': '2em',
+										'height': '2em'}},
+			{ selector: 'edge',
+			  style: {'width': 3, 'line-color': '#333'}}
+		],
 		g1_elems = [
 		{ data: { id: 'A' },
 		  style: { 'background-color': 'cyan'} },
@@ -711,7 +717,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 				var gq = cytoscape({
 					container: $('.s03_gq'),
 					elements: g2_elems,
-					style: s03_style,
+					style: s03_style_perm,
 					layout: {name: 'cose'}
 				});
 			} else {
@@ -719,7 +725,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 				var gq = cytoscape({
 					container: $('.s03_gq'),
 					elements: g1_elems,
-					style: s03_style,
+					style: s03_style_perm,
 					layout: {name: 'cose'}
 				});
 			}
