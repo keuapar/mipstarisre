@@ -321,25 +321,58 @@
                 </div>
                 <div class="main-intro">
                     <p>
-                        The problem set-up is as follows: You are Arthur, and have two graphs, G1 & G2, and want to know if they are not isomorphic.
-                        You have a supercomputer, Merlin, that can find out in no time, but is malicious and will always try to convince you that
-                        G1 and G2 are not isomorphic. You toss a coin to choose one of G1 and G2. Then create a random isomorphism of the selected graph and send it to Merlin. 
-                        If the graphs are not isomorphic, he can easily determine which graph you used for your transformation and tell you.
-                        Otherwise, he has a 50/50 chance of getting it right. Thus, if he answers you incorrectly, you are sure the graphs are isomorphic.
-                        If he answers you correctly, you think they are not isomorphic but only with a 50% certainty. Now, how about asking that question several times..?
+                        Let's call our verifier Arthur and our oracle Merlin. You, as Arthur, are trying to determine whether two graphs G1 and G2 are not isomorphic.
+                        You know Merlin knows but he'll try to trick you. Your strategy is to secretly toss a coin to choose one of G1 and G2, shuffle the chosen graph around and send it to Merlin.
+                        If he can tell which graph it came from, they are (probably) not isomorphic. If he cannot tell, you're certain they are isomorphic!
                     </p>
                 </div>
                 <div class="main-act s03_main">
-                </div>
-                <div class="main-butt">
-                    <div class="button b-orange s03_y">
-                        <h3>YUP</h3>
-                    </div>
-                    <div class="s03_timer timer">
+                    <div class="s03_g1 s03_graph">
                         <!-- dynamically populated -->
                     </div>
-                    <div class="button b-orange s03_n">
-                        <h3>NUP</h3>
+                    <div class="s03_g2 s03_graph">
+                        <!-- dynamically populated -->                        
+                    </div>
+                    <div class="s03_gq s03_graph">
+                        <!-- dynamically populated -->
+                    </div>
+                    <div class="s03_coin">
+                        <div id="coin">
+                            <div class="coin-g1">
+                                <span>G1</span>
+                            </div>
+                            <div class="coin-g2">
+                                <span>G2</span>
+                            </div>
+                        </div>
+                        <i class="fas fa-crown fa-3x"></i>
+                    </div>
+                    <div class="s03_arthurtext s03_text">
+                        <span class="com_text">Hey Merlin, is this a permutation of G1 or G2?</span>
+                    </div>
+                    <div class="s03_ga s03_graph">
+                        <!-- dynamically populated -->
+                    </div>
+                    <div class="s03_merlin">
+                        <i class="fas fa-magic fa-2x"></i>
+                        <i class="fas fa-hat-wizard fa-3x"></i> 
+                    </div>
+                    <div class="s03_merlintext s03_text">
+                        <span class="com_text"></span>
+                    </div>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-orange s03_flip">
+                        <h3>FLIP A COIN</h3>
+                    </div>
+                    <div class="button b-orange s03_permute">
+                        <h3>PERMUTE GRAPH</h3>
+                    </div>
+                    <div class="button b-orange s03_send">
+                        <h3>SEND TO MERLIN</h3>
+                    </div>
+                    <div class="button b-orange s03_restart">
+                        <h3>TRY AGAIN</h3>
                     </div>
                 </div>
                 <div class="plot">
@@ -376,12 +409,15 @@
 
 
         <!-- Scripts -->
+        <!-- Sortable utility by RubaXa & owenm -->
         <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+        <!-- Graphing library by Cytoscape.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/jquery.canvaswrapper.js"></script>
         <script src="assets/js/jquery.colorhelpers.js"></script>
         <script src="assets/js/browser.min.js"></script>
-        <!-- <script src="assets/js/jquery-ui.min.js"></script> -->
+        <!-- Charting library by Flot.js -->
         <script src="assets/js/jquery.flot.js"></script>
         <script src="assets/js/jquery.flot.legend.js"></script>
         <script src="assets/js/jquery.flot.axislabels.js"></script>
