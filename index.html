@@ -302,7 +302,7 @@
                     <p>A machine that accepts a problem, determines whether it's answer is YES or NO in its runtime, and returns the answer.</p>
                     <h5>VERIFIER</h5>
                     <p>A machine that accepts a problem and a certificate, and in its runtime verifies whether the certificate provides a true answer to the problem.</p>
-                    <h5>ORACLE</h5>
+                    <h5>ORACLE/PROVER</h5>
                     <p>An all-knowing machine that solves any problem, and returns the YES/NO answer or a certificate for the answer.</p>
                 </div>
                 <div class="plot-butt">
@@ -382,7 +382,7 @@
                 </div>
                 <div class="plot-butt">
                     <div class="button b-blue b-explains">
-                        <h3 class="b-explain">EXPLAIN</h3>
+                        <h3 class="b-explain-03">EXPLAIN</h3>
                     </div>
                     <div class="button b-purple b-links">
                         <h3 class="b-link">LINKS</h3>
@@ -390,18 +390,35 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        Explain how badly runtime scales with degree & number of variables
+                        How long can Merlin keep fooling you? Well, our two graphs are isomorphic. You are welcome to drag their nodes around and check this for yourself.
+                        If they are isomorphic, without knowing the result of your cointoss, Merlin can never figure out which graph was used to generate the permutation he received.
+                        He can only take a 50/50 guess, and that's why you never believe him straight away. But if he keeps guessing right,
+                        you eventually budge and admit that he cannot keep being lucky, and your graphs are indeed non-isomorphic.
                     </p>
                     <p>
-                        Explain the strategy to evaluate equivalence of difference to 0
+                        On ther other hand, as soon as Merlin once tells you the wrong answer, you can be certain that he's trying to fool you!
+                        If the graphs were truly non-isomorphic, he must be able to tell which one you started your permutation from.
                     </p>
                     <p>
-                        Explain the probabilistic answer strategy -- PIL
+                        Verifying Merlin's answer takes constant time, but Arthur nonetheless spends time making the permutation in the first place.
+                        For the same reason, the complementary problem, deciding whether two graphs ARE isomorphic, is in \(NP\).
+                        Given a certificate, a description of the permutation, the verifier can check if its valid in polynomial time.
+                    </p>
+                    <p>
+                        However, our problem of whether graphs AREN'T isomorphic, eludes such simple process, and that's why we have to solve it with Merlin and Arthur.
+                        Problems solved with Arthur starting by sending a question to Merlin, and then deciding based on his answer, are in class \(AM[k]\), with \(k\)
+                        describing how many "rounds" there have been in their conversation.
+                    </p>
+                    <p>
+                        A more general class of problems, but using the same principle, is called Interactive Proofs, \(IP\).
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
                     <p>
-                        here: https://cs.stanford.edu/~mpkim/notes/lec5.pdf
+                        here: https://courses.cs.washington.edu/courses/cse532/04sp/lect09.pdf
+                    </p>
+                    <p>
+                        here: https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf
                     </p>
                 </div>
             </section>

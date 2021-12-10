@@ -806,7 +806,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s03_plt = $.plot('#s03_plot', [s03_pts.slice(0,1)], s03_opt);
 
-
 	// OVERLAYS
 	var bexplain = false,
 		blinks = false,
@@ -824,6 +823,13 @@ $.fn.scrollEnd = function(callback, timeout) {
 		if (s02_expl == false) {
 			s02_expl = true;
 			s02_plt = $.plot('#s02_plot', s02_pts_full, s02_opt_full);
+		}
+		toggle_explains();
+	});
+	$('.b-explain-03').on('click', function() {
+		if (s03_round < 4) { 
+			s03_plt.setData([s03_pts]);
+			s03_plt.draw();
 		}
 		toggle_explains();
 	});
