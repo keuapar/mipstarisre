@@ -301,7 +301,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 			ver_space = $library.height(),
 			book_ids = Array.from(Array(num_books).keys()),
 			book_id = 0;
-		console.log(ver_space);
 		shuffle(book_ids);
 			
 		for (let i = 0; i < num_books; i++) {
@@ -383,35 +382,35 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// plot for Section 01
 	var s01_opt = {
-			series: {
-				lines: { show: false },
-				points: { 
-					show: true, 
-					radius: 5, 
-					fillColor: 'red',
-					lineWidth: 0 
-				}
-			},
-			xaxis: {
-				autoScale: false,
-				min: 0,
-				max: 10
-			},
-			yaxis: {
-				autoScale: false,
-				min: 0,
-				max: 10
-			},
-			axisLabels: {
-				show: true
-			},
-			xaxes: [{
-				axisLabel: 'number of books',
-			}],
-			yaxes: [{
-				position: 'left',
-				axisLabel: 'time to sort (seconds)',
-			}]
+		series: {
+			lines: { show: false },
+			points: { 
+				show: true, 
+				radius: 5, 
+				fillColor: 'red',
+				lineWidth: 0 
+			}
+		},
+		xaxis: {
+			autoScale: false,
+			min: 0,
+			max: 10
+		},
+		yaxis: {
+			autoScale: false,
+			min: 0,
+			max: 10
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of books',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'time to sort (seconds)',
+		}]
 	};
 	var s01_pts_full = [{
 		'label': 'O(n*n)',
@@ -475,28 +474,28 @@ $.fn.scrollEnd = function(callback, timeout) {
 			 ['']
 		],
 		truths = [true, false, true, false, true],
-		round = -1,
+		s02_round = -1,
 		s02_pts = [[4, 6], [4, 7], [5, 10], [4, 15], [5, 8]],
 		ans = 'none';
 
 	function check(bt) {
-		corrbt = bt == truths[round];
+		corrbt = bt == truths[s02_round];
 		if (corrbt && (ans == 'none' || ans == 'wrong')) {
 			s02_clock.pause(green = true);
 			ans = 'right';
-			poly_animate(round);
+			poly_animate();
 			// redraw plot
-			let pts = s02_pts.slice(0, round+1);
+			let pts = s02_pts.slice(0, s02_round+1);
 			update(s02_plt, pts, s02_pts_full, s02_expl);
 		} else {
 			// used to say / if (!corrbt && (ans == 'none' || ans == 'right'))
-			shake(s02_clock.div, time = 300, col = 'red');
+			shake($('.s02_timer'), time = 300, col = 'red');
 			ans = 'wrong';
 		}
 	}
 
-	function poly_animate(round) {
-		let anims = poly_animations[round],
+	function poly_animate() {
+		let anims = poly_animations[s02_round],
 			count = 0,
 			mx = anims.length;
 		var intro = $('<p></p>')
@@ -525,19 +524,15 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}, 888)
 	}
 
-	$('.s02_true').on('click', function() {
-		check(true)
-	});
-	$('.s02_false').on('click', function() {
-		check(false)
-	});
+	$('.s02_true').on('click', function() {check(true)});
+	$('.s02_false').on('click', function() {check(false)});
 
 	// on demand display next equation
 	$('.s02_next').on('click', function() {
-		round += 1;
+		s02_round += 1;
 		s02_clock.restart();
 		$('.s02_anim').empty();
-		katex.render(polynomials[round], $('.s02_eq')[0], {
+		katex.render(polynomials[s02_round], $('.s02_eq')[0], {
 			throwOnError: false
 		});
 		ans = 'none';
@@ -625,7 +620,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// SECTION 03: arthur-merlin
 	var s03_coin = 'G1',
 		s03_permuted = false,
-		s03_restarted = true;
+		s03_restarted = true,
+		s03_round = 0
+		s03_rounds = [true, true, true, false];
 
 	// graph general descriptions
 	var s03_style = [
@@ -710,7 +707,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 		if (s03_restarted) {
 			// permute the right graph
 			if (s03_coin == 'G2') {
-				console.log('permuting G2');
 				$('.s03_gq').css({'background-color':'gold'});
 				var gq = cytoscape({
 					container: $('.s03_gq'),
@@ -719,7 +715,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 					layout: {name: 'cose'}
 				});
 			} else {
-				console.log('permuting G1', g1.elements());
 				$('.s03_gq').css({'background-color':'silver'});
 				var gq = cytoscape({
 					container: $('.s03_gq'),
@@ -733,10 +728,12 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 	});
 	$('.s03_send').on('click', function() {
-		console.log(s03_permuted && s03_restarted);
 		if (s03_permuted && s03_restarted) {
 			$('.s03_arthurtext').css({'opacity':'1'});
-			let merlinsays = Math.random() > 0.5 ? 'G1' : 'G2';
+			// let merlinsays = Math.random() > 0.5 ? 'G1' : 'G2';
+			let s03_notcoin = 'G1' == s03_coin ? 'G2' : 'G1';
+			let merlinsays = s03_rounds[s03_round] ? s03_coin : s03_notcoin;
+			s03_round++;
 			$('.s03_merlintext').text('My magic tells me that it is from ' + merlinsays);
 			var gq_left = $('.s03_gq').offset().left,
 				ga_left = $('.s03_ga').offset().left;
@@ -747,6 +744,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 				setTimeout(function() {
 					$('.fa-magic').removeClass('loading');
 					$('.s03_merlintext').css({'opacity':'1'});
+					// update the plot
+					s03_plt.setData([s03_pts.slice(0, s03_round+1)]);
+					s03_plt.draw();
 				}, 3000)
 			}, 500);
 			s03_restarted = false;
@@ -767,6 +767,45 @@ $.fn.scrollEnd = function(callback, timeout) {
 		s03_permuted = false;
 		setTimeout(function() {$('.s03_gq').css({'transition': '1s'});}, 1000);
 	});
+
+	// plotting for s03
+	var s03_pts = [[0, 0.5], [1, 0.5], [2, 0.75], [3, 0.875], [4, 0]];
+	var s03_opt = {
+		series: {
+			lines: { show: true },
+			points: { 
+				show: true, 
+				radius: 8, 
+				fillColor: 'blue',
+				lineWidth: 0 
+			}
+		},
+		xaxis: {
+			autoScale: false,
+			min: 0,
+			max: 5,
+			showMinorTicks: false,
+			tickDecimals: 0
+		},
+		yaxis: {
+			autoScale: false,
+			min: 0,
+			max: 1
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of rounds',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'your certainty of non-isomorphism',
+		}]
+	};
+
+	var s03_plt = $.plot('#s03_plot', [s03_pts.slice(0,1)], s03_opt);
+
 
 	// OVERLAYS
 	var bexplain = false,
