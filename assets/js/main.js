@@ -635,7 +635,8 @@ $.fn.scrollEnd = function(callback, timeout) {
 		],
 		s03_style_perm = [
 			{ selector: 'node', style: {'width': '2em',
-										'height': '2em'}},
+										'height': '2em',
+										'background-color': 'black'}},
 			{ selector: 'edge',
 			  style: {'width': 3, 'line-color': '#333'}}
 		],
@@ -720,6 +721,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 					style: s03_style_perm,
 					layout: {name: 'cose'}
 				});
+				gq.nodes().style('background-color', 'black');
 			} else {
 				$('.s03_gq').css({'background-color':'silver'});
 				var gq = cytoscape({
@@ -728,6 +730,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 					style: s03_style_perm,
 					layout: {name: 'cose'}
 				});
+				gq.nodes().style('background-color', 'black');
 			}
 		} else {
 			shake($('.s03_restart'), 300);
