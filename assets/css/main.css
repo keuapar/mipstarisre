@@ -439,6 +439,7 @@ nav {
 	cursor: grab;
 }
 
+
 /* 02: PIL */
 .s02_main {
 	width: 100%;
@@ -465,6 +466,7 @@ nav {
 	align-items: center;
 }
 
+
 /* S03: merlin-arthur */
 .s03_main {
 	display: grid;
@@ -480,7 +482,6 @@ nav {
 .s03_g1 {
 	grid-area: topleft;
 	background-color: silver;
-
 }
 .s03_g2 {
 	grid-area: botleft;
@@ -586,6 +587,69 @@ nav {
 	from {transform: rotateY(0);}
 	to {transform: rotateY(1980deg);}
 }
+
+
+/* CHSH */
+.s04_main {
+	display: grid;
+	grid-template-columns: 25% 46% 25%;
+	grid-template-areas: 
+		'a c b';
+	gap: 2% 2%;
+	place-items: stretch;
+}
+.s04_main h3 {
+	font-size: 1.5em;
+	text-align: center;
+}
+.abob {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: grey;
+	border-radius: 30px;
+}
+.strats {
+	display: grid;
+	grid-template-columns: 48% 48%;
+	grid-template-rows: auto auto;
+	grid-gap: 4%;
+	place-items: stretch;
+}
+.strat {
+	display: grid;
+	grid-template-columns: 32% 32% 32%;
+	grid-template-rows: auto auto auto;
+	grid-gap: 2%;
+	place-items: center;
+	background-color: darkblue;
+	border-radius: 10px;
+	padding: 10px;
+}
+.strat:hover {
+	cursor: pointer;
+}
+.strat p {
+	margin: 0;
+	padding: 3px;
+}
+.s04_c {
+	display: flex;
+	flex-direction: column;
+}
+.s04_table {
+	display: grid;
+	grid-template-columns: 13% 13% 12% 12% 25% 25%;
+	grid-template-rows: auto;
+	grid-auto-rows: auto;
+	grid-gap: 0;
+	place-items: stretch;
+}
+.s04_table p {
+	text-align: center;
+}
+
   
 /* BUTTONS */
 .button {

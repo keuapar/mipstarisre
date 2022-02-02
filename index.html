@@ -422,6 +422,193 @@
                     </p>
                 </div>
             </section>
+
+            <!-- SECTION 03.5 -->
+            <!-- PROVERS AND VERIFIERS -->
+            <section class="grid" id="nonlocalgames">
+                <div class="head">
+                    <h2>Nonlocal games</h2>
+                </div>
+                <div class="main-full">
+                    <p>
+                        Explain correspondence between interactive proofs and games.
+                    </p>
+                </div>
+                <div class="plot">
+                    <h5>SOLVER</h5>
+                    <p>A machine that accepts a problem, determines whether it's answer is YES or NO in its runtime, and returns the answer.</p>
+                    <h5>VERIFIER</h5>
+                    <p>A machine that accepts a problem and a certificate, and in its runtime verifies whether the certificate provides a true answer to the problem.</p>
+                    <h5>ORACLE/PROVER</h5>
+                    <p>An all-knowing machine that solves any problem, and returns the YES/NO answer or a certificate for the answer.</p>
+                </div>
+                <div class="plot-butt">
+                </div>
+                <div class="overlay hide overlay_explains">
+                </div>
+                <div class="overlay hide overlay_links">
+                </div>       
+            </section>
+
+
+            <!-- SECTION 04 -->
+            <section class="grid" id="classMIP">
+                <div class="head">
+                    <h2>Class MIP: CHSH game</h2>
+                </div>
+                <div class="main-intro">
+                    <p>
+                        Our two provers-players are Alice and Bob. Before playing, they can select a strategy to follow in the game.
+                        You are the verifier-referee. As the game starts, you send a random bit x to Alice and a random bit y to Bob. They respond according to their strategy.
+                        Alice and Bob win the game if \(x \wedge y = a \oplus b\). In words, if you send two 1s, they must respond each a different bit, and respond the same otherwise.
+                    </p>
+                </div>
+                <div class="main-act s04_main">
+                    <div class="s04_a abob">
+                        <h3>Alice's strategies</h3>
+                        <div class="strats">
+                            <div class="strat" data-s="0">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="1">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                            <div class="strat" data-s="2">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="3">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s04_c">
+                        <h3>Referee</h3>
+                        <div class="s04_table">
+                            <p>\(x\)</p>
+                            <p>\(y\)</p>
+                            <p>\(a\)</p>
+                            <p>\(b\)</p>
+                            <p>\(x \wedge y\)</p>
+                            <p>\(a \oplus b\)</p>
+                        </div>
+                    </div>
+                    <div class="s04_b abob">
+                        <h3>Bob's strategies</h3>
+                        <div class="strats">
+                            <div class="strat" data-s="0">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="1">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                            <div class="strat" data-s="2">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="3">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-orange s04_play1">
+                        <h3>PLAY ONCE</h3>
+                    </div>
+                    <div class="button b-orange s04_playon">
+                        <h3>KEEP PLAYING</h3>
+                    </div>
+                </div>
+                <div class="plot">
+                    <div class="plot_wrap s04_plot" id="s04_plot">
+                        <!-- dynamically populated -->
+                    </div>
+                </div>
+                <div class="plot-butt">
+                    <div class="button b-blue b-explains">
+                        <h3 class="b-explain-04">EXPLAIN</h3>
+                    </div>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
+                </div>
+                <div class="overlay hide overlay_explains">
+                    <p>
+                    </p>
+                </div>
+                <div class="overlay hide overlay_links">
+                    <p>
+                        here: https://courses.cs.washington.edu/courses/cse532/04sp/lect09.pdf
+                    </p>
+                    <p>
+                        here: https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf
+                    </p>
+                </div>
+            </section>
+
         </div>
 
 

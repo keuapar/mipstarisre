@@ -174,6 +174,11 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}, time);
 
 	}
+	// random integer @ https://www.w3schools.com/js/js_random.asp
+	function randInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) ) + min;
+	}
+	  
 
 	// PLOTTING UTILITIES
 	// plot update function, on adding new points
@@ -815,11 +820,158 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s03_plt = $.plot('#s03_plot', [s03_pts.slice(0,1)], s03_opt);
 
+	// SECTION 04: CHSH GAME
+	var tbl = $('.s04_table');
+	var strats = [{0:0, 1:0}, {0:0, 1:1}, {0:1, 1:0}, {0:1, 1:1}];
+	var stratchanged = true;
+	var s04_i = 10;
+
+	// randomly give Alice and Bob a starting strategy
+	var alicestrat = randInt(0, 3);
+	$('.s04_a .strat').eq(alicestrat).css('background-color', 'blue');
+	var bobstrat = randInt(0, 3);
+	$('.s04_b .strat').eq(bobstrat).css('background-color', 'blue');
+	
+	// controls picking strategies
+	$('.s04_a .strat').on('click', function() {
+		$('.s04_a .strat').css('background-color', 'darkblue');
+		$(this).css('background-color', 'blue');
+		alicestrat = $(this).data('s');
+		stratchanged = true;
+		tbl.find('p').slice(6).remove();
+	});
+	$('.s04_b .strat').on('click', function() {
+		$('.s04_b .strat').css('background-color', 'darkblue');
+		$(this).css('background-color', 'blue');
+		bobstrat = $(this).data('s');
+		stratchanged = true;
+		tbl.find('p').slice(6).remove();
+	});
+	
+	// playing the CHSH game
+	function chsh() {
+		if (s04_i > 20) {
+			clearInterval(s04_int);
+			s04_i = 0;
+		}
+		var s04_x = randInt(0, 1),
+			s04_y = randInt(0, 1),
+			s04_a = strats[alicestrat][s04_x],
+			s04_b = strats[bobstrat][s04_y],
+			s04_win = (s04_x && s04_y) == (s04_a ^ s04_b) ? 1 : 0;
+
+		// check for table being too full
+		if (tbl[0].childElementCount > 36) {
+			tbl.find('p').slice(6, 12).remove();
+		}
+
+		if (s04_win) {
+			var s04_col = 'rgba(30, 250, 50, 0.5)';
+		} else {
+			var s04_col = 'rgba(250, 30, 50, 0.5)';
+		}
+
+		var t1 = $('<p></p>').text(s04_x).css('background', s04_col).hide(),
+			t2 = $('<p></p>').text(s04_y).css('background', s04_col).hide();
+			t3 = $('<p></p>').text(s04_a).css('background', s04_col).hide();
+			t4 = $('<p></p>').text(s04_b).css('background', s04_col).hide();
+			t5 = $('<p></p>').text(s04_x && s04_y).css('background', s04_col).hide();
+			t6 = $('<p></p>').text(s04_a ^ s04_b).css('background', s04_col).hide();
+
+		tbl.append([t1, t2, t3, t4, t5, t6]);
+		t1.show('fast');
+		t2.show('fast');
+		t3.show('fast');
+		t4.show('fast');
+		t5.show('fast');
+		t6.show('fast');
+
+		// store the result of the game for plots
+		var s04_pt = s04_pts[alicestrat][bobstrat];
+		if (s04_pt.length == 0) {
+			s04_pts[alicestrat][bobstrat].push([1, s04_win]);
+		} else {
+			var s04_newx = s04_pt.length+1;
+			if (s04_opt['xaxis']['max'] < s04_newx) {
+				s04_opt['xaxis']['max'] = s04_newx;
+			}
+			var s04_newy = (s04_pt.length*s04_pt[s04_pt.length-1][1]+s04_win)/s04_newx;
+			s04_pts[alicestrat][bobstrat].push([s04_newx, s04_newy]);
+		}
+		// adjust the strategies displayed
+		if (stratchanged) {
+			if (s04_idxs.length > 5) {
+				s04_idxs.shift();
+			}
+			s04_idxs.push(4*alicestrat+bobstrat);
+			stratchanged = false;
+		}
+		s04_plt = $.plot('#s04_plot', s04_idxs.map(i => s04_pts_full[i]), s04_opt);
+	}
+	$('.s04_play1').on('click', chsh);
+	$('.s04_playon').on('click', function() {
+		s04_int = setInterval(function() {
+			chsh();
+			s04_i++;
+		}, 100);
+	});
+
+	// s04 plot
+	var s04_pts = [[[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []]];
+	var s04_pts_full = [];
+	for (a=0;a<4;a++) {
+		for (b=0;b<4;b++) {
+			var s04_lbl = 'A' + String(a+1) + ' B' + String(b+1);
+			s04_pts_full.push({'label': s04_lbl, 'data': s04_pts[a][b], 'points': {fillColor: getDarkColor()}});
+		}
+	}
+	var s04_idxs = [];
+
+	var s04_opt = {
+		series: {
+			lines: { show: false },
+			points: { 
+				show: true, 
+				radius: 3, 
+				lineWidth: 0,
+			}
+		},
+		xaxis: {
+			autoScale: false,
+			min: 0,
+			max: 10
+		},
+		yaxis: {
+			autoScale: false,
+			min: 0,
+			max: 1
+		},
+		legend: {
+			show: true,
+			position: 'ne',
+			margin: [30, 5]
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of games',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'percentage of games won',
+		}]
+	};
+
+	var s04_plt = $.plot('#s04_plot', s04_pts, s04_opt);
+
+
 	// OVERLAYS
 	var bexplain = false,
 		blinks = false,
 		s01_expl = false,
-		s02_expl = false;
+		s02_expl = false,
+		s04_expl = false;
 
 	$('.b-explain-01').on('click', function() {
 		if (s01_expl == false) {
@@ -839,6 +991,13 @@ $.fn.scrollEnd = function(callback, timeout) {
 		if (s03_round < 4) { 
 			s03_plt.setData([s03_pts]);
 			s03_plt.draw();
+		}
+		toggle_explains();
+	});
+	$('.b-explain-04').on('click', function() {
+		if (s04_expl == false) {
+			s04_expl = true;
+			s04_plt = $.plot('#s04_plot', s04_pts_full, s04_opt_full);
 		}
 		toggle_explains();
 	});
