@@ -178,6 +178,22 @@ $.fn.scrollEnd = function(callback, timeout) {
 	function randInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) ) + min;
 	}
+	// array rotator by WesleyAC
+	// @ https://stackoverflow.com/questions/1985260/rotate-the-elements-in-an-array-in-javascript
+	function Rotate(arr, n) {
+		if (n === 0) {
+		  return arr;
+		}
+	  
+		var left = n < 0;
+		n = Math.abs(left ? n : arr.length - n);
+	  
+		return arr.map(() => {
+		  n = n < arr.length ? n : 0;
+	  
+		  return arr[n++];
+		});
+	}
 	  
 
 	// PLOTTING UTILITIES
@@ -825,6 +841,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var strats = [{0:0, 1:0}, {0:0, 1:1}, {0:1, 1:0}, {0:1, 1:1}];
 	var stratchanged = true;
 	var s04_i = 10;
+	var s04_colors = ['green', 'purple', 'red', 'blue', 'orange', 'black'];
 
 	// randomly give Alice and Bob a starting strategy
 	var alicestrat = randInt(0, 3);
@@ -903,6 +920,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 			if (s04_idxs.length > 5) {
 				s04_idxs.shift();
 			}
+			// make sure colours also rotate
+			s04_colors = Rotate(s04_colors, 1);
+			s04_pts_full[4*alicestrat+bobstrat]['points'].fillColor = s04_colors[0];
 			s04_idxs.push(4*alicestrat+bobstrat);
 			stratchanged = false;
 		}
@@ -922,7 +942,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	for (a=0;a<4;a++) {
 		for (b=0;b<4;b++) {
 			var s04_lbl = 'A' + String(a+1) + ' B' + String(b+1);
-			s04_pts_full.push({'label': s04_lbl, 'data': s04_pts[a][b], 'points': {fillColor: getDarkColor()}});
+			s04_pts_full.push({'label': s04_lbl, 'data': s04_pts[a][b], 'points': {fillColor: s04_colors[b]}});
 		}
 	}
 	var s04_idxs = [];
@@ -962,8 +982,33 @@ $.fn.scrollEnd = function(callback, timeout) {
 			axisLabel: 'percentage of games won',
 		}]
 	};
+	var s04_opt_empty = {
+		xaxis: {
+			autoScale: false,
+			min: 0,
+			max: 10
+		},
+		yaxis: {
+			autoScale: false,
+			min: 0,
+			max: 1
+		},
+		legend: {
+			show: false,
+		},
+		axisLabels: {
+			show: true
+		},
+		xaxes: [{
+			axisLabel: 'number of games',
+		}],
+		yaxes: [{
+			position: 'left',
+			axisLabel: 'percentage of games won',
+		}]
+	};
 
-	var s04_plt = $.plot('#s04_plot', s04_pts, s04_opt);
+	var s04_plt = $.plot('#s04_plot', s04_pts, s04_opt_empty);
 
 
 	// OVERLAYS
