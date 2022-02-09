@@ -432,16 +432,34 @@
                 </div>
                 <div class="main-full">
                     <p>
-                        Explain correspondence between interactive proofs and games.
+                        As we move on, we will need to expand the interactive proof idea from our Arthur-Merlin argument. We remain in the verifier seat, but this time question two provers at once.
+                        This setup is called a multiprover interactive proof. The provers can setup a common strategy beforehand, but cannot communicate once the protocol starts.
+                        The notion is that this allows us to cross check their answers and be more certain in our analysis.
+                    </p>
+                    <p>
+                        We will only have 2 provers and a single round of interaction (1 question to each prover and their answer). This class is called \(MIP(2,1)\), and \(MIP(2,1) = MIP\), so any
+                        other setup, with more provers and more rounds, can be smartly reduced to ours. This system can also be reformulated as a so-called Nonlocal game.
+                    </p>
+                    <p>
+                        In this game, our two provers are players, and the verifier is a referee. The referee sends the players each a question, and based on their answers decides whether they win.
+                        The players know the full rules of the game and can setup a strategy together before hand, but cannot communicate once the game starts.
+                        However, since the referees questions are probabilistic (drawn from a known distribution), the players can't be sure that they always win.
+                    </p>
+                    <p>
+                        Instead, their goal is to setup the best strategy possible that would win them the highest percentage of games. Their best strategy success rate is called the value of the game.
+                    </p>
+                    <p>
+                        Finding the value of the game is an optimization problem; to turn it into a decision problem, we instead ask whether the game's value is \(\geq\frac{2}{3}\).
+                        This way, we can use our decision problem complexity classes to categorize a game. Let's see an example on the next page.
                     </p>
                 </div>
                 <div class="plot">
-                    <h5>SOLVER</h5>
-                    <p>A machine that accepts a problem, determines whether it's answer is YES or NO in its runtime, and returns the answer.</p>
-                    <h5>VERIFIER</h5>
-                    <p>A machine that accepts a problem and a certificate, and in its runtime verifies whether the certificate provides a true answer to the problem.</p>
-                    <h5>ORACLE/PROVER</h5>
-                    <p>An all-knowing machine that solves any problem, and returns the YES/NO answer or a certificate for the answer.</p>
+                    <h5>PROVER ⇿ PLAYER</h5>
+                    <p>An all-powerful machine, like Merlin, that provides information to the verifier.</p>
+                    <h5>VERIFIER ⇿ REFEREE</h5>
+                    <p>Our machine, like Arthur, whose complexity we are measuring. The referee questions the players, and based on their answers, "plays," determines whether they won.</p>
+                    <h5>NONLOCAL GAME VALUE</h5>
+                    <p>The probability that the players can win the game given their best strategy among all possible strategies.</p>
                 </div>
                 <div class="plot-butt">
                 </div>
