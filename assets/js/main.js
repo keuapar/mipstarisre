@@ -174,7 +174,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}, time);
 
 	}
-	// random integer @ https://www.w3schools.com/js/js_random.asp
+	// random integer (inclusive) @ https://www.w3schools.com/js/js_random.asp
 	function randInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) ) + min;
 	}
@@ -292,6 +292,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 			nav_closed = true;
 		}
 	});
+
 
 	// 01: SORTING
 	var num_books = 5,
@@ -474,6 +475,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s01_plt = $.plot('#s01_plot', [s01_pts], s01_opt);
 
+
 	// SECTION 02: Polynomial Identity Testing
 	var polynomials = [
 		'k^2 - l^2 \\stackrel{?}{=} (k+l)(k-l)',
@@ -637,6 +639,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// ochcavka kdyz chci nic nezobrazovat protoze musi byt [s02_pts]
 	var s02_plt = $.plot('#s02_plot', s02_pts, s02_opt);
+
 
 	// SECTION 03: arthur-merlin
 	var s03_coin = 'G1',
@@ -836,12 +839,14 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s03_plt = $.plot('#s03_plot', [s03_pts.slice(0,1)], s03_opt);
 
+
 	// SECTION 04: CHSH GAME
 	var tbl = $('.s04_table');
 	var strats = [{0:0, 1:0}, {0:0, 1:1}, {0:1, 1:0}, {0:1, 1:1}];
 	var stratchanged = true;
 	var s04_i = 10;
 	var s04_colors = ['green', 'purple', 'red', 'blue', 'orange', 'black'];
+	var s04_button_enabled = true;
 
 	// randomly give Alice and Bob a starting strategy
 	var alicestrat = randInt(0, 3);
@@ -870,6 +875,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		if (s04_i > 20) {
 			clearInterval(s04_int);
 			s04_i = 0;
+			s04_button_enabled = true;
 		}
 		var s04_x = randInt(0, 1),
 			s04_y = randInt(0, 1),
@@ -930,10 +936,15 @@ $.fn.scrollEnd = function(callback, timeout) {
 	}
 	$('.s04_play1').on('click', chsh);
 	$('.s04_playon').on('click', function() {
-		s04_int = setInterval(function() {
-			chsh();
-			s04_i++;
-		}, 100);
+		if (s04_button_enabled) {
+			s04_button_enabled = false;
+			s04_int = setInterval(function() {
+				chsh();
+				s04_i++;
+			}, 100);
+		} else {
+			shake($('.s04_playon'), 300);
+		}
 	});
 
 	// s04 plot
@@ -1010,6 +1021,172 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	var s04_plt = $.plot('#s04_plot', s04_pts, s04_opt_empty);
 
+
+	// SECTION 05: Q CHSH GAME
+	var s05_qs = [[0, 0], [0, 1], [1, 0], [1, 1]],
+		s05_probs = [0.42678, 0.85355, 0.92678, 1],
+		s05_win = -1,
+		s05_i = 10,
+		s05_button_enabled = true,
+		s05_pts = [],
+		s05_pts_full = [{'label': 'Quantum Strategy', 'data': s05_pts, 'points': {fillColor: 'red'}}],
+		s05_opt = {
+			series: {
+				lines: { show: false },
+				points: { 
+					show: true, 
+					radius: 3, 
+					lineWidth: 0,
+				}
+			},
+			xaxis: {
+				autoScale: false,
+				min: 0,
+				max: 10
+			},
+			yaxis: {
+				autoScale: false,
+				min: 0,
+				max: 1
+			},
+			legend: {
+				show: true,
+				position: 'se',
+				margin: [20, 50]
+			},
+			axisLabels: {
+				show: true
+			},
+			xaxes: [{
+				axisLabel: 'number of games',
+			}],
+			yaxes: [{
+				position: 'left',
+				axisLabel: 'percentage of games won',
+			}]
+		};
+
+	function coltoggle(aC, aW) {
+		var cnt = 15;
+		aC.toggleClass('bright');
+		var s05_int = setInterval(function() {
+			aC.toggleClass('bright');
+			aW.toggleClass('bright');
+			cnt--;
+			if (cnt == 0) {
+				clearInterval(s05_int);
+			}
+		}, 50);
+	}
+
+	function chshq() {
+		if (s05_i > 20) {
+			clearInterval(s05_int);
+			s05_i = 0;
+			s05_button_enabled = true;
+		}
+
+		$('.sq').removeClass('bright');
+		var s05_q = s05_qs[randInt(0, 3)],
+			s05_x = s05_q[0];
+			s05_y = s05_q[1];
+			s05_a = -1,
+			s05_b = -1,
+			s05_p = Math.random();
+		if (s05_q == [1, 1]) {
+			s05_p = 1-s05_p;
+		}
+
+		// find the axis and result to color
+		if (s05_x == 0) {
+			if (s05_p < s05_probs[0] || (s05_probs[1] < s05_p && s05_p < s05_probs[2])) {
+				coltoggle($('.sq0'), $('.sq1'));
+				s05_a = 0;
+			} else {
+				coltoggle($('.sq1'), $('.sq0'));
+				s05_a = 1;
+			}
+		} else {
+			if (s05_p < s05_probs[0] || (s05_probs[1] < s05_p && s05_p < s05_probs[2])) {
+				coltoggle($('.sqPLUS'), $('.sqMINUS'));
+				s05_a = 0;
+			} else {
+				coltoggle($('.sqMINUS'), $('.sqPLUS'));
+				s05_a = 1;
+			}
+		}
+		if (s05_y == 0) {
+			if (s05_p < s05_probs[0] || s05_p > s05_probs[2]) {
+				coltoggle($('.sqA'), $('.sqB'));
+				s05_b = 0;
+			} else {
+				coltoggle($('.sqB'), $('.sqA'));
+				s05_b = 1;
+			}
+		} else {
+			if (s05_p < s05_probs[0] || s05_p > s05_probs[2]) {
+				coltoggle($('.sqa'), $('.sqb'));
+				s05_b = 0;
+			} else {
+				coltoggle($('.sqb'), $('.sqa'));
+				s05_b = 1;
+			}
+		}
+		s05_win = (s05_x && s05_y) == (s05_a ^ s05_b) ? 1 : 0;
+
+		setTimeout(function() {
+			var tbl05 = $('.s05_table');
+			// check for table being too full
+			if (tbl05[0].childElementCount > 24) {
+				tbl05.find('p').slice(4, 8).remove();
+			}
+	
+			if (s05_win) {
+				var s05_col = 'rgba(30, 250, 50, 0.5)';
+			} else {
+				var s05_col = 'rgba(250, 30, 50, 0.5)';
+			}
+	
+			var	t3 = $('<p></p>').text(s05_a).css('background', s05_col).hide();
+				t4 = $('<p></p>').text(s05_b).css('background', s05_col).hide();
+				t5 = $('<p></p>').text(s05_x && s05_y).css('background', s05_col).hide();
+				t6 = $('<p></p>').text(s05_a ^ s05_b).css('background', s05_col).hide();
+	
+			tbl05.append([t3, t4, t5, t6]);
+			t3.show('fast');
+			t4.show('fast');
+			t5.show('fast');
+			t6.show('fast');	
+
+			// add new point to chart
+			if (s05_pts.length == 0) {
+				s05_pts.push([1, s05_win]);
+			} else {
+				var s05_newx = s05_pts.length+1;
+				if (s05_opt['xaxis']['max'] < s05_newx) {
+					s05_opt['xaxis']['max'] = s05_newx;
+				}
+				var s05_newy = (s05_pts.length*s05_pts[s05_pts.length-1][1]+s05_win)/s05_newx;
+				s05_pts.push([s05_newx, s05_newy]);
+			}
+			s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
+		}, 50*15);
+
+	}
+	$('.s05_play1').on('click', chshq);
+	$('.s05_playon').on('click', function() {
+		if (s05_button_enabled) {
+			s05_button_enabled = false;
+			s05_int = setInterval(function() {
+				chshq();
+				s05_i++;
+			}, 100);
+		} else {
+			shake($('.s05_playon'), 300);
+		}
+	});
+
+	var s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
 
 	// OVERLAYS
 	var bexplain = false,

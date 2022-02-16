@@ -672,119 +672,45 @@
                     <p>
                         Alice and Bob are playing the same game, but this time they have a powerful tool in their hands: 
                         a single entangled qubit pair split between them before the game begins, denoted as \(|\psi\rangle = \frac{|00\rangle + |11\rangle}{\sqrt(2)}\).
-                        They have prepared their measurement axis in a specific way to beat the game as often as possible.
+                        They have prepared their measurement axes in a specific way to beat the game as often as possible.
                         Play and watch how they do!
                     </p>
                 </div>
                 <div class="main-act s05_main">
-                    <div class="s05_a abob">
-                        <h3>Alice's strategies</h3>
-                        <div class="strats">
-                            <div class="strat" data-s="0">
-                                <p>\(x\)</p>
-                                <p></p>
-                                <p>\(a\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                            </div>
-                            <div class="strat" data-s="1">
-                                <p>\(x\)</p>
-                                <p></p>
-                                <p>\(a\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                            </div>
-                            <div class="strat" data-s="2">
-                                <p>\(x\)</p>
-                                <p></p>
-                                <p>\(a\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                            </div>
-                            <div class="strat" data-s="3">
-                                <p>\(x\)</p>
-                                <p></p>
-                                <p>\(a\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                            </div>
+                    <div class="s05_a s05_abob">
+                        <h3>Alice's qubit</h3>
+                        <div class="gate agate">
+                            <div class="sq sq0">\(|0_0\rangle\)</div>
+                            <div class="sq sq1">\(|1_1\rangle\)</div>
+                            <div class="sq sqPLUS">\(|+_0\rangle\)</div>
+                            <div class="sq sqMINUS">\(|-_1\rangle\)</div>
                         </div>
+                        <p>
+                            If I receive \(x=0\), I'll measure along the \(|0\rangle, |1\rangle\) axis,
+                            otherwise along the \(|+\rangle, |-\rangle\) axis.
+                        </p>
                     </div>
-                    <div class="s05_c">
+                    <div class="s04_c">
                         <h3>Referee</h3>
                         <div class="s05_table">
-                            <p>\(x\)</p>
-                            <p>\(y\)</p>
                             <p>\(a\)</p>
                             <p>\(b\)</p>
                             <p>\(x \wedge y\)</p>
                             <p>\(a \oplus b\)</p>
                         </div>
                     </div>
-                    <div class="s05_b abob">
-                        <h3>Bob's strategies</h3>
-                        <div class="strats">
-                            <div class="strat" data-s="0">
-                                <p>\(y\)</p>
-                                <p></p>
-                                <p>\(b\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                            </div>
-                            <div class="strat" data-s="1">
-                                <p>\(y\)</p>
-                                <p></p>
-                                <p>\(b\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                            </div>
-                            <div class="strat" data-s="2">
-                                <p>\(y\)</p>
-                                <p></p>
-                                <p>\(b\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(0\)</p>
-                            </div>
-                            <div class="strat" data-s="3">
-                                <p>\(y\)</p>
-                                <p></p>
-                                <p>\(b\)</p>
-                                <p>\(0\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                                <p>\(1\)</p>
-                                <p>\(\rightarrow\)</p>
-                                <p>\(1\)</p>
-                            </div>
+                    <div class="s05_b s05_abob">
+                        <h3>Bob's qubit</h3>
+                        <div class="gate bgate">
+                            <div class="sq sqA">\(|A_0\rangle\)</div>
+                            <div class="sq sqB">\(|B_1\rangle\)</div>
+                            <div class="sq sqa">\(|a_0\rangle\)</div>
+                            <div class="sq sqb">\(|b_1\rangle\)</div>
                         </div>
+                        <p>
+                            If I receive \(x=0\), I'll measure along the \(|A\rangle, |B\rangle\) axis,
+                            otherwise along the \(|a\rangle, |b\rangle\) axis.
+                        </p>
                     </div>
                 </div>
                 <div class="main-butt">

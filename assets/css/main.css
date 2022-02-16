@@ -650,6 +650,97 @@ nav {
 	text-align: center;
 }
 
+
+
+/* Q CHSH */
+.s05_main {
+	display: grid;
+	grid-template-columns: 30% 36% 30%;
+	grid-template-areas: 
+		'a c b';
+	gap: 2% 2%;
+	place-items: stretch;
+}
+.s05_main h3 {
+	font-size: 1.5em;
+	text-align: center;
+}
+.s05_table {
+	display: grid;
+	grid-template-columns: 20% 20% 30% 30%;
+	grid-template-rows: auto;
+	grid-auto-rows: auto;
+	grid-gap: 0;
+	place-items: stretch;
+}
+.s05_table p {
+	text-align: center;
+}
+.s05_abob {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	background-color: grey;
+	border-radius: 30px;
+}
+.s05_abob p {
+	text-align: center;
+}
+.gate {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	position: relative;
+	background: radial-gradient(at 30% 30%, rgb(193, 255, 92), #000)
+}
+.bgate {
+	background: radial-gradient(at 30% 30%, rgb(163, 92, 255), #000);
+}
+.sq {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(92, 244, 255, 0.1);
+}
+.bright {
+	background-color: rgba(92, 244, 255, 0.8);
+}
+.sq0 {
+	top: -33px;
+	left: -33px;
+}
+.sq1 {
+	bottom: -33px;
+	right: -33px;
+}
+.sqPLUS {
+	top: -33px;
+	right: -33px;
+}
+.sqMINUS {
+	bottom: -33px;
+	left: -33px;
+}
+.sqA {
+	bottom: -40px;
+	right: -15px;
+}
+.sqB {
+	top: -40px;
+	left: -15px;
+}
+.sqa {
+	bottom: -15px;
+	left: -40px;
+}
+.sqb {
+	top: -15px;
+	right: -40px;
+}
   
 /* BUTTONS */
 .button {
