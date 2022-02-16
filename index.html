@@ -26,8 +26,12 @@
                 <a href="#classP">Class P: Sorting</a>
                 <a href="#decisionproblems">Decision problems</a>
                 <a href="#classBPP">Class BPP: Polynomial Identity Testing</a>
-                <a href="#verifiers">Solvers and verifiers</a>
+                <a href="#proversverifiers">Solvers and verifiers</a>
                 <a href="#classIP">Class IP: Graph Non-Isomorphism</a>
+                <a href="#nonlocalgames">Nonlocal games</a>
+                <a href="#classMIP">Class MIP: The CHSH game</a>
+                <a href="#quantumentanglement">Quantum Entanglement</a>
+                <a href="#classMIPstar">Class MIP*: The CHSH game</a>
             </div>
             <div class="nav_btns">
                 <a title="Scroll to Top" href="#sec_00" class="fas fa-angle-double-up" id="Bupup"></a>
@@ -264,7 +268,7 @@
 
             <!-- SECTION 02.5 -->
             <!-- PROVERS AND VERIFIERS -->
-            <section class="grid" id="verifiers">
+            <section class="grid" id="proversverifiers">
                 <div class="head">
                     <h2>Solvers and verifiers</h2>
                 </div>
@@ -480,7 +484,7 @@
                     <p>
                         Our two provers-players are Alice and Bob. Before playing, they can select a strategy to follow in the game.
                         You are the verifier-referee. As the game starts, you send a random bit x to Alice and a random bit y to Bob. They respond according to their strategy.
-                        Alice and Bob win the game if \(x \wedge y = a \oplus b\). In words, if you send two 1s, they must respond each a different bit, and respond the same otherwise.
+                        Alice and Bob win the game if \(x \wedge y = a \oplus b\). In words, they win if the sum of their answers modulo 2 equals the product of the inputs.
                     </p>
                 </div>
                 <div class="main-act s04_main">
@@ -629,12 +633,201 @@
                 </div>
             </section>
 
+
+            <!-- SECTION 04.5 -->
+            <!-- QUANTUM ENTANGLEMENT -->
+            <section class="grid" id="quantumentanglement">
+                <div class="head">
+                    <h2>Quantum Entanglement</h2>
+                </div>
+                <div class="main-full">
+                    <p>
+                        Explain basics
+                    </p>
+                </div>
+                <div class="plot">
+                    <h5>PROVER ⇿ PLAYER</h5>
+                    <p>An all-powerful machine, like Merlin, that provides information to the verifier.</p>
+                    <h5>VERIFIER ⇿ REFEREE</h5>
+                    <p>Our machine, like Arthur, whose complexity we are measuring. The referee questions the players, and based on their answers, "plays," determines whether they won.</p>
+                    <h5>NONLOCAL GAME VALUE</h5>
+                    <p>The probability that the players can win the game given their best strategy among all possible strategies.</p>
+                </div>
+                <div class="plot-butt">
+                </div>
+                <div class="overlay hide overlay_explains">
+                </div>
+                <div class="overlay hide overlay_links">
+                </div>       
+            </section>
+
+
+            <!-- SECTION 05 -->
+            <!-- QUANTUM STRATEGY -->
+            <section class="grid" id="classMIPstar">
+                <div class="head">
+                    <h2>Class MIP*: CHSH game again</h2>
+                </div>
+                <div class="main-intro">
+                    <p>
+                        Alice and Bob are playing the same game, but this time they have a powerful tool in their hands: 
+                        a single entangled qubit pair split between them before the game begins, denoted as \(|\psi\rangle = \frac{|00\rangle + |11\rangle}{\sqrt(2)}\).
+                        They have prepared their measurement axis in a specific way to beat the game as often as possible.
+                        Play and watch how they do!
+                    </p>
+                </div>
+                <div class="main-act s05_main">
+                    <div class="s05_a abob">
+                        <h3>Alice's strategies</h3>
+                        <div class="strats">
+                            <div class="strat" data-s="0">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="1">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                            <div class="strat" data-s="2">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="3">
+                                <p>\(x\)</p>
+                                <p></p>
+                                <p>\(a\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="s05_c">
+                        <h3>Referee</h3>
+                        <div class="s05_table">
+                            <p>\(x\)</p>
+                            <p>\(y\)</p>
+                            <p>\(a\)</p>
+                            <p>\(b\)</p>
+                            <p>\(x \wedge y\)</p>
+                            <p>\(a \oplus b\)</p>
+                        </div>
+                    </div>
+                    <div class="s05_b abob">
+                        <h3>Bob's strategies</h3>
+                        <div class="strats">
+                            <div class="strat" data-s="0">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="1">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                            <div class="strat" data-s="2">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(0\)</p>
+                            </div>
+                            <div class="strat" data-s="3">
+                                <p>\(y\)</p>
+                                <p></p>
+                                <p>\(b\)</p>
+                                <p>\(0\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                                <p>\(1\)</p>
+                                <p>\(\rightarrow\)</p>
+                                <p>\(1\)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-orange s05_play1">
+                        <h3>PLAY ONCE</h3>
+                    </div>
+                    <div class="button b-orange s05_playon">
+                        <h3>KEEP PLAYING</h3>
+                    </div>
+                </div>
+                <div class="plot">
+                    <div class="plot_wrap s05_plot" id="s05_plot">
+                        <!-- dynamically populated -->
+                    </div>
+                </div>
+                <div class="plot-butt">
+                    <div class="button b-blue b-explains">
+                        <h3 class="b-explain-05">EXPLAIN</h3>
+                    </div>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
+                </div>
+                <div class="overlay hide overlay_explains">
+                    <p>
+                    </p>
+                </div>
+                <div class="overlay hide overlay_links">
+                    <p>
+                        here: https://courses.cs.washington.edu/courses/cse532/04sp/lect09.pdf
+                    </p>
+                    <p>
+                        here: https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf
+                    </p>
+                </div>
+            </section>
+
         </div>
 
 
         <!-- Scripts -->
         <!-- Sortable utility by RubaXa & owenm -->
-        <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
         <!-- Graphing library by Cytoscape.js -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
