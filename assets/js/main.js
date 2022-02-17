@@ -844,7 +844,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var tbl = $('.s04_table');
 	var strats = [{0:0, 1:0}, {0:0, 1:1}, {0:1, 1:0}, {0:1, 1:1}];
 	var stratchanged = true;
-	var s04_i = 10;
+	var s04_i = 20;
 	var s04_colors = ['green', 'purple', 'red', 'blue', 'orange', 'black'];
 	var s04_button_enabled = true;
 
@@ -871,12 +871,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	});
 	
 	// playing the CHSH game
-	function chsh() {
-		if (s04_i > 20) {
-			clearInterval(s04_int);
-			s04_i = 0;
-			s04_button_enabled = true;
-		}
+	function chsh(expl = false) {
 		var s04_x = randInt(0, 1),
 			s04_y = randInt(0, 1),
 			s04_a = strats[alicestrat][s04_x],
@@ -888,26 +883,28 @@ $.fn.scrollEnd = function(callback, timeout) {
 			tbl.find('p').slice(6, 12).remove();
 		}
 
-		if (s04_win) {
-			var s04_col = 'rgba(30, 250, 50, 0.5)';
-		} else {
-			var s04_col = 'rgba(250, 30, 50, 0.5)';
+		if (!expl) {
+			if (s04_win) {
+				var s04_col = 'rgba(30, 250, 50, 0.5)';
+			} else {
+				var s04_col = 'rgba(250, 30, 50, 0.5)';
+			}
+	
+			var t1 = $('<p></p>').text(s04_x).css('background', s04_col).hide(),
+				t2 = $('<p></p>').text(s04_y).css('background', s04_col).hide();
+				t3 = $('<p></p>').text(s04_a).css('background', s04_col).hide();
+				t4 = $('<p></p>').text(s04_b).css('background', s04_col).hide();
+				t5 = $('<p></p>').text(s04_x && s04_y).css('background', s04_col).hide();
+				t6 = $('<p></p>').text(s04_a ^ s04_b).css('background', s04_col).hide();
+	
+			tbl.append([t1, t2, t3, t4, t5, t6]);
+			t1.show('fast');
+			t2.show('fast');
+			t3.show('fast');
+			t4.show('fast');
+			t5.show('fast');
+			t6.show('fast');
 		}
-
-		var t1 = $('<p></p>').text(s04_x).css('background', s04_col).hide(),
-			t2 = $('<p></p>').text(s04_y).css('background', s04_col).hide();
-			t3 = $('<p></p>').text(s04_a).css('background', s04_col).hide();
-			t4 = $('<p></p>').text(s04_b).css('background', s04_col).hide();
-			t5 = $('<p></p>').text(s04_x && s04_y).css('background', s04_col).hide();
-			t6 = $('<p></p>').text(s04_a ^ s04_b).css('background', s04_col).hide();
-
-		tbl.append([t1, t2, t3, t4, t5, t6]);
-		t1.show('fast');
-		t2.show('fast');
-		t3.show('fast');
-		t4.show('fast');
-		t5.show('fast');
-		t6.show('fast');
 
 		// store the result of the game for plots
 		var s04_pt = s04_pts[alicestrat][bobstrat];
@@ -932,20 +929,57 @@ $.fn.scrollEnd = function(callback, timeout) {
 			s04_idxs.push(4*alicestrat+bobstrat);
 			stratchanged = false;
 		}
-		s04_plt = $.plot('#s04_plot', s04_idxs.map(i => s04_pts_full[i]), s04_opt);
+		if (!expl) {
+			s04_plt = $.plot('#s04_plot', s04_idxs.map(i => s04_pts_full[i]), s04_opt);
+		}
 	}
-	$('.s04_play1').on('click', chsh);
+	$('.s04_play1').on('click', function() {chsh()});
 	$('.s04_playon').on('click', function() {
 		if (s04_button_enabled) {
 			s04_button_enabled = false;
-			s04_int = setInterval(function() {
+			var s04_int = setInterval(function() {
 				chsh();
 				s04_i++;
+				if (s04_i > 20) {
+					clearInterval(s04_int);
+					s04_i = 0;
+					s04_button_enabled = true;		
+				}
 			}, 100);
 		} else {
 			shake($('.s04_playon'), 300);
 		}
 	});
+
+	// when explain is clicked run a bunch of simulations
+	function explain04() {
+		// simulate 200 games of A1B4
+		alicestrat = 0;
+		bobstrat = 3;
+		stratchanged = true;
+		var times = 200;
+		while (times--) {
+			chsh(expl = true);
+		}
+		// simulate 200 games of A2B2
+		alicestrat = 1;
+		bobstrat = 1;
+		stratchanged = true;
+		times = 200;
+		while (times--) {
+			chsh(expl = true);
+		}
+		// simulate 200 games of A4B4
+		alicestrat = 3;
+		bobstrat = 3;
+		stratchanged = true;
+		times = 200;
+		while (times--) {
+			chsh(expl = true);
+		}
+		console.log(s04_pts_full);
+		s04_plt = $.plot('#s04_plot', s04_idxs.map(i => s04_pts_full[i]), s04_opt);
+	}
 
 	// s04 plot
 	var s04_pts = [[[], [], [], []], [[], [], [], []], [[], [], [], []], [[], [], [], []]];
@@ -1066,20 +1100,22 @@ $.fn.scrollEnd = function(callback, timeout) {
 			}]
 		};
 
-	function coltoggle(aC, aW) {
-		var cnt = 15;
+	function coltoggle(aC, aW, quick) {
 		aC.toggleClass('bright');
-		var s05_int = setInterval(function() {
-			aC.toggleClass('bright');
-			aW.toggleClass('bright');
-			cnt--;
-			if (cnt == 0) {
-				clearInterval(s05_int);
-			}
-		}, 50);
+		if (!quick) {
+			var cnt = 10; // must be even
+			var s05_int = setInterval(function() {
+				aC.toggleClass('bright');
+				aW.toggleClass('bright');
+				cnt--;
+				if (cnt == 0) {
+					clearInterval(s05_int);
+				}
+			}, 50);	
+		}
 	}
 
-	function chshq() {
+	function chshq(quick = false) {
 		if (s05_i > 20) {
 			clearInterval(s05_int);
 			s05_i = 0;
@@ -1093,47 +1129,61 @@ $.fn.scrollEnd = function(callback, timeout) {
 			s05_a = -1,
 			s05_b = -1,
 			s05_p = Math.random();
-		if (s05_q == [1, 1]) {
-			s05_p = 1-s05_p;
+		
+		// find the axis and result to color
+		// Alice responds with 0 for p < 0.5
+		// Alice measures in |0> |1> for x=0 and in |+> |-> for x=1
+		if (s05_p < 0.5) {
+			s05_a = 0;
+			if (s05_x == 0) {
+				coltoggle($('.sq0'), $('.sq1'), quick);
+			} else {
+				coltoggle($('.sqPLUS'), $('.sqMINUS'), quick);
+			}
+		} else {
+			s05_a = 1;
+			if (s05_x == 0) {
+				coltoggle($('.sq1'), $('.sq0'), quick);
+			} else {
+				coltoggle($('.sqMINUS'), $('.sqPLUS'), quick);
+			}
+		}
+		// Bob measures in |A> |B> for y=0 and in |a> |b> for y=1
+		if (s05_y == 0) {
+			// Bob responds with 0 for p < 0.427 and 0.5 <= p < 0.573
+			if (s05_p < 0.427 || (0.5 <= s05_p && s05_p < 0.573)) {
+				s05_b = 0;
+				coltoggle($('.sqA'), $('.sqB'), quick);
+			} else {
+				s05_b = 1;
+				coltoggle($('.sqB'), $('.sqA'), quick);
+			}
+		} else {
+			if (s05_x == 0) { // row 2
+				// Bob responds with 0 for p < 0.427 and 0.5 <= p < 0.573
+				if (s05_p < 0.427 || (0.5 <= s05_p && s05_p < 0.573)) {
+					s05_b = 0;
+					coltoggle($('.sqa'), $('.sqb'), quick);
+				} else {
+					s05_b = 1;
+					coltoggle($('.sqb'), $('.sqa'), quick);
+				}
+			} else { // row 4
+				// Bob responds with 0 for p < 0.073 and 0.5 <= p < 0.927
+				if (s05_p < 0.073 || (0.5 <= s05_p && s05_p < 0.927)) {
+					s05_b = 0;
+					coltoggle($('.sqa'), $('.sqb'), quick);
+				} else {
+					s05_b = 1;
+					coltoggle($('.sqb'), $('.sqa'), quick);
+				}
+			}
 		}
 
-		// find the axis and result to color
-		if (s05_x == 0) {
-			if (s05_p < s05_probs[0] || (s05_probs[1] < s05_p && s05_p < s05_probs[2])) {
-				coltoggle($('.sq0'), $('.sq1'));
-				s05_a = 0;
-			} else {
-				coltoggle($('.sq1'), $('.sq0'));
-				s05_a = 1;
-			}
-		} else {
-			if (s05_p < s05_probs[0] || (s05_probs[1] < s05_p && s05_p < s05_probs[2])) {
-				coltoggle($('.sqPLUS'), $('.sqMINUS'));
-				s05_a = 0;
-			} else {
-				coltoggle($('.sqMINUS'), $('.sqPLUS'));
-				s05_a = 1;
-			}
-		}
-		if (s05_y == 0) {
-			if (s05_p < s05_probs[0] || s05_p > s05_probs[2]) {
-				coltoggle($('.sqA'), $('.sqB'));
-				s05_b = 0;
-			} else {
-				coltoggle($('.sqB'), $('.sqA'));
-				s05_b = 1;
-			}
-		} else {
-			if (s05_p < s05_probs[0] || s05_p > s05_probs[2]) {
-				coltoggle($('.sqa'), $('.sqb'));
-				s05_b = 0;
-			} else {
-				coltoggle($('.sqb'), $('.sqa'));
-				s05_b = 1;
-			}
-		}
+		// calculate if they won
 		s05_win = (s05_x && s05_y) == (s05_a ^ s05_b) ? 1 : 0;
 
+		var s05_tm = quick ? 0 : 500; // takes 500 time if not set to quick
 		setTimeout(function() {
 			var tbl05 = $('.s05_table');
 			// check for table being too full
@@ -1170,15 +1220,15 @@ $.fn.scrollEnd = function(callback, timeout) {
 				s05_pts.push([s05_newx, s05_newy]);
 			}
 			s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
-		}, 50*15);
-
+		}, s05_tm);
 	}
-	$('.s05_play1').on('click', chshq);
+
+	$('.s05_play1').on('click', function() {chshq()});
 	$('.s05_playon').on('click', function() {
 		if (s05_button_enabled) {
 			s05_button_enabled = false;
 			s05_int = setInterval(function() {
-				chshq();
+				chshq(quick = true);
 				s05_i++;
 			}, 100);
 		} else {
@@ -1219,7 +1269,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	$('.b-explain-04').on('click', function() {
 		if (s04_expl == false) {
 			s04_expl = true;
-			s04_plt = $.plot('#s04_plot', s04_pts_full, s04_opt_full);
+			explain04();
 		}
 		toggle_explains();
 	});

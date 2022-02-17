@@ -446,8 +446,8 @@
                     </p>
                     <p>
                         In this game, our two provers are players, and the verifier is a referee. The referee sends the players each a question, and based on their answers decides whether they win.
-                        The players know the full rules of the game and can setup a strategy together before hand, but cannot communicate once the game starts.
-                        However, since the referees questions are probabilistic (drawn from a known distribution), the players can't be sure that they always win.
+                        The players know the full rules of the game and can setup a strategy together beforehand, but cannot communicate once the game starts.
+                        However, since the referee's questions are probabilistic (drawn from a known distribution), the players can't be sure that they always win.
                     </p>
                     <p>
                         Instead, their goal is to setup the best strategy possible that would win them the highest percentage of games. Their best strategy success rate is called the value of the game.
@@ -621,6 +621,20 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
+                        You should see a set of simulations ran for a few select strategies appear on the chart on the right. With a large number of games played,
+                        we can see statistical results as their win percentages stabilize. Some strategies lead to a very poor performance, winning just around a quarter of the games.
+                    </p>
+                    <p>
+                        The best of the strategies shown, A4B4 is Alice and Bob completely ignoring the question and just answering \(1\) every time.
+                        Its win probability is 75%, and in fact this is the highest probability of win that Bob and Alice can achieve. You are welcome to try and find other strategies with the same win percentage, but you won't be able to beat it.
+                        You can even enumerate all 16 strategies (or accompany it by the "both-Alice-and-Bob-answer-randomly" strategy!), and evaluate their chances against the 4 question sets.
+                    </p>
+                    <p>
+                        You will find out that 75% is the best Alice and Bob can do, which makes \(0.75\) the classical value of the game.
+                    </p>
+                    <p>
+                        Obviously, the example is fairly simplistic, but it illustrates the idea of multi-prover interactive proofs.
+                        In more complicated set-ups, the verifier is cross-checking both provers' answers - for example, having two merlins in the previous problem of graph non-isomorphism
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
@@ -671,7 +685,7 @@
                 <div class="main-intro">
                     <p>
                         Alice and Bob are playing the same game, but this time they have a powerful tool in their hands: 
-                        a single entangled qubit pair split between them before the game begins, denoted as \(|\psi\rangle = \frac{|00\rangle + |11\rangle}{\sqrt(2)}\).
+                        a single entangled qubit pair split between them before the game begins, denoted as \(|\psi\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}\).
                         They have prepared their measurement axes in a specific way to beat the game as often as possible.
                         Play and watch how they do!
                     </p>
