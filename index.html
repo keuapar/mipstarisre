@@ -24,14 +24,15 @@
             <div class="nav_list nav_CLOSED">
                 <a href="#home">Home</a>
                 <a href="#classP">Class P: Sorting</a>
-                <a href="#decisionproblems">Decision problems</a>
+                <a href="#decisionproblems">- Decision problems</a>
                 <a href="#classBPP">Class BPP: Polynomial Identity Testing</a>
-                <a href="#proversverifiers">Solvers and verifiers</a>
+                <a href="#proversverifiers">- Solvers and verifiers</a>
                 <a href="#classIP">Class IP: Graph Non-Isomorphism</a>
-                <a href="#nonlocalgames">Nonlocal games</a>
+                <a href="#nonlocalgames">- Nonlocal games</a>
                 <a href="#classMIP">Class MIP: The CHSH game</a>
-                <a href="#quantumentanglement">Quantum Entanglement</a>
+                <a href="#quantumentanglement">- Quantum Entanglement</a>
                 <a href="#classMIPstar">Class MIP*: The CHSH game</a>
+                <a href="#mipstarisre">- MIP* = RE</a>
             </div>
             <div class="nav_btns">
                 <a title="Scroll to Top" href="#sec_00" class="fas fa-angle-double-up" id="Bupup"></a>
@@ -634,7 +635,7 @@
                     </p>
                     <p>
                         Obviously, the example is fairly simplistic, but it illustrates the idea of multi-prover interactive proofs.
-                        In more complicated set-ups, the verifier is cross-checking both provers' answers - for example, having two merlins in the previous problem of graph non-isomorphism
+                        In more complicated set-ups, the verifier is cross-checking both provers' answers - for example, having two merlins in the previous problem of graph non-isomorphism would allow you to draw your conclusion as soon as the two Merlins disagree!
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
@@ -656,16 +657,32 @@
                 </div>
                 <div class="main-full">
                     <p>
-                        Explain basics
+                        We're finally arriving at the crux of the exploration. We now have two provers whose answers need to be coordinated, but who aren't allowed to communicate.
+                        One way they can achieve this correlation is via quantum entaglement. There's limited space to explain here, so let's layout the basics and feel free to consult the linked resources for further explanations!
+                    </p>
+                    <p>
+                        Until now, we've worked in the classical world, where bits are either \(0\) or \(1\). A qubit, on the other hand, can be in a superposition of \(\ket{0}\) and \(\ket{1}\), with a certain probability of us observing either of the two when we measure it.
+                        For example, a qubit could be in the state \(\psi = \frac{\ket{0}}{\sqrt{2}} + \frac{\ket{1}}{\sqrt{2}}\). When measured, it has a 50% chance of showing up as \(\ket{0}\), calculated as \( |\braket{0\vert\psi}|^2 = | \begin{bmatrix}1 & 0\end{bmatrix}\begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix} |^2 = 0.5\),
+                        where we use matrix notation with the basis \(\begin{bmatrix} \ket{0} \\ \ket{1} \end{bmatrix}\).
+                    </p>
+                    <p>
+                        If we have two qubits, we can describe their state at once with a tensor product, e.g. \(\ket{\psi}_A \otimes \ket{\phi}_B\). For example, if \(\ket{\psi} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}\) and \(\ket{\phi} = \ket{0}\), 
+                        then \(\ket{\psi} \otimes \ket{\phi} = \frac{\ket{00}}{\sqrt{2}} + 0\times \ket{01} + \frac{\ket{10}}{\sqrt{2}} + 0\times \ket{11}\).
+                    </p>
+                    <p>
+                        However, some states cannot be split into a tensor product. Take for example \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\) - no matter how hard you try, you won't find a tensor product to generate it. This is called an entangled state. If we calculate the measurement probabilities, we find out that there is a 50% chance of measuring \(\ket{00}\)
+                        and 50% chance of measuring \(\ket{11}\). If we give the two qubits to Alice and Bob while entangled, and Alice measures a \(\ket{0}\) state on her qubit, Bob's MUST be also \(\ket{0}\), because the probability of a \(\ket{01}\) state is 0%!
                     </p>
                 </div>
                 <div class="plot">
-                    <h5>PROVER ⇿ PLAYER</h5>
-                    <p>An all-powerful machine, like Merlin, that provides information to the verifier.</p>
-                    <h5>VERIFIER ⇿ REFEREE</h5>
-                    <p>Our machine, like Arthur, whose complexity we are measuring. The referee questions the players, and based on their answers, "plays," determines whether they won.</p>
-                    <h5>NONLOCAL GAME VALUE</h5>
-                    <p>The probability that the players can win the game given their best strategy among all possible strategies.</p>
+                    <h5>BIT</h5>
+                    <p>A unit of classical information, can be either \(0\) or \(1\).</p>
+                    <h5>QUBIT</h5>
+                    <p>A unit of quantum information, can be in some superposition of \(\ket{0}\) and \(\ket{1}\)</p>
+                    <h5>2-QUBIT STATE</h5>
+                    <p>A system of two qubits: \(\ket{\psi} = c_1\ket{00} + c_2\ket{01} + c_3\ket{10} + c_4\ket{11}\)</p>
+                    <h5>ENTANGLED STATE</h5>
+                    <p>A 2-qubit state that cannot be factored into a tensor product, like \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\)</p>
                 </div>
                 <div class="plot-butt">
                 </div>
@@ -684,24 +701,22 @@
                 </div>
                 <div class="main-intro">
                     <p>
-                        Alice and Bob are playing the same game, but this time they have a powerful tool in their hands: 
-                        a single entangled qubit pair split between them before the game begins, denoted as \(|\psi\rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}\).
-                        They have prepared their measurement axes in a specific way to beat the game as often as possible.
-                        Play and watch how they do!
+                        This time, Alice and Bob have prepared a special strategy for the same game: beforehand, they entangled a qubit pair \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\) and each of them took one of the qubits.
+                        They also prepared their measurement axis in a specific way, which allows them to win as often as possible - play and watch how they do!
                     </p>
                 </div>
                 <div class="main-act s05_main">
                     <div class="s05_a s05_abob">
                         <h3>Alice's qubit</h3>
                         <div class="gate agate">
-                            <div class="sq sq0">\(|0_0\rangle\)</div>
-                            <div class="sq sq1">\(|1_1\rangle\)</div>
-                            <div class="sq sqPLUS">\(|+_0\rangle\)</div>
-                            <div class="sq sqMINUS">\(|-_1\rangle\)</div>
+                            <div class="sq sq0">\(\ket{0_0}\)</div>
+                            <div class="sq sq1">\(\ket{1_1}\)</div>
+                            <div class="sq sqPLUS">\(\ket{+_0}\)</div>
+                            <div class="sq sqMINUS">\(\ket{-_1}\)</div>
                         </div>
                         <p>
-                            If I receive \(x=0\), I'll measure along the \(|0\rangle, |1\rangle\) axis,
-                            otherwise along the \(|+\rangle, |-\rangle\) axis.
+                            If I receive \(x=0\), I'll measure along the \(\ket{0}, \ket{1}\) axis,
+                            otherwise along the \(\ket{+}, \ket{-}\) axis.
                         </p>
                     </div>
                     <div class="s04_c">
@@ -716,14 +731,14 @@
                     <div class="s05_b s05_abob">
                         <h3>Bob's qubit</h3>
                         <div class="gate bgate">
-                            <div class="sq sqA">\(|A_0\rangle\)</div>
-                            <div class="sq sqB">\(|B_1\rangle\)</div>
-                            <div class="sq sqa">\(|a_0\rangle\)</div>
-                            <div class="sq sqb">\(|b_1\rangle\)</div>
+                            <div class="sq sqA">\(\ket{A_0}\)</div>
+                            <div class="sq sqB">\(\ket{B_1}\)</div>
+                            <div class="sq sqa">\(\ket{a_0}\)</div>
+                            <div class="sq sqb">\(\ket{b_1}\)</div>
                         </div>
                         <p>
-                            If I receive \(x=0\), I'll measure along the \(|A\rangle, |B\rangle\) axis,
-                            otherwise along the \(|a\rangle, |b\rangle\) axis.
+                            If I receive \(x=0\), I'll measure along the \(\ket{A}, \ket{B}\) axis,
+                            otherwise along the \(\ket{a}, \ket{b}\) axis.
                         </p>
                     </div>
                 </div>
@@ -750,6 +765,22 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
+                        Compare the quantum strategy to some of the classical strategies Alice and Bob employed previously. They are doing much better now! With a single quantum-entangled qubit and some smart measuring axis, they upped the value of the game to 85%.
+                    </p>
+                    <p>
+                        Let's translate the nonlocal games language back into a complexity class now.
+                        We say that a language belongs to the complexity class MIP* if you can translate it into a nonlocal game G, with quantum value over 2/3 for all strings belonging to the language and below 1/3 for all strings not belonging to the language.
+                    </p>
+                    <p>
+                        We know that MIP* contains MIP, because you can always choose the "quantum" strategy of ignoring your qubits and going with the best classical strategy. 
+                        We have also seen an example of a quantum strategy doing better than a classical strategy, suggesting that there are problems for which a quantum strategy is enough where a classical one cannot do.
+                        (In reality both of these statements come with more details, also including the lower bound).
+                    </p>
+                    <p>
+                        Determining whether a string belongs to a langauge is then a question of finding the quantum value of game G, which is done by approximation, hopefully to a convergent value.
+                    </p>
+                    <p>
+                        Continue to the last page to see the relationship between MIP* and RE!
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
@@ -760,6 +791,37 @@
                         here: https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf
                     </p>
                 </div>
+            </section>
+
+            <!-- SECTION 05.5 -->
+            <!-- MIP* = RE -->
+            <section class="grid" id="mipstarisre">
+                <div class="head">
+                    <h2>MIP* = RE</h2>
+                </div>
+                <div class="main-full">
+                    <p>
+                        The previous exercises established 
+                    </p>
+                </div>
+                <div class="plot">
+                    <h5>Class P</h5>
+                    <p>Solvable by a Turing machine in polynomial time</p>
+                    <h5>Class BPP</h5>
+                    <p>Solvable with an error bound by a Turing machine in polynomial time</p>
+                    <h5>Class IP</h5>
+                    <p>Verifiable with an error bound by a Turing machine in an interactive proof protocol</p>
+                    <h5>Class MIP</h5>
+                    <p>Verifiable with an error bound by a Turing machine in a multi-prover interactive proof protocol</p>
+                    <h5>Class MIP*</h5>
+                    <p>Verifiable with an error bound by a Turing machine against multiple provers sharing quantum entanglement</p>
+                </div>
+                <div class="plot-butt">
+                </div>
+                <div class="overlay hide overlay_explains">
+                </div>
+                <div class="overlay hide overlay_links">
+                </div>       
             </section>
 
         </div>

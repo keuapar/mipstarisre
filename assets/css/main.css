@@ -211,20 +211,19 @@ nav {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	background: rgb(250, 247, 99);
 	height: 100%;
 	transition: width 0.5s;
 	font-size: 1.3em;
-	text-align: center;
 }
 
 .nav_list a {
-	padding: 5px 0;
+	padding: 5px 20px;
 }
 
 .nav_list a:hover {
-	font-size: 1.4em;
+	font-size: 1.05em;
+	background-color: yellow;
 }
 
 .nav_btns {

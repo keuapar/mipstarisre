@@ -844,7 +844,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	var tbl = $('.s04_table');
 	var strats = [{0:0, 1:0}, {0:0, 1:1}, {0:1, 1:0}, {0:1, 1:1}];
 	var stratchanged = true;
-	var s04_i = 20;
+	var s04_i = 1;
 	var s04_colors = ['green', 'purple', 'red', 'blue', 'orange', 'black'];
 	var s04_button_enabled = true;
 
@@ -957,7 +957,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		alicestrat = 0;
 		bobstrat = 3;
 		stratchanged = true;
-		var times = 200;
+		var times = 300;
 		while (times--) {
 			chsh(expl = true);
 		}
@@ -965,7 +965,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		alicestrat = 1;
 		bobstrat = 1;
 		stratchanged = true;
-		times = 200;
+		times = 300;
 		while (times--) {
 			chsh(expl = true);
 		}
@@ -973,11 +973,12 @@ $.fn.scrollEnd = function(callback, timeout) {
 		alicestrat = 3;
 		bobstrat = 3;
 		stratchanged = true;
-		times = 200;
+		times = 300;
 		while (times--) {
 			chsh(expl = true);
 		}
-		console.log(s04_pts_full);
+		$('.strat').css('background-color', 'darkblue');
+		$('.strats div:last-child').css('background-color', 'blue');
 		s04_plt = $.plot('#s04_plot', s04_idxs.map(i => s04_pts_full[i]), s04_opt);
 	}
 
@@ -1013,7 +1014,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		},
 		legend: {
 			show: true,
-			position: 'ne',
+			position: 'me',
 			margin: [30, 5]
 		},
 		axisLabels: {
@@ -1099,6 +1100,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 				axisLabel: 'percentage of games won',
 			}]
 		};
+	var tbl05 = $('.s05_table');
 
 	function coltoggle(aC, aW, quick) {
 		aC.toggleClass('bright');
@@ -1115,7 +1117,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 	}
 
-	function chshq(quick = false) {
+	function chshq(quick = false, expl = false) {
 		if (s05_i > 20) {
 			clearInterval(s05_int);
 			s05_i = 0;
@@ -1183,44 +1185,47 @@ $.fn.scrollEnd = function(callback, timeout) {
 		// calculate if they won
 		s05_win = (s05_x && s05_y) == (s05_a ^ s05_b) ? 1 : 0;
 
-		var s05_tm = quick ? 0 : 500; // takes 500 time if not set to quick
-		setTimeout(function() {
-			var tbl05 = $('.s05_table');
-			// check for table being too full
-			if (tbl05[0].childElementCount > 24) {
-				tbl05.find('p').slice(4, 8).remove();
-			}
-	
-			if (s05_win) {
-				var s05_col = 'rgba(30, 250, 50, 0.5)';
-			} else {
-				var s05_col = 'rgba(250, 30, 50, 0.5)';
-			}
-	
-			var	t3 = $('<p></p>').text(s05_a).css('background', s05_col).hide();
-				t4 = $('<p></p>').text(s05_b).css('background', s05_col).hide();
-				t5 = $('<p></p>').text(s05_x && s05_y).css('background', s05_col).hide();
-				t6 = $('<p></p>').text(s05_a ^ s05_b).css('background', s05_col).hide();
-	
-			tbl05.append([t3, t4, t5, t6]);
-			t3.show('fast');
-			t4.show('fast');
-			t5.show('fast');
-			t6.show('fast');	
-
-			// add new point to chart
-			if (s05_pts.length == 0) {
-				s05_pts.push([1, s05_win]);
-			} else {
-				var s05_newx = s05_pts.length+1;
-				if (s05_opt['xaxis']['max'] < s05_newx) {
-					s05_opt['xaxis']['max'] = s05_newx;
+		if (!expl) {
+			var s05_tm = quick ? 0 : 500; // takes 500 time if not set to quick
+			setTimeout(function() {	
+				// check for table being too full
+				if (tbl05[0].childElementCount > 24) {
+					tbl05.find('p').slice(4, 8).remove();
 				}
-				var s05_newy = (s05_pts.length*s05_pts[s05_pts.length-1][1]+s05_win)/s05_newx;
-				s05_pts.push([s05_newx, s05_newy]);
+
+				if (s05_win) {
+					var s05_col = 'rgba(30, 250, 50, 0.5)';
+				} else {
+					var s05_col = 'rgba(250, 30, 50, 0.5)';
+				}
+		
+				var	t3 = $('<p></p>').text(s05_a).css('background', s05_col).hide();
+					t4 = $('<p></p>').text(s05_b).css('background', s05_col).hide();
+					t5 = $('<p></p>').text(s05_x && s05_y).css('background', s05_col).hide();
+					t6 = $('<p></p>').text(s05_a ^ s05_b).css('background', s05_col).hide();
+		
+				tbl05.append([t3, t4, t5, t6]);
+				t3.show('fast');
+				t4.show('fast');
+				t5.show('fast');
+				t6.show('fast');
+			}, s05_tm);
+		}
+
+		// add new point to chart
+		if (s05_pts.length == 0) {
+			s05_pts.push([1, s05_win]);
+		} else {
+			var s05_newx = s05_pts.length+1;
+			if (s05_opt['xaxis']['max'] < s05_newx) {
+				s05_opt['xaxis']['max'] = s05_newx;
 			}
+			var s05_newy = (s05_pts.length*s05_pts[s05_pts.length-1][1]+s05_win)/s05_newx;
+			s05_pts.push([s05_newx, s05_newy]);
+		}
+		if (!expl) {
 			s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
-		}, s05_tm);
+		}
 	}
 
 	$('.s05_play1').on('click', function() {chshq()});
@@ -1236,6 +1241,22 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 	});
 
+	// when explain is clicked run a bunch of simulations
+	function explain05() {
+		// simulate 200 CHSH games
+		var times = 300;
+		while (times--) {
+			chshq(quick = true, expl = true);
+		}
+		if (!s04_expl) {
+			s04_expl = true;
+			explain04();
+		}
+		s05_pts_full.push({'label': 'A1B4', 'data': s04_pts[0][3], 'points': {fillColor: 'black'}});
+		s05_pts_full.push({'label': 'A4B4', 'data': s04_pts[3][3], 'points': {fillColor: 'green'}});
+		s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
+	}
+
 	var s05_plt = $.plot('#s05_plot', s05_pts_full, s05_opt);
 
 	// OVERLAYS
@@ -1243,17 +1264,18 @@ $.fn.scrollEnd = function(callback, timeout) {
 		blinks = false,
 		s01_expl = false,
 		s02_expl = false,
-		s04_expl = false;
+		s04_expl = false,
+		s05_expl = false;
 
 	$('.b-explain-01').on('click', function() {
-		if (s01_expl == false) {
+		if (!s01_expl) {
 			s01_expl = true;
 			s01_plt = $.plot('#s01_plot', s01_pts_full, s01_opt_full);
 		}
 		toggle_explains();
 	});
 	$('.b-explain-02').on('click', function() {
-		if (s02_expl == false) {
+		if (!s02_expl) {
 			s02_expl = true;
 			s02_plt = $.plot('#s02_plot', s02_pts_full, s02_opt_full);
 		}
@@ -1267,9 +1289,16 @@ $.fn.scrollEnd = function(callback, timeout) {
 		toggle_explains();
 	});
 	$('.b-explain-04').on('click', function() {
-		if (s04_expl == false) {
+		if (!s04_expl) {
 			s04_expl = true;
 			explain04();
+		}
+		toggle_explains();
+	});
+	$('.b-explain-05').on('click', function() {
+		if (!s05_expl) {
+			s05_expl = true;
+			explain05();
 		}
 		toggle_explains();
 	});
