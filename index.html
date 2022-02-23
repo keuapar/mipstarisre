@@ -801,7 +801,24 @@
                 </div>
                 <div class="main-full">
                     <p>
-                        The previous exercises established 
+                        The previous exercises established the MIP* class, but it's also important to talk about the RE class.
+                        RE stands for recursively enumerable, the class of languages whose 'yes' instances a Turing machine can list one by one.
+                        In a less cryptic way, it can also be defined as language to which a Turing machine can verify the 'yes' problems, but might run indefinitely for 'no' problems.
+                    </p>
+                    <p>
+                        A famous example of a language belonging to RE is the Halting Problem, asking whether a given program will stop running; 
+                        you can run it, and say 'yes' if it stops, but it might just keep running forever if the true answer is no.
+                        Because of an ensuing paradox, it is undecidable whether a program will halt, and a reduction to this problem is often used to show other problems are undecidable.
+                        A reduction is a statement of the type "if you could solve this problem, you could also solve the halting problem, and that's impossible."
+                    </p>
+                    <p>
+                        This is exactly the type of structure Ji et al. used to show that it's also undecidable whether a string belongs to MIP*.
+                        Their idea translates the question of whether a program halts into a quantum nonlocal game - if the game has quantum value 1, the machine halts, and if it has value less than 1/2, it doesn't halt.
+                    </p>
+                    <p>
+                        If there was a way to calculate (or at least approximate) the quantum value of a game, to figure out if a string belongs to MIP*,
+                        Ji et al.'s procedure would allow us to use this algorithm and figure out the Halting problem - which is impossible!
+                        So there cannot be a solver for MIP*, which must thus be undecidable and equal to RE.
                     </p>
                 </div>
                 <div class="plot">
@@ -811,8 +828,6 @@
                     <p>Solvable with an error bound by a Turing machine in polynomial time</p>
                     <h5>Class IP</h5>
                     <p>Verifiable with an error bound by a Turing machine in an interactive proof protocol</p>
-                    <h5>Class MIP</h5>
-                    <p>Verifiable with an error bound by a Turing machine in a multi-prover interactive proof protocol</p>
                     <h5>Class MIP*</h5>
                     <p>Verifiable with an error bound by a Turing machine against multiple provers sharing quantum entanglement</p>
                 </div>
