@@ -74,6 +74,10 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 		return num
 	}
+	// jitter a number (+- percentage)
+	function jitter(n, p = 0.3) {
+		return n + rand_norm(-n*p, n*p);
+	}
 	// N choose K utility by Mike Pomax Kamermans
 	// @ https://stackoverflow.com/questions/37679987/efficient-computation-of-n-choose-k-in-node-js
 	var binomial_coeffs = [
@@ -293,6 +297,124 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}
 	});
 
+
+	// 00: HOME
+	// intro canvas drawings
+	var canvas = document.getElementById('introCanvas'),
+		$canvas = $('#introCanvas'),
+		ctx = canvas.getContext('2d');
+
+		$canvas.css('width',$(window).width());
+		$canvas.css('height',$(window).height());
+		canvas.width = $(window).width();
+		canvas.height = $(window).height();
+
+	// convert ellipse to set of coordinates
+	function ellToLines(h,k,a,b,n) { 
+		// h,k - center coordinates
+		// a,b - width, height
+		// n - granularity
+		x = [];
+		a2 = Math.pow(a,2)
+		ytop = [];
+		ybot = [];
+		step = 2*a/n;
+		for (i=0; i<=n; i++) {
+			xnew = h-a+i*step;
+			ynew = b*Math.sqrt(1-Math.pow(xnew-h, 2)/a2);
+			x.push(xnew);
+			ytop.push(k+ynew);
+			ybot.push(k-ynew);
+		}
+		// console.log(x, ytop, ybot);
+		return([x, ytop, ybot]);
+	}
+	// draw chalk line between each pair of coordinates
+	function drawLines(ell, fn, color = 'white', w = 6, time = 8) {
+		xs = ell[0];
+		ytop = ell[1];
+		ybot = ell[2];
+		ctx.strokeStyle = color;
+		ctx.lineWidth = w;
+		i = 1;
+		upper = setInterval(function() {
+			ctx.beginPath();
+			ctx.moveTo(xs[i-1],ytop[i-1]);
+			ctx.lineTo(xs[i],ytop[i]);
+			ctx.stroke();
+			chalk(xs[i-1], ytop[i-1], xs[i], ytop[i], w);
+			i++;
+			if (i == xs.length) {
+				clearInterval(upper);
+				i = xs.length-2;
+				lower = setInterval(function() {
+					ctx.beginPath();
+					ctx.moveTo(x[i+1],ybot[i+1]);
+					ctx.lineTo(x[i],ybot[i]);
+					ctx.stroke();
+					chalk(xs[i+1], ybot[i+1], xs[i], ybot[i], w);
+					i--;
+					if (i == -1) {clearInterval(lower); fn();}
+				}, time);
+			}
+		}, time);
+	}
+	// chalk canvas style by Mohamed Moustafa
+	// adapted from @ https://codepen.io/mmoustafa/pen/AXprLM
+	function chalk(fromX, fromY, toX, toY, w) {
+		var length = Math.round( Math.sqrt( Math.pow( toX - fromX, 2 ) + Math.pow( toY - fromY, 2 ) ) / ( 5 / w ) );
+		var xUnit = ( toX - fromX ) / length;
+		var yUnit = ( toY - fromY ) / length;
+		for ( var i = 0; i < length; i++ ) {
+			var xCurrent = fromX + ( i * xUnit );
+			var yCurrent = fromY + ( i * yUnit );
+			var xRandom = xCurrent + ( Math.random() - 0.5 ) * w * 1.2;
+			var yRandom = yCurrent + ( Math.random() - 0.5 ) * w * 1.2;
+			ctx.clearRect( xRandom, yRandom, Math.random() * 2 + 2, Math.random() + 1 );
+		}
+	}
+
+	// draw welcome screen ellipses
+	var cwidth = canvas.width,
+		cheight = canvas.height;
+
+
+	function draw1() {
+		// class P
+		var ell1 = ellToLines(jitter(cwidth/2), jitter(cheight/2), cwidth/4, cheight/6, 50);
+		drawLines(ell1, draw2, 'red');
+		$('.i1').css({'color': 'red', 'left': ell1[0][35], 'top': ell1[1][35]}).fadeIn(500);
+	}
+	function draw2() {
+		// class BPP
+		var ell2 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 5*cwidth/16, 3*cheight/12, 60);
+		drawLines(ell2, draw3, 'blue');
+		$('.i2').css({'color': 'blue', 'left': ell2[0][14], 'top': ell2[2][14]}).fadeIn(500);
+	}
+	function draw3() {
+		// class IP
+		var ell3 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 6*cwidth/16, 4*cheight/12, 70);
+		drawLines(ell3, draw4, 'orange');
+		$('.i3').css({'color': 'orange', 'left': ell3[0][66], 'top': ell3[2][66]}).fadeIn(500);
+	}
+	function draw4() {
+		// class MIP
+		var ell4 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 7*cwidth/16, 5*cheight/12, 80);
+		drawLines(ell4, draw5, 'purple');
+		$('.i4').css({'color': 'purple', 'left': ell4[0][5], 'top': ell4[1][5]}).fadeIn(500);
+	}
+	function draw5() {
+		// class MIP*
+		var ell5 = ellToLines(jitter(cwidth/2), jitter(cheight/2), cwidth/2, cheight/2, 90);
+		drawLines(ell5, drawTitle, 'green');
+		$('.i5').css({'color': 'green', 'left': ell5[0][35], 'top': ell5[2][35]}).fadeIn(500);
+	}
+	function drawTitle() {
+		$('.intro').fadeIn(500);
+	}
+	jQuery(document).ready(function($) {
+		draw1();
+	});
 
 	// 01: SORTING
 	var num_books = 5,
