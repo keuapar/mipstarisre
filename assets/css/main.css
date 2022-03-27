@@ -187,25 +187,22 @@ section {
 	margin-left: 20vw;
 }
 
-.nav_CLOSED {
-	width: 0vw;
-	overflow: hidden;
-}
-
-.nav_OPEN {
-	width: 20vw;
-}
 
 /* NAVIGATION BUTTONS */
 nav {
 	height: 100vh;
+	width: calc(25vw + 50px);
 	position: fixed;
 	z-index: 10;
 	top: 0;
-	left: 0;
+	left: -25vw;
+	transition: left 0.5s;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+.nav_OPEN {
+	left: 0vw;
 }
 
 .nav_list {
@@ -214,7 +211,6 @@ nav {
 	justify-content: center;
 	background: rgb(250, 247, 99);
 	height: 100%;
-	transition: width 0.5s;
 	font-size: 1.3em;
 }
 
@@ -244,8 +240,8 @@ nav {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 50px;
-	min-height: 50px;
+	width: 50px;
+	height: 50px;
 	background-color: rgb(250, 247, 99);
 	text-align: center;
 	color: black;

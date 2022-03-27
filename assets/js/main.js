@@ -277,21 +277,14 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// navigation window opening
 	$Bnav.on('click', function() {
+		$('nav').toggleClass('nav_OPEN');
 		// navigation is opening
 		if (nav_closed == true) {
-			$main.removeClass('main_WIDE');
-			$main.addClass('main_NARROW');
-			$nav_list.removeClass('nav_CLOSED');
-			$nav_list.addClass('nav_OPEN');
 			$Bnav.removeClass('fa-angle-double-right');
 			$Bnav.addClass('fa-angle-double-left');
 			nav_closed = false;
 		} else {
 			// navigation is closing
-			$main.removeClass('main_NARROW');
-			$main.addClass('main_WIDE');
-			$nav_list.removeClass('nav_OPEN');
-			$nav_list.addClass('nav_CLOSED');
 			$Bnav.removeClass('fa-angle-double-left');
 			$Bnav.addClass('fa-angle-double-right');
 			nav_closed = true;
