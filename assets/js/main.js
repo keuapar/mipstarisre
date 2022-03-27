@@ -1191,7 +1191,6 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// SECTION 05: Q CHSH GAME
 	var s05_qs = [[0, 0], [0, 1], [1, 0], [1, 1]],
-		s05_probs = [0.42678, 0.85355, 0.92678, 1],
 		s05_win = -1,
 		s05_i = 10,
 		s05_button_enabled = true,
@@ -1466,6 +1465,5 @@ $.fn.scrollEnd = function(callback, timeout) {
 			blinks = false;
 		}
 	}
-
 
 })(jQuery);
