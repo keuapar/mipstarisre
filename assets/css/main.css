@@ -473,21 +473,16 @@ nav {
 	justify-content: center;
 }
 .s02_eq {
-	font-size: 2em;
-	text-align: center;
-}
-.s02_anim {
-	margin-top: 20px;
 	font-size: 1.5em;
 	text-align: center;
 }
-.s02_TF {
-	/* true false */
-	grid-area: main-butt;
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
+.s02_intro {
+	display: none;
+}
+.s02_anim {
+	margin-top: 20px;
+	font-size: 1em;
+	text-align: center;
 }
 
 

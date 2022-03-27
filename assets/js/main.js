@@ -178,7 +178,8 @@ $.fn.scrollEnd = function(callback, timeout) {
 		}, time);
 
 	}
-	// random integer (inclusive) @ https://www.w3schools.com/js/js_random.asp
+	// random integer (inclusive) 
+	// @ https://www.w3schools.com/js/js_random.asp
 	function randInt(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) ) + min;
 	}
@@ -601,41 +602,54 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// SECTION 02: Polynomial Identity Testing
 	var polynomials = [
 		'k^2 - l^2 \\stackrel{?}{=} (k+l)(k-l)',
-		'(a+b)^2 \\stackrel{?}{=} a^2 + b^2',
 		'x^3-4x^2-7x+10 \\stackrel{?}{=} (x-1)(x+2)(x-5)',
+		'(a+b+c)^2 \\stackrel{?}{=} a^2 + b^2 + c^2',
 		'(x-2)(y+x)(y-2x) \\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
-		'(x+3)(x^2-6) \\stackrel{?}{=} x^3+3x^2-6x-18'
+		'(x^3+3)(x^2-6) \\stackrel{?}{=} x^5-6x^3+3x^2-18',
+		'(i^2+j-k^2)(j+2i) \\stackrel{?}{=} (k^2+j)(-4i+j-k)'
 		],
 		poly_animations = [
 			['k^2 - l^2 &\\stackrel{?}{=} k^2 + kl - kl - l^2',
-			 'k^2 - l^2 &\\stackrel{?}{=} k^2 - l^2',
-			 '0 &= 0'],
-			['(a+b)^2 &\\stackrel{?}{=} a^2 + b^2',
-			 'a^2 + ab + ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
-			 'a^2 + 2ab + b^2 &\\stackrel{?}{=} a^2 + b^2',
-			 '2ab &\\neq 0'],
-			 [''],
-			 [''],
-			 ['']
+			 'k^2 - l^2 &= k^2 - l^2'],
+			['x^3-4x^2-7x+10 &\\stackrel{?}{=} (x^2-x+2x-2)(x-5)',
+			 '&\\stackrel{?}{=} (x^2+x-2)(x-5)',
+			 '&\\stackrel{?}{=} x^3+x^2-2x-5x^2-5x+10',
+			 'x^3-4x^2-7x+10 &= x^3-4x^2-7x+10'],
+			['a^2+ab+ac+ab+b^2+bc+ac+bc+c^2 &\\stackrel{?}{=} a^2 + b^2 + c^2',
+			  'a^2+2ab+2ac+b^2+2bc+c^2 &\\stackrel{?}{=} a^2 + b^2 + c^2',
+			  '2ab+2ac+2bc &\\neq 0'],
+			['(x-2)(y+x)(y-2x) &\\stackrel{?}{=} xy^2 -2y^2 - x^2y + 4x^2 + 4xy',
+			 '(xy-2y+x^2-2x)(y-2x) &\\stackrel{?}{=}',
+			 'xy^2-2x^2y-2y^2+4xy+x^2y-2x^3-2xy+4x^2 &\\stackrel{?}{=}',
+			 'xy^2-x^2y-2y^2+2xy-2x^3+4x^2 &\\stackrel{?}{=} xy^2-2y^2-x^2y+4x^2+4xy',
+			 '-2x^3 &\\neq 2xy'],
+			['x^5-6x^3+3x^2-18 = x^5-6x^3+3x^2-18'],
+			['(i^2+j-2k^2)(j+2i) &\\stackrel{?}{=} (k^2+j)(-4i+j-k)',
+			 'i^2j+2i^3+j^2+2ij-2jk^2-4ik^2 &\\stackrel{?}{=} -4ik^2+jk^2-k^3-4ij+j^2-jk',
+			 'i^2j+2i^3-3jk^2 &\\stackrel{?}{=} -k^3-6ij-jk',
+			 'i^2j+2i^3-3jk^2 +k^3+6ij+jk &\\neq 0']
 		],
-		truths = [true, false, true, false, true],
-		s02_round = -1,
-		s02_pts = [[4, 6], [4, 7], [5, 10], [4, 15], [5, 8]],
-		ans = 'none';
+		truths = [true, true, false, false, true, false],
+		s02_round = 0,
+		s02_pts_true = [[4,5], [4,13], [5,12], [5,14], [6,4], [6,16]],
+		s02_pts = []
+		s02_enabled = true,
+		s02_displayed = false;
 
 	function check(bt) {
 		corrbt = bt == truths[s02_round];
-		if (corrbt && (ans == 'none' || ans == 'wrong')) {
-			s02_clock.pause(green = true);
-			ans = 'right';
-			poly_animate();
+		if (corrbt) {
+			confetti({origin: {x: 0.4, y: 0.55}});
+			if (!s02_displayed) {
+				poly_animate();
+				s02_displayed = true;
+			}
 			// redraw plot
-			let pts = s02_pts.slice(0, s02_round+1);
-			update(s02_plt, pts, s02_pts_full, s02_expl);
+			s02_pts.push(s02_pts_true[s02_round]);
+			update(s02_plt, s02_pts, s02_pts_full, s02_expl);
 		} else {
 			// used to say / if (!corrbt && (ans == 'none' || ans == 'right'))
-			shake($('.s02_timer'), time = 300, col = 'red');
-			ans = 'wrong';
+			shake($('.s02_eq'), time = 300, col = 'red');
 		}
 	}
 
@@ -643,14 +657,9 @@ $.fn.scrollEnd = function(callback, timeout) {
 		let anims = poly_animations[s02_round],
 			count = 0,
 			mx = anims.length;
-		var intro = $('<p></p>')
-				.text('What steps does the computer take?')
-				.css({'font-size': '0.8em'});
-		
-		// change later -- append intro if there's text
-		if (mx > 1) {
-			$('.s02_anim').append(intro);
-		}
+
+		s02_enabled = false;
+		$('.s02_intro').css({'display': 'block'});
 		
 		s02int = setInterval(function() {
 			var div = $('<div></div>');
@@ -665,6 +674,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 			count++;
 			if (count >= mx) {
 				clearInterval(s02int);
+				s02_enabled = true;
 			}
 		}, 888)
 	}
@@ -673,20 +683,27 @@ $.fn.scrollEnd = function(callback, timeout) {
 	$('.s02_false').on('click', function() {check(false)});
 
 	// on demand display next equation
-	$('.s02_next').on('click', function() {
-		s02_round += 1;
-		s02_clock.restart();
+	function displayeq() {
+		s02_displayed = false;
+		$('.s02_intro').css({'display': 'none'});
 		$('.s02_anim').empty();
 		katex.render(polynomials[s02_round], $('.s02_eq')[0], {
 			throwOnError: false
 		});
 		ans = 'none';
+	}
+	$('.s02_next').on('click', function() {
+		if (s02_enabled) {
+			s02_round = Math.min(s02_round+1, polynomials.length-1);
+			displayeq();
+		}
 	});
-
-	// clock s02
-	var s02_clock = new clock(2, $('.s02_timer'));
-	$('.s02_reset').on('click', function() {s02_clock.start()});
-	$('.s02_harder').on('click', function() {s02_clock.pause(green = true)});
+	$('.s02_prev').on('click', function() {
+		if (s02_enabled) {
+			s02_round = Math.max(s02_round-1, 0);
+			displayeq();
+		}
+	})
 
 	// plot for Section 02
 	var s02_opt = {
@@ -760,7 +777,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	};
 
 	// ochcavka kdyz chci nic nezobrazovat protoze musi byt [s02_pts]
-	var s02_plt = $.plot('#s02_plot', s02_pts, s02_opt);
+	var s02_plt = $.plot('#s02_plot', [s02_pts], s02_opt);
 
 
 	// SECTION 03: arthur-merlin
