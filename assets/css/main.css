@@ -399,8 +399,11 @@ nav {
 	background-color: rgb(122, 44, 122);
 }
 
-.overlay_links h5 {
+.overlay_links h3 {
 	color: black;
+	font-size: 1.5em;
+	text-align: center;
+	margin-top: 0.5em;
 }
 .overlay_links a {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -410,7 +413,6 @@ nav {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-
 }
 .link {
 	position: relative;
@@ -420,6 +422,10 @@ nav {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	text-align: center;
+	background-color: rgb(174, 116, 174);
+	border-radius: 20px;
+	padding: 20px;
 }
 .link_src {
 	font-size: 0.8em;
@@ -431,6 +437,9 @@ nav {
 	left: 0;
 	height: 100%;
 	width: 100%;
+}
+.link p {
+	margin-bottom: 0em;
 }
 
 .hide {
