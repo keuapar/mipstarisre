@@ -385,15 +385,6 @@ nav {
 .overlay_explains {
 	text-indent: 30px;
 }
-.overlay_links {
-	display: grid;
-	grid-template-columns: 10% 30% 55%;
-	grid-template-rows: auto;
-	gap: 10px;
-}
-.overlay_links a {
-	font-family: 'Source Sans Pro', sans-serif;
-}
 
 .overlay_explains, .overlay_explains::-webkit-scrollbar-track {
 	background-color: rgb(113, 113, 173);
@@ -406,6 +397,40 @@ nav {
 }
 .overlay_links::-webkit-scrollbar-thumb {
 	background-color: rgb(122, 44, 122);
+}
+
+.overlay_links h5 {
+	color: black;
+}
+.overlay_links a {
+	font-family: 'Source Sans Pro', sans-serif;
+	color: white;
+}
+.links {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+}
+.link {
+	position: relative;
+	width: 30%;
+	margin: 1%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.link_src {
+	font-size: 0.8em;
+	font-style: italic;
+}
+.link canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
 }
 
 .hide {

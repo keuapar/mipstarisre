@@ -296,7 +296,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// intro canvas drawings
 	var canvas = document.getElementById('introCanvas'),
 		$canvas = $('#introCanvas'),
-		ctx = canvas.getContext('2d');
+		context = canvas.getContext('2d');
 
 		$canvas.css('width',$(window).width());
 		$canvas.css('height',$(window).height());
@@ -324,7 +324,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 		return([x, ytop, ybot]);
 	}
 	// draw chalk line between each pair of coordinates
-	function drawLines(ell, fn, color = 'white', w = 6, time = 8) {
+	function drawLines(ctx, ell, fn, color = 'white', w = 6, time = 8) {
 		xs = ell[0];
 		ytop = ell[1];
 		ybot = ell[2];
@@ -336,7 +336,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 			ctx.moveTo(xs[i-1],ytop[i-1]);
 			ctx.lineTo(xs[i],ytop[i]);
 			ctx.stroke();
-			chalk(xs[i-1], ytop[i-1], xs[i], ytop[i], w);
+			chalk(ctx, xs[i-1], ytop[i-1], xs[i], ytop[i], w);
 			i++;
 			if (i == xs.length) {
 				clearInterval(upper);
@@ -346,7 +346,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 					ctx.moveTo(x[i+1],ybot[i+1]);
 					ctx.lineTo(x[i],ybot[i]);
 					ctx.stroke();
-					chalk(xs[i+1], ybot[i+1], xs[i], ybot[i], w);
+					chalk(ctx, xs[i+1], ybot[i+1], xs[i], ybot[i], w);
 					i--;
 					if (i == -1) {clearInterval(lower); fn();}
 				}, time);
@@ -355,7 +355,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 	}
 	// chalk canvas style by Mohamed Moustafa
 	// adapted from @ https://codepen.io/mmoustafa/pen/AXprLM
-	function chalk(fromX, fromY, toX, toY, w) {
+	function chalk(ctx, fromX, fromY, toX, toY, w) {
 		var length = Math.round( Math.sqrt( Math.pow( toX - fromX, 2 ) + Math.pow( toY - fromY, 2 ) ) / ( 5 / w ) );
 		var xUnit = ( toX - fromX ) / length;
 		var yUnit = ( toY - fromY ) / length;
@@ -370,44 +370,56 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// draw welcome screen ellipses
 	var cwidth = canvas.width,
-		cheight = canvas.height;
+		cheight = canvas.height,
+		intro_finished = false;
 
 
 	function draw1() {
 		// class P
 		var ell1 = ellToLines(jitter(cwidth/2), jitter(cheight/2), cwidth/4, cheight/6, 50);
-		drawLines(ell1, draw2, 'red');
+		drawLines(context, ell1, draw2, 'red');
 		$('.i1').css({'color': 'red', 'left': ell1[0][35], 'top': ell1[1][35]}).fadeIn(500);
 	}
 	function draw2() {
 		// class BPP
 		var ell2 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 5*cwidth/16, 3*cheight/12, 60);
-		drawLines(ell2, draw3, 'blue');
+		drawLines(context, ell2, draw3, 'blue');
 		$('.i2').css({'color': 'blue', 'left': ell2[0][14], 'top': ell2[2][14]}).fadeIn(500);
 	}
 	function draw3() {
 		// class IP
 		var ell3 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 6*cwidth/16, 4*cheight/12, 70);
-		drawLines(ell3, draw4, 'orange');
+		drawLines(context, ell3, draw4, 'orange');
 		$('.i3').css({'color': 'orange', 'left': ell3[0][66], 'top': ell3[2][66]}).fadeIn(500);
 	}
 	function draw4() {
 		// class MIP
 		var ell4 = ellToLines(jitter(cwidth/2), jitter(cheight/2), 7*cwidth/16, 5*cheight/12, 80);
-		drawLines(ell4, draw5, 'purple');
+		drawLines(context, ell4, draw5, 'purple');
 		$('.i4').css({'color': 'purple', 'left': ell4[0][5], 'top': ell4[1][5]}).fadeIn(500);
 	}
 	function draw5() {
 		// class MIP*
 		var ell5 = ellToLines(jitter(cwidth/2), jitter(cheight/2), cwidth/2, cheight/2, 90);
-		drawLines(ell5, drawTitle, 'green');
+		drawLines(context, ell5, drawTitle, 'green');
 		$('.i5').css({'color': 'green', 'left': ell5[0][35], 'top': ell5[2][35]}).fadeIn(500);
 	}
 	function drawTitle() {
+		intro_finished = true;
 		$('.intro').fadeIn(500);
 	}
 	jQuery(document).ready(function($) {
 		draw1();
+	});
+
+	// make sure that if user scrolls before drawing is finished
+	// it gets completed automatically
+	$window.one('scroll', function() {
+		if (!intro_finished) {
+			$('#introCanvas').remove();
+			$('#home h5').remove();
+			drawTitle();
+		}
 	});
 
 	// 01: SORTING
@@ -1465,5 +1477,29 @@ $.fn.scrollEnd = function(callback, timeout) {
 			blinks = false;
 		}
 	}
+
+	// LINKS ELLIPSES ON HOVER
+	function fun() {
+		return null;
+	}
+	function pickCol() {
+		cols = ['red', 'blue', 'orange', 'green', 'purple'];
+		return cols[Math.floor(Math.random()*cols.length)]
+	}
+
+	$('.link').hover(function() {
+		clearInterval(upper);
+		clearInterval(lower);
+		var cv = $(this).children('canvas')[0];
+		var cx = cv.getContext('2d');
+		var ell = ellToLines(cv.width/2, cv.height/2, cv.width/2, cv.height/2, 30);
+		drawLines(cx, ell, fun, color = pickCol(), w = 8, time = 3);
+
+	}, function() {
+		$(this).children('canvas').remove();
+		$(this).prepend('<canvas></canvas>');
+	});
+
+
 
 })(jQuery);
