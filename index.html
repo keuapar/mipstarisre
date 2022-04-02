@@ -255,82 +255,9 @@
                     <p>The goal is to decide a YES/NO question, for example "Are these graphs G1, G2 isomorphisms of each other?" or "Is P prime?"</p>
                 </div>
                 <div class="plot-butt">
-                </div>
-                <div class="overlay hide overlay_explains">
-                </div>
-                <div class="overlay hide overlay_links">
-                </div>       
-            </section>
-
-            <!-- SECTION 02 -->
-            <!-- POLYNOMIAL IDENTITY TESTING -->
-            <section class="grid" id="classBPP">
-                <div class="head">
-                    <h2>Class BPP: Polynomial Identity Testing</h2>
-                </div>
-                <div class="main-intro">
-                    <p>
-                        Next up, we introduce another toy problem. Can you tell whether the following two polynomials are equal?
-                        How much harder does it get as you increase the highest degree, or number of variables (guessing doesn't count!)?
-                    </p>
-                </div>
-                <div class="main-act s02_main">
-                    <span class="s02_eq">$$k^2 - l^2 \stackrel{?}{=} (k+l)(k-l)$$</span>
-                    <div class="s02_intro">What steps does the computer take?</div>
-                    <div class="s02_anim"></div>
-                </div>
-                <div class="main-butt">
-                    <div class="button b-orange s02_prev">
-                        <h3>PREVIOUS</h3>
-                    </div>
-                    <div class="button b-green s02_true">
-                        <h3>TRUE</h3>
-                    </div>
-                    <div class="button b-red s02_false">
-                        <h3>FALSE</h3>
-                    </div>
-                    <div class="button b-orange s02_next">
-                        <h3>NEXT</h3>
-                    </div>
-                </div>
-                <div class="plot">
-                    <div class="plot_wrap s02_plot" id="s02_plot">
-                        <!-- dynamically populated -->
-                    </div>
-                </div>
-                <div class="plot-butt">
-                    <div class="button b-blue b-explain-02">
-                        <h3 class="b-explain">EXPLAIN</h3>
-                    </div>
                     <div class="button b-purple b-links">
                         <h3 class="b-link">LINKS</h3>
                     </div>
-                </div>
-                <div class="overlay hide overlay_explains">
-                    <p>
-                        The algorithmic approach to find out whether two polynomials are equivalent is to expand all terms and then compare their coefficients. 
-                        We can find some time savings by removing like terms as soon as they appear, without doing all addition, but that's rather coincidental. 
-                        Overall, this brute-force approach is very inefficient, and scales as \({n+d \choose d}\) for number of variables \(n\) and degree \(d\).
-                    </p>
-                    <p>
-                        However, with some leeway we can make solving this problem way more efficient. The first step is to transform it: 
-                        Instead of asking whether two polynomials are equal, \(p\stackrel{?}=q\), we ask whether their difference is equal to the zero polynomial, \(p-q\stackrel{?}=0\). 
-                        This is the same as asking whether a polynomial \(p'=p-q\) is equal to \(0\).
-                    </p>
-                    <p>
-                        One way to find out is to evaluate it at any point/vector \(x\): \(p'(x)\). If the result is anything but \(0\), we can be very certaint that the polynomial is non-zero.
-                        If the result is \(0\), the polynomial could very well be zero. We can try another point to verify... and as we increase the number of points, if all evaluate to zero,
-                        we become very confident that the polynomial is indeed equal to the zero polynomial, or that the two polynomials are equal.
-                    </p>
-                    <p>
-                        With some smart choice of points to evaluate at and a surprisingly reasonable number of repetitions (in hundreds), we can achieve very high probability of a YES answer being a true YES.
-                        This makes the algorithm highly practical - for example Horner's method for polynomial evaluation runs in \(O(n^2)\), which you can see plotted on the graph.
-                    </p> 
-                    <p>
-                        The algorithm we have defined always returns a NO if the true answer is NO, and almost always returns a YES if the true answer is YES. It can do this in polynomial time.
-                        We call this class of problems \(RP\), for Randomized Polynomial time. If the roles of YES and NO were reversed, the class would be \(co-RP\).
-                        If we allow either answer to be probabilistic with some constant confidence, the class putting that together is \(BPP\), bounded-error probabilistic polynomial time.
-                    </p>
                 </div>
                 <div class="overlay hide overlay_links">
                     <h3>Encyclopedia links</h3>
@@ -425,6 +352,134 @@
                 </div>       
             </section>
 
+            <!-- SECTION 02 -->
+            <!-- POLYNOMIAL IDENTITY TESTING -->
+            <section class="grid" id="classBPP">
+                <div class="head">
+                    <h2>Class BPP: Polynomial Identity Testing</h2>
+                </div>
+                <div class="main-intro">
+                    <p>
+                        Next up, we introduce another toy problem. Can you tell whether the following two polynomials are equal?
+                        How much harder does it get as you increase the highest degree, or number of variables (guessing doesn't count!)?
+                    </p>
+                </div>
+                <div class="main-act s02_main">
+                    <span class="s02_eq">$$k^2 - l^2 \stackrel{?}{=} (k+l)(k-l)$$</span>
+                    <div class="s02_intro">What steps does the computer take?</div>
+                    <div class="s02_anim"></div>
+                </div>
+                <div class="main-butt">
+                    <div class="button b-orange s02_prev">
+                        <h3>PREVIOUS</h3>
+                    </div>
+                    <div class="button b-green s02_true">
+                        <h3>TRUE</h3>
+                    </div>
+                    <div class="button b-red s02_false">
+                        <h3>FALSE</h3>
+                    </div>
+                    <div class="button b-orange s02_next">
+                        <h3>NEXT</h3>
+                    </div>
+                </div>
+                <div class="plot">
+                    <div class="plot_wrap s02_plot" id="s02_plot">
+                        <!-- dynamically populated -->
+                    </div>
+                </div>
+                <div class="plot-butt">
+                    <div class="button b-blue b-explain-02">
+                        <h3 class="b-explain">EXPLAIN</h3>
+                    </div>
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
+                </div>
+                <div class="overlay hide overlay_explains">
+                    <p>
+                        The algorithmic approach to find out whether two polynomials are equivalent is to expand all terms and then compare their coefficients. 
+                        We can find some time savings by removing like terms as soon as they appear, without doing all addition, but that's rather coincidental. 
+                        Overall, this brute-force approach is very inefficient, and scales as \({n+d \choose d}\) for number of variables \(n\) and degree \(d\).
+                    </p>
+                    <p>
+                        However, with some leeway we can make solving this problem way more efficient. The first step is to transform it: 
+                        Instead of asking whether two polynomials are equal, \(p\stackrel{?}=q\), we ask whether their difference is equal to the zero polynomial, \(p-q\stackrel{?}=0\). 
+                        This is the same as asking whether a polynomial \(p'=p-q\) is equal to \(0\).
+                    </p>
+                    <p>
+                        One way to find out is to evaluate it at any point/vector \(x\): \(p'(x)\). If the result is anything but \(0\), we can be very certaint that the polynomial is non-zero.
+                        If the result is \(0\), the polynomial could very well be zero. We can try another point to verify... and as we increase the number of points, if all evaluate to zero,
+                        we become very confident that the polynomial is indeed equal to the zero polynomial, or that the two polynomials are equal.
+                    </p>
+                    <p>
+                        With some smart choice of points to evaluate at and a surprisingly reasonable number of repetitions (in hundreds), we can achieve very high probability of a YES answer being a true YES.
+                        This makes the algorithm highly practical - for example Horner's method for polynomial evaluation runs in \(O(n^2)\), which you can see plotted on the graph.
+                    </p> 
+                    <p>
+                        The algorithm we have defined always returns a NO if the true answer is NO, and almost always returns a YES if the true answer is YES. It can do this in polynomial time.
+                        We call this class of problems \(RP\), for Randomized Polynomial time. If the roles of YES and NO were reversed, the class would be \(co-RP\).
+                        If we allow either answer to be probabilistic with some constant confidence, the class putting that together is \(BPP\), bounded-error probabilistic polynomial time.
+                    </p>
+                </div>
+                <div class="overlay hide overlay_links">
+                    <h3>Encyclopedia links</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.wikiwand.com/en/BPP_(complexity)" target="_blank">
+                            <canvas></canvas>
+                            <p>Complexity Class BPP</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/Polynomial_identity_testing" target="_blank">
+                            <canvas></canvas>
+                            <p>Polynomial Identity Testing</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:B#bpp" target="_blank">
+                            <canvas></canvas>
+                            <p>Class BPP: Bounded-error Probabilistic Polynomial Time</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                    </div>
+                    <h3>Beginner Resources</h3>
+                    <div class="links">
+                        <a class="link" href="https://cstheory.stackexchange.com/questions/11425/problem-in-bpp-but-not-known-to-be-in-rp-or-co-rp" target="_blank">
+                            <canvas></canvas>
+                            <p>BPP but not RP or coRP problems</p>
+                            <p class="link_src">Stack Exchange</p>
+                        </a>
+                        <a class="link" href="https://mathoverflow.net/questions/28459/how-to-implement-horner-s-scheme-for-multivariate-polynomials" target="_blank">
+                            <canvas></canvas>
+                            <p>WHorner's scheme for multivariate polynomials</p>
+                            <p class="link_src">Stack Exchange</p>
+                        </a>
+                        <a class="link" href="https://nickhar.wordpress.com/2012/02/01/lecture-9-polynomial-identity-testing-by-the-schwartz-zippel-lemma/" target="_blank">
+                            <canvas></canvas>
+                            <p>PIL testing by Schwartz-Zippel lemma</p>
+                            <p class="link_src">nickhar</p>
+                        </a>
+                        <a class="link" href="https://www.quantamagazine.org/a-short-guide-to-hard-problems-20180716/" target="_blank">
+                            <canvas></canvas>
+                            <p>A short guide to hard problems</p>
+                            <p class="link_src">Quanta Magazine</p>
+                        </a>
+                        <a class="link" href="https://cs.stanford.edu/~mpkim/notes/lec5.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Polynomial Identity Testing</p>
+                            <p class="link_src">Michael P. Kim</p>
+                        </a>
+                    </div>
+                    <h3>Advanced Study</h3>
+                    <div class="links">
+                        <a class="link" href="https://dl.acm.org/doi/10.1145/800119.803889" target="_blank">
+                            <canvas></canvas>
+                            <p>Computational complexity of probabilistic Turing machines</p>
+                            <p class="link_src">John T. Gill</p>
+                        </a>
+                    </div>
+                </div>       
+            </section>
+
             <!-- SECTION 02.5 -->
             <!-- PROVERS AND VERIFIERS -->
             <section class="grid" id="proversverifiers">
@@ -469,11 +524,66 @@
                     <p>An all-knowing machine that solves any problem, and returns the YES/NO answer or a certificate for the answer.</p>
                 </div>
                 <div class="plot-butt">
-                </div>
-                <div class="overlay hide overlay_explains">
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
                 </div>
                 <div class="overlay hide overlay_links">
-                </div>       
+                    <h3>Encyclopedia links</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.wikiwand.com/en/BPP_(complexity)" target="_blank">
+                            <canvas></canvas>
+                            <p>Complexity Class BPP</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/Polynomial_identity_testing" target="_blank">
+                            <canvas></canvas>
+                            <p>Polynomial Identity Testing</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:B#bpp" target="_blank">
+                            <canvas></canvas>
+                            <p>Class BPP: Bounded-error Probabilistic Polynomial Time</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                    </div>
+                    <h3>Beginner Resources</h3>
+                    <div class="links">
+                        <a class="link" href="https://cstheory.stackexchange.com/questions/11425/problem-in-bpp-but-not-known-to-be-in-rp-or-co-rp" target="_blank">
+                            <canvas></canvas>
+                            <p>BPP but not RP or coRP problems</p>
+                            <p class="link_src">Stack Exchange</p>
+                        </a>
+                        <a class="link" href="https://mathoverflow.net/questions/28459/how-to-implement-horner-s-scheme-for-multivariate-polynomials" target="_blank">
+                            <canvas></canvas>
+                            <p>WHorner's scheme for multivariate polynomials</p>
+                            <p class="link_src">Stack Exchange</p>
+                        </a>
+                        <a class="link" href="https://nickhar.wordpress.com/2012/02/01/lecture-9-polynomial-identity-testing-by-the-schwartz-zippel-lemma/" target="_blank">
+                            <canvas></canvas>
+                            <p>PIL testing by Schwartz-Zippel lemma</p>
+                            <p class="link_src">nickhar</p>
+                        </a>
+                        <a class="link" href="https://www.quantamagazine.org/a-short-guide-to-hard-problems-20180716/" target="_blank">
+                            <canvas></canvas>
+                            <p>A short guide to hard problems</p>
+                            <p class="link_src">Quanta Magazine</p>
+                        </a>
+                        <a class="link" href="https://cs.stanford.edu/~mpkim/notes/lec5.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Polynomial Identity Testing</p>
+                            <p class="link_src">Michael P. Kim</p>
+                        </a>
+                    </div>
+                    <h3>Advanced Study</h3>
+                    <div class="links">
+                        <a class="link" href="https://dl.acm.org/doi/10.1145/800119.803889" target="_blank">
+                            <canvas></canvas>
+                            <p>Computational complexity of probabilistic Turing machines</p>
+                            <p class="link_src">John T. Gill</p>
+                        </a>
+                    </div>
+                </div>     
             </section>
 
             <!-- SECTION 03 -->
@@ -579,96 +689,84 @@
                 <div class="overlay hide overlay_links">
                     <h3>Encyclopedia links</h3>
                     <div class="links">
-                        <a class="link" href="https://www.wikiwand.com/en/Complexity_class" target="_blank">
+                        <a class="link" href="https://www.wikiwand.com/en/Arthur–Merlin_protocol" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Classes</p>
+                            <p>Arthur-Merlin protocol</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/Interactive_proof_system" target="_blank">
+                            <canvas></canvas>
+                            <p>Interactive proof systems</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="hhttps://www.wikiwand.com/en/Zero-knowledge_proof" target="_blank">
+                            <canvas></canvas>
+                            <p>Zero-knowledge proofs</p>
                             <p class="link_src">at Wikipedia</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/FP_(complexity)" target="_blank">
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#ma" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity of Function Problems</p>
-                            <p class="link_src">at Wikipedia</p>
+                            <p>Class MA: Merlin-Arthur</p>
+                            <p class="link_src">Complexity Zoo</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/P_(complexity)" target="_blank">
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:a#am" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Class P</p>
-                            <p class="link_src">at Wikipedia</p>
+                            <p>Class AM: Arthur-Merlin</p>
+                            <p class="link_src">Complexity Zoo</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/Computational_problem" target="_blank">
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:I#ip" target="_blank">
                             <canvas></canvas>
-                            <p>Types of computational problems</p>
-                            <p class="link_src">at Wikipedia</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:F#fp" target="_blank">
-                            <canvas></canvas>
-                            <p>Class FP: Function Polynomial-Time</p>
-                            <p class="link_src">at Complexity Zoo</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:P#p" target="_blank">
-                            <canvas></canvas>
-                            <p>Class P: Polynomial-Time</p>
-                            <p class="link_src">at Complexity Zoo</p>
+                            <p>Class IP: Interactive proof systems</p>
+                            <p class="link_src">Complexity Zoo</p>
                         </a>
                     </div>
                     <h3>Beginner Resources</h3>
                     <div class="links">
-                        <a class="link" href="https://cs.stackexchange.com/questions/79707/does-every-computational-problem-have-a-decision-version" target="_blank">
+                        <a class="link" href="https://crypto.stanford.edu/cs355/19sp/lec3.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Do all problems have decision versions?</p>
-                            <p class="link_src">at Stack Exchange</p>
+                            <p>Interactive proofs: Introduction</p>
+                            <p class="link_src">Florian Tramèr</p>
                         </a>
-                        <a class="link" href="https://cstheory.stackexchange.com/questions/37812/what-exactly-are-the-classes-fp-fnp-and-tfnp" target="_blank">
+                        <a class="link" href="https://people.csail.mit.edu/ronitt/COURSE/F17/NOTES/lec6-scribe.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>What are the FP, FNP and TFNP classes?</p>
-                            <p class="link_src">at Stack Exchange</p>
+                            <p>Public and private coin protocols</p>
+                            <p class="link_src">Ronitt Rubinfeld</p>
                         </a>
-                        <a class="link" href="https://brilliant.org/wiki/turing-machines/?subtopic=algorithms&chapter=computability" target="_blank">
+                        <a class="link" href="https://courses.cs.washington.edu/courses/cse532/04sp/lect09.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>What are Turing Machines?</p>
-                            <p class="link_src">at Brilliant</p>
+                            <p>Interactive proofs and Arthur-Merlin games</p>
+                            <p class="link_src">Paul Beame</p>
                         </a>
-                        <a class="link" href="https://www.cs.stanford.edu/~trevisan/cs254-10/lecture02.pdf" target="_blank">
+                        <a class="link" href="https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>About Computational Problems</p>
-                            <p class="link_src">by Luca Trevisan</p>
-                            <p class="link_src">at Stanford University</p>
-                        </a>
-                        <a class="link" href="http://www.cs.ecu.edu/karl/6420/spr16/Notes/P/examples.html" target="_blank">
-                            <canvas></canvas>
-                            <p>Examples of problems in P</p>
-                            <p class="link_src">at East Carolina University</p>
-                        </a>
-                        <a class="link" href="https://www.youtube.com/watch?v=WaNLJf8xzC4" target="_blank">
-                            <canvas></canvas>
-                            <p>What's the fastest way to sort your bookshelf?</p>
-                            <p class="link_src">by TED-Ed</p>
-                        </a>
-                        <a class="link" href="https://www.geeksforgeeks.org/time-complexities-of-all-sorting-algorithms/" target="_blank">
-                            <canvas></canvas>
-                            <p>Time complexities of sorting algorithms</p>
-                            <p class="link_src">by Geeks for Geeks</p>
+                            <p>Arthur-Merlin games and the Goldwasser-Sipser protocol</p>
+                            <p class="link_src">Chiesa & Shinkar</p>
                         </a>
                     </div>
                     <h3>Advanced Study</h3>
                     <div class="links">
-                        <a class="link" href="https://www.sciencedirect.com/science/article/pii/S0022000005800091" target="_blank">
+                        <a class="link" href="https://www.sciencedirect.com/science/article/pii/0022000088900281" target="_blank">
                             <canvas></canvas>
-                            <p>A taxonomy of complexity classes of functions</p>
-                            <p class="link_src">by Alan L. Selman</p>
-                            <p class="link_src">in Journal of Computer and System Sciences</p>
+                            <p>Arthur-Merlin games: A randomized proof system, and a hierarchy of complexity classes</p>
+                            <p class="link_src">Babai & Moran</p>
                         </a>
-                        <a class="link" href="https://klein.mit.edu/~sipser/book.html" target="_blank">
+                        <a class="link" href="http://users.softlab.ntua.gr/~dvitin/zk/GMW91.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Introduction to the Theory of Computation (3rd ed.)</p>
-                            <p class="link_src">by Michael Sipser</p>
+                            <p>Proofs that Yield Nothing But Their Validity or All Languages in NP Have Zero-Knowledge Proof Systems</p>
+                            <p class="link_src">Goldreich et al.</p>
                         </a>
-                        <a class="link" href="https://www.cs.utexas.edu/~ear/cs341/automatabook/AutomataTheoryBook.pdf" target="_blank">
+                        <a class="link" href="https://www.wisdom.weizmann.ac.il/~oded/PSX/fgmsz.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Automata, Computability and Complexity</p>
-                            <p class="link_src">by Elaine Rich</p>
+                            <p>On Completeness and Soundness in Interactive Proof Systems</p>
+                            <p class="link_src">Furer et al.</p>
+                        </a>
+                        <a class="link" href="http://www.cs.toronto.edu/tss/files/papers/goldwasser-Sipser.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Private Coins versus Public Coins in Interactive Proof Systems</p>
+                            <p class="link_src">Goldwasser & Sipser</p>
                         </a>
                     </div>
-                </div>       
+                </div>
             </section>
 
             <!-- SECTION 03.5 -->
@@ -709,11 +807,91 @@
                     <p>The probability that the players can win the game given their best strategy among all possible strategies.</p>
                 </div>
                 <div class="plot-butt">
-                </div>
-                <div class="overlay hide overlay_explains">
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
                 </div>
                 <div class="overlay hide overlay_links">
-                </div>       
+                    <h3>Encyclopedia links</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.wikiwand.com/en/Arthur–Merlin_protocol" target="_blank">
+                            <canvas></canvas>
+                            <p>Arthur-Merlin protocol</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/Interactive_proof_system" target="_blank">
+                            <canvas></canvas>
+                            <p>Interactive proof systems</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="hhttps://www.wikiwand.com/en/Zero-knowledge_proof" target="_blank">
+                            <canvas></canvas>
+                            <p>Zero-knowledge proofs</p>
+                            <p class="link_src">at Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#ma" target="_blank">
+                            <canvas></canvas>
+                            <p>Class MA: Merlin-Arthur</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:a#am" target="_blank">
+                            <canvas></canvas>
+                            <p>Class AM: Arthur-Merlin</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:I#ip" target="_blank">
+                            <canvas></canvas>
+                            <p>Class IP: Interactive proof systems</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                    </div>
+                    <h3>Beginner Resources</h3>
+                    <div class="links">
+                        <a class="link" href="https://crypto.stanford.edu/cs355/19sp/lec3.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Interactive proofs: Introduction</p>
+                            <p class="link_src">Florian Tramèr</p>
+                        </a>
+                        <a class="link" href="https://people.csail.mit.edu/ronitt/COURSE/F17/NOTES/lec6-scribe.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Public and private coin protocols</p>
+                            <p class="link_src">Ronitt Rubinfeld</p>
+                        </a>
+                        <a class="link" href="https://courses.cs.washington.edu/courses/cse532/04sp/lect09.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Interactive proofs and Arthur-Merlin games</p>
+                            <p class="link_src">Paul Beame</p>
+                        </a>
+                        <a class="link" href="https://people.eecs.berkeley.edu/~alexch/docs/CS294-S2017/lecture-03.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Arthur-Merlin games and the Goldwasser-Sipser protocol</p>
+                            <p class="link_src">Chiesa & Shinkar</p>
+                        </a>
+                    </div>
+                    <h3>Advanced Study</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.sciencedirect.com/science/article/pii/0022000088900281" target="_blank">
+                            <canvas></canvas>
+                            <p>Arthur-Merlin games: A randomized proof system, and a hierarchy of complexity classes</p>
+                            <p class="link_src">Babai & Moran</p>
+                        </a>
+                        <a class="link" href="http://users.softlab.ntua.gr/~dvitin/zk/GMW91.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Proofs that Yield Nothing But Their Validity or All Languages in NP Have Zero-Knowledge Proof Systems</p>
+                            <p class="link_src">Goldreich et al.</p>
+                        </a>
+                        <a class="link" href="https://www.wisdom.weizmann.ac.il/~oded/PSX/fgmsz.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>On Completeness and Soundness in Interactive Proof Systems</p>
+                            <p class="link_src">Furer et al.</p>
+                        </a>
+                        <a class="link" href="http://www.cs.toronto.edu/tss/files/papers/goldwasser-Sipser.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Private Coins versus Public Coins in Interactive Proof Systems</p>
+                            <p class="link_src">Goldwasser & Sipser</p>
+                        </a>
+                    </div>
+                </div>
             </section>
 
             <!-- SECTION 04 -->
@@ -882,96 +1060,54 @@
                 <div class="overlay hide overlay_links">
                     <h3>Encyclopedia links</h3>
                     <div class="links">
-                        <a class="link" href="https://www.wikiwand.com/en/Complexity_class" target="_blank">
+                        <a class="link" href="https://www.wikiwand.com/en/Interactive_proof_system#/MIP" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Classes</p>
-                            <p class="link_src">at Wikipedia</p>
+                            <p>Multi-prover interactive protocol</p>
+                            <p class="link_src">Wikipedia</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/FP_(complexity)" target="_blank">
+                        <a class="link" href="https://www.wikiwand.com/en/CHSH_game" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity of Function Problems</p>
-                            <p class="link_src">at Wikipedia</p>
+                            <p>The CHSH game</p>
+                            <p class="link_src">Wikipedia</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/P_(complexity)" target="_blank">
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#mip" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Class P</p>
-                            <p class="link_src">at Wikipedia</p>
-                        </a>
-                        <a class="link" href="https://www.wikiwand.com/en/Computational_problem" target="_blank">
-                            <canvas></canvas>
-                            <p>Types of computational problems</p>
-                            <p class="link_src">at Wikipedia</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:F#fp" target="_blank">
-                            <canvas></canvas>
-                            <p>Class FP: Function Polynomial-Time</p>
-                            <p class="link_src">at Complexity Zoo</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:P#p" target="_blank">
-                            <canvas></canvas>
-                            <p>Class P: Polynomial-Time</p>
-                            <p class="link_src">at Complexity Zoo</p>
+                            <p>Class MIP: Multi-prover interactive proof</p>
+                            <p class="link_src">Complexity Zoo</p>
                         </a>
                     </div>
                     <h3>Beginner Resources</h3>
                     <div class="links">
-                        <a class="link" href="https://cs.stackexchange.com/questions/79707/does-every-computational-problem-have-a-decision-version" target="_blank">
+                        <a class="link" href="https://cs.uwaterloo.ca/~watrous/QIT-notes/QIT-notes.06.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Do all problems have decision versions?</p>
-                            <p class="link_src">at Stack Exchange</p>
-                        </a>
-                        <a class="link" href="https://cstheory.stackexchange.com/questions/37812/what-exactly-are-the-classes-fp-fnp-and-tfnp" target="_blank">
-                            <canvas></canvas>
-                            <p>What are the FP, FNP and TFNP classes?</p>
-                            <p class="link_src">at Stack Exchange</p>
-                        </a>
-                        <a class="link" href="https://brilliant.org/wiki/turing-machines/?subtopic=algorithms&chapter=computability" target="_blank">
-                            <canvas></canvas>
-                            <p>What are Turing Machines?</p>
-                            <p class="link_src">at Brilliant</p>
-                        </a>
-                        <a class="link" href="https://www.cs.stanford.edu/~trevisan/cs254-10/lecture02.pdf" target="_blank">
-                            <canvas></canvas>
-                            <p>About Computational Problems</p>
-                            <p class="link_src">by Luca Trevisan</p>
-                            <p class="link_src">at Stanford University</p>
-                        </a>
-                        <a class="link" href="http://www.cs.ecu.edu/karl/6420/spr16/Notes/P/examples.html" target="_blank">
-                            <canvas></canvas>
-                            <p>Examples of problems in P</p>
-                            <p class="link_src">at East Carolina University</p>
-                        </a>
-                        <a class="link" href="https://www.youtube.com/watch?v=WaNLJf8xzC4" target="_blank">
-                            <canvas></canvas>
-                            <p>What's the fastest way to sort your bookshelf?</p>
-                            <p class="link_src">by TED-Ed</p>
-                        </a>
-                        <a class="link" href="https://www.geeksforgeeks.org/time-complexities-of-all-sorting-algorithms/" target="_blank">
-                            <canvas></canvas>
-                            <p>Time complexities of sorting algorithms</p>
-                            <p class="link_src">by Geeks for Geeks</p>
+                            <p>Nonlocal games and Tsirelson's theorem</p>
+                            <p class="link_src">University of Waterloo</p>
                         </a>
                     </div>
                     <h3>Advanced Study</h3>
                     <div class="links">
-                        <a class="link" href="https://www.sciencedirect.com/science/article/pii/S0022000005800091" target="_blank">
+                        <a class="link" href="https://www.researchgate.net/publication/221591362_Multi-Prover_Interactive_Proofs_How_to_Remove_Intractability_Assumptions" target="_blank">
                             <canvas></canvas>
-                            <p>A taxonomy of complexity classes of functions</p>
-                            <p class="link_src">by Alan L. Selman</p>
-                            <p class="link_src">in Journal of Computer and System Sciences</p>
+                            <p>Multi-Prover Interactive Proofs: How to Remove Intractability Assumptions</p>
+                            <p class="link_src">Ben-Or et al.</p>
                         </a>
-                        <a class="link" href="https://klein.mit.edu/~sipser/book.html" target="_blank">
+                        <a class="link" href="https://people.cs.uchicago.edu/~fortnow/papers/mip2.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Introduction to the Theory of Computation (3rd ed.)</p>
-                            <p class="link_src">by Michael Sipser</p>
+                            <p>Non-Deterministic Exponential Time has Two-Prover Interactive Protocols</p>
+                            <p class="link_src">Babai et al.</p>
                         </a>
-                        <a class="link" href="https://www.cs.utexas.edu/~ear/cs341/automatabook/AutomataTheoryBook.pdf" target="_blank">
+                        <a class="link" href="https://dl.acm.org/doi/10.1145/129712.129783" target="_blank">
                             <canvas></canvas>
-                            <p>Automata, Computability and Complexity</p>
-                            <p class="link_src">by Elaine Rich</p>
+                            <p>Two-prover one-round proof systems: their power and their problems</p>
+                            <p class="link_src">Feige & Lovász</p>
+                        </a>
+                        <a class="link" href="https://ieeexplore.ieee.org/abstract/document/160250" target="_blank">
+                            <canvas></canvas>
+                            <p>PSPACE is provable by two provers in one round</p>
+                            <p class="link_src">Cai et al.</p>
                         </a>
                     </div>
-                </div>       
+                </div>
             </section>
 
             <!-- SECTION 04.5 -->
@@ -1010,11 +1146,61 @@
                     <p>A 2-qubit state that cannot be factored into a tensor product, like \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\)</p>
                 </div>
                 <div class="plot-butt">
-                </div>
-                <div class="overlay hide overlay_explains">
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
                 </div>
                 <div class="overlay hide overlay_links">
-                </div>       
+                    <h3>Encyclopedia links</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.wikiwand.com/en/Interactive_proof_system#/MIP" target="_blank">
+                            <canvas></canvas>
+                            <p>Multi-prover interactive protocol</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/CHSH_game" target="_blank">
+                            <canvas></canvas>
+                            <p>The CHSH game</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#mip" target="_blank">
+                            <canvas></canvas>
+                            <p>Class MIP: Multi-prover interactive proof</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                    </div>
+                    <h3>Beginner Resources</h3>
+                    <div class="links">
+                        <a class="link" href="https://cs.uwaterloo.ca/~watrous/QIT-notes/QIT-notes.06.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Nonlocal games and Tsirelson's theorem</p>
+                            <p class="link_src">University of Waterloo</p>
+                        </a>
+                    </div>
+                    <h3>Advanced Study</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.researchgate.net/publication/221591362_Multi-Prover_Interactive_Proofs_How_to_Remove_Intractability_Assumptions" target="_blank">
+                            <canvas></canvas>
+                            <p>Multi-Prover Interactive Proofs: How to Remove Intractability Assumptions</p>
+                            <p class="link_src">Ben-Or et al.</p>
+                        </a>
+                        <a class="link" href="https://people.cs.uchicago.edu/~fortnow/papers/mip2.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Non-Deterministic Exponential Time has Two-Prover Interactive Protocols</p>
+                            <p class="link_src">Babai et al.</p>
+                        </a>
+                        <a class="link" href="https://dl.acm.org/doi/10.1145/129712.129783" target="_blank">
+                            <canvas></canvas>
+                            <p>Two-prover one-round proof systems: their power and their problems</p>
+                            <p class="link_src">Feige & Lovász</p>
+                        </a>
+                        <a class="link" href="https://ieeexplore.ieee.org/abstract/document/160250" target="_blank">
+                            <canvas></canvas>
+                            <p>PSPACE is provable by two provers in one round</p>
+                            <p class="link_src">Cai et al.</p>
+                        </a>
+                    </div>
+                </div>
             </section>
 
             <!-- SECTION 05 -->
@@ -1110,94 +1296,74 @@
                 <div class="overlay hide overlay_links">
                     <h3>Encyclopedia links</h3>
                     <div class="links">
-                        <a class="link" href="https://www.wikiwand.com/en/Complexity_class" target="_blank">
+                        <a class="link" href="https://www.wikiwand.com/en/CHSH_game" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Classes</p>
+                            <p>The CHSH game</p>
                             <p class="link_src">Wikipedia</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/FP_(complexity)" target="_blank">
+                        <a class="link" href="https://www.wikiwand.com/en/Bell_state" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity of Function Problems</p>
+                            <p>Bell State</p>
                             <p class="link_src">Wikipedia</p>
                         </a>
-                        <a class="link" href="https://www.wikiwand.com/en/P_(complexity)" target="_blank">
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#mipstar" target="_blank">
                             <canvas></canvas>
-                            <p>Complexity Class P</p>
-                            <p class="link_src">Wikipedia</p>
-                        </a>
-                        <a class="link" href="https://www.wikiwand.com/en/Computational_problem" target="_blank">
-                            <canvas></canvas>
-                            <p>Types of computational problems</p>
-                            <p class="link_src">Wikipedia</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:F#fp" target="_blank">
-                            <canvas></canvas>
-                            <p>Class FP: Function Polynomial-Time</p>
-                            <p class="link_src">Complexity Zoo</p>
-                        </a>
-                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:P#p" target="_blank">
-                            <canvas></canvas>
-                            <p>Class P: Polynomial-Time</p>
+                            <p>Class MIP*: MIP with Quantum Provers</p>
                             <p class="link_src">Complexity Zoo</p>
                         </a>
                     </div>
                     <h3>Beginner Resources</h3>
                     <div class="links">
-                        <a class="link" href="https://cs.stackexchange.com/questions/79707/does-every-computational-problem-have-a-decision-version" target="_blank">
+                        <a class="link" href="http://mipstar.henryyuen.net/doku.php" target="_blank">
                             <canvas></canvas>
-                            <p>Do all problems have decision versions?</p>
-                            <p class="link_src">Stack Exchange</p>
+                            <p>The MIP* Wiki</p>
+                            <p class="link_src">Henry Yuen</p>
                         </a>
-                        <a class="link" href="https://cstheory.stackexchange.com/questions/37812/what-exactly-are-the-classes-fp-fnp-and-tfnp" target="_blank">
+                        <a class="link" href="https://brilliant.org/wiki/halting-problem/" target="_blank">
                             <canvas></canvas>
-                            <p>What are the FP, FNP and TFNP classes?</p>
-                            <p class="link_src">Stack Exchange</p>
-                        </a>
-                        <a class="link" href="https://brilliant.org/wiki/turing-machines/?subtopic=algorithms&chapter=computability" target="_blank">
-                            <canvas></canvas>
-                            <p>What are Turing Machines?</p>
+                            <p>The Halting Problem</p>
                             <p class="link_src">Brilliant</p>
                         </a>
-                        <a class="link" href="https://www.cs.stanford.edu/~trevisan/cs254-10/lecture02.pdf" target="_blank">
+                        <a class="link" href="https://www.youtube.com/watch?v=2H8629BCbkM" target="_blank">
                             <canvas></canvas>
-                            <p>About Computational Problems</p>
-                            <p class="link_src">Luca Trevisan</p>
+                            <p>Halting Problem & Quantum Entanglement</p>
+                            <p class="link_src">udiprod</p>
                         </a>
-                        <a class="link" href="http://www.cs.ecu.edu/karl/6420/spr16/Notes/P/examples.html" target="_blank">
+                        <a class="link" href="https://quantumfrontiers.com/2020/03/01/the-shape-of-mip-re/" target="_blank">
                             <canvas></canvas>
-                            <p>Examples of problems in P</p>
-                            <p class="link_src">East Carolina University</p>
+                            <p>The shape of MIP* = RE</p>
+                            <p class="link_src">Quantum Frontiers</p>
                         </a>
-                        <a class="link" href="https://www.youtube.com/watch?v=WaNLJf8xzC4" target="_blank">
+                        <a class="link" href="http://groups.uni-paderborn.de/fg-qi/courses/CMSC491/notes/Lecture%205%20-%20Non-local%20games.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>What's the fastest way to sort your bookshelf?</p>
-                            <p class="link_src">TED-Ed</p>
+                            <p>Non-Local Games</p>
+                            <p class="link_src">Sevag Gharibian</p>
                         </a>
-                        <a class="link" href="https://www.geeksforgeeks.org/time-complexities-of-all-sorting-algorithms/" target="_blank">
+                        <a class="link" href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/chap1&2.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Time complexities of sorting algorithms</p>
-                            <p class="link_src">Geeks for Geeks</p>
+                            <p>Qubits and Quantum Measurement</p>
+                            <p class="link_src">UC Berkeley</p>
                         </a>
                     </div>
                     <h3>Advanced Study</h3>
                     <div class="links">
-                        <a class="link" href="https://www.sciencedirect.com/science/article/pii/S0022000005800091" target="_blank">
+                        <a class="link" href="https://arxiv.org/pdf/2001.04383.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>A taxonomy of complexity classes of functions</p>
-                            <p class="link_src">Alan L. Selman</p>
+                            <p>MIP* = RE</p>
+                            <p class="link_src">Ji et al.</p>
                         </a>
-                        <a class="link" href="https://klein.mit.edu/~sipser/book.html" target="_blank">
+                        <a class="link" href="https://www.sas.rochester.edu/pas/assets/pdf/undergraduate/The_CHSH_game_as_a_Bell_test_thought_experiment.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Introduction to the Theory of Computation (3rd ed.)</p>
-                            <p class="link_src">Michael Sipser</p>
+                            <p>The CHSH game as a Bell test thought experiment</p>
+                            <p class="link_src">Logan Meredith</p>
                         </a>
-                        <a class="link" href="https://www.cs.utexas.edu/~ear/cs341/automatabook/AutomataTheoryBook.pdf" target="_blank">
+                        <a class="link" href="https://arxiv.org/pdf/quant-ph/0404076.pdf" target="_blank">
                             <canvas></canvas>
-                            <p>Automata, Computability and Complexity</p>
-                            <p class="link_src">Elaine Rich</p>
+                            <p>Consequences and Limits of Nonlocal Strategies</p>
+                            <p class="link_src">Cleve et al.</p>
                         </a>
                     </div>
-                </div>       
+                </div>
             </section>
 
             <!-- SECTION 05.5 -->
@@ -1239,11 +1405,81 @@
                     <p>Verifiable with an error bound by a Turing machine against multiple provers sharing quantum entanglement</p>
                 </div>
                 <div class="plot-butt">
-                </div>
-                <div class="overlay hide overlay_explains">
+                    <div class="button b-purple b-links">
+                        <h3 class="b-link">LINKS</h3>
+                    </div>
                 </div>
                 <div class="overlay hide overlay_links">
-                </div>       
+                    <h3>Encyclopedia links</h3>
+                    <div class="links">
+                        <a class="link" href="https://www.wikiwand.com/en/CHSH_game" target="_blank">
+                            <canvas></canvas>
+                            <p>The CHSH game</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://www.wikiwand.com/en/Bell_state" target="_blank">
+                            <canvas></canvas>
+                            <p>Bell State</p>
+                            <p class="link_src">Wikipedia</p>
+                        </a>
+                        <a class="link" href="https://complexityzoo.net/Complexity_Zoo:M#mipstar" target="_blank">
+                            <canvas></canvas>
+                            <p>Class MIP*: MIP with Quantum Provers</p>
+                            <p class="link_src">Complexity Zoo</p>
+                        </a>
+                    </div>
+                    <h3>Beginner Resources</h3>
+                    <div class="links">
+                        <a class="link" href="http://mipstar.henryyuen.net/doku.php" target="_blank">
+                            <canvas></canvas>
+                            <p>The MIP* Wiki</p>
+                            <p class="link_src">Henry Yuen</p>
+                        </a>
+                        <a class="link" href="https://brilliant.org/wiki/halting-problem/" target="_blank">
+                            <canvas></canvas>
+                            <p>The Halting Problem</p>
+                            <p class="link_src">Brilliant</p>
+                        </a>
+                        <a class="link" href="https://www.youtube.com/watch?v=2H8629BCbkM" target="_blank">
+                            <canvas></canvas>
+                            <p>Halting Problem & Quantum Entanglement</p>
+                            <p class="link_src">udiprod</p>
+                        </a>
+                        <a class="link" href="https://quantumfrontiers.com/2020/03/01/the-shape-of-mip-re/" target="_blank">
+                            <canvas></canvas>
+                            <p>The shape of MIP* = RE</p>
+                            <p class="link_src">Quantum Frontiers</p>
+                        </a>
+                        <a class="link" href="http://groups.uni-paderborn.de/fg-qi/courses/CMSC491/notes/Lecture%205%20-%20Non-local%20games.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Non-Local Games</p>
+                            <p class="link_src">Sevag Gharibian</p>
+                        </a>
+                        <a class="link" href="https://inst.eecs.berkeley.edu/~cs191/fa10/notes/chap1&2.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Qubits and Quantum Measurement</p>
+                            <p class="link_src">UC Berkeley</p>
+                        </a>
+                    </div>
+                    <h3>Advanced Study</h3>
+                    <div class="links">
+                        <a class="link" href="https://arxiv.org/pdf/2001.04383.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>MIP* = RE</p>
+                            <p class="link_src">Ji et al.</p>
+                        </a>
+                        <a class="link" href="https://www.sas.rochester.edu/pas/assets/pdf/undergraduate/The_CHSH_game_as_a_Bell_test_thought_experiment.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>The CHSH game as a Bell test thought experiment</p>
+                            <p class="link_src">Logan Meredith</p>
+                        </a>
+                        <a class="link" href="https://arxiv.org/pdf/quant-ph/0404076.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Consequences and Limits of Nonlocal Strategies</p>
+                            <p class="link_src">Cleve et al.</p>
+                        </a>
+                    </div>
+                </div>
             </section>
 
         </div>
