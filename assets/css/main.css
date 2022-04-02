@@ -403,7 +403,6 @@ nav {
 	color: black;
 	font-size: 1.5em;
 	text-align: center;
-	margin-top: 0.5em;
 }
 .overlay_links a {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -413,6 +412,7 @@ nav {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	margin-bottom: 1em;
 }
 .link {
 	position: relative;
