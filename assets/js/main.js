@@ -795,16 +795,17 @@ $.fn.scrollEnd = function(callback, timeout) {
 	// graph general descriptions
 	var s03_style = [
 		{ selector: 'node',
-		  style: {'label': 'data(id)',
+		  style: {'label': '',
 				  'text-valign': 'center',
 				  'text-halign': 'center'}},
 		{ selector: 'edge',
 		  style: {'width': 3, 'line-color': '#333'}}
 		],
 		s03_style_perm = [
-			{ selector: 'node', style: {'width': '2em',
-										'height': '2em',
-										'background-color': 'black'}},
+			{ selector: 'node', 
+			style: {'width': '2em',
+					'height': '2em',
+					'background-color': 'black'}},
 			{ selector: 'edge',
 			  style: {'width': 3, 'line-color': '#333'}}
 		],
@@ -877,6 +878,7 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 	// functions guiding the activity
 	$('.s03_flip').on('click', coinflip);
+	$('#coin').on('click', coinflip);
 	$('.s03_permute').on('click', function() {
 		s03_permuted = true;
 		if (s03_restarted) {

@@ -105,22 +105,23 @@
                 <div class="overlay hide overlay_explains">
                     <p>
                         Let's formalize the library problem. There is a number of books, \(N\), which we need to reorder to produce a sorted list.
-                        If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime [link].
-                        The runtime is described by big-O notation [link], which describes the worst-case behaviour of the alrgorithm.
+                        If we are interested in the efficiency of the algorithm, we look at its asymptotic runtime 
+                        - how much slower does our algorithm get as the list to be sorted grows.
+                        The runtime is described by big-O notation, which describes the worst-case behaviour of the alrgorithm.
                     </p>
                     <p>
                         In most cases, the speed of the algorithm depends on how large \(N\) is, and we are most interested in how much
-                        the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish
-                        (it might be just checking if the list is sorter, for example [link]), we say it runs in linear time, \(O(N)\).
+                        the algorithm slows down as \(N\) increases. For example, if the algorithm always takes \(N\) steps to finish, we say it runs in linear time, \(O(N)\)
+                        (it might be just checking if the list is sorted, for which it just goes through once and checks for each element that it's smaller than the next).
                     </p>
                     <p>
                         However, when sorting a list, algorithms need to go back and forth, reordering elements, which cannot be done in one fell swoop.
                         So, many algorithms take multiple times the length of the list to sort it. Some of the most common algorithms for sorting 
-                        can take \(O(N\log N)\) [link] or even \(O(N^2)\) [link] time. In the last case, as the list doubles in size, the time takes to sort it quadruples. 
+                        can take \(O(N\log N)\) or even \(O(N^2)\) time. In the last case, as the list doubles in size, the time taken to sort it quadruples. 
                     </p>
                     <p>
                         You can see how these two algorithms fare on the plot on the right. As they both take at most polynomial time in the size of the input
-                        to finish sorting, we say that they belong to the \(P\) class of problems, our first complexity class.
+                        to finish sorting, we say that sorting the books belongs to the \(P\) class of problems, our first complexity class.
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
@@ -404,13 +405,13 @@
                     </p>
                     <p>
                         However, with some leeway we can make solving this problem way more efficient. The first step is to transform it: 
-                        Instead of asking whether two polynomials are equal, \(p\stackrel{?}=q\), we ask whether their difference is equal to the zero polynomial, \(p-q\stackrel{?}=0\). 
-                        This is the same as asking whether a polynomial \(p'=p-q\) is equal to \(0\).
+                        Instead of asking whether two polynomials are equal, \(q_1\stackrel{?}=q_2\), we ask whether their difference is equal to the zero polynomial, \(q_1-q_2\stackrel{?}=0\). 
+                        This is the same as asking whether a polynomial \(p=q_1-q_2\) is equal to \(0\).
                     </p>
                     <p>
-                        One way to find out is to evaluate it at any point/vector \(x\): \(p'(x)\). If the result is anything but \(0\), we can be very certaint that the polynomial is non-zero.
+                        One way to find out is to evaluate it at any point/vector \(x\): \(p(x)\). If the result is anything but \(0\), clearly the polynomial is non-zero.
                         If the result is \(0\), the polynomial could very well be zero. We can try another point to verify... and as we increase the number of points, if all evaluate to zero,
-                        we become very confident that the polynomial is indeed equal to the zero polynomial, or that the two polynomials are equal.
+                        we become very confident that \(p = 0\), or by extension that the two polynomials \(q_1, q_2\) are equal.
                     </p>
                     <p>
                         With some smart choice of points to evaluate at and a surprisingly reasonable number of repetitions (in hundreds), we can achieve very high probability of a YES answer being a true YES.
@@ -418,7 +419,7 @@
                     </p> 
                     <p>
                         The algorithm we have defined always returns a NO if the true answer is NO, and almost always returns a YES if the true answer is YES. It can do this in polynomial time.
-                        We call this class of problems \(RP\), for Randomized Polynomial time. If the roles of YES and NO were reversed, the class would be \(co-RP\).
+                        We call this class of problems \(RP\), for Randomized Polynomial time. If the roles of YES and NO were reversed, the class would be \(coRP\).
                         If we allow either answer to be probabilistic with some constant confidence, the class putting that together is \(BPP\), bounded-error probabilistic polynomial time.
                     </p>
                 </div>
@@ -654,8 +655,8 @@
                     </div>
                 </div>
                 <div class="plot-butt">
-                    <div class="button b-blue b-explains">
-                        <h3 class="b-explain-03">EXPLAIN</h3>
+                    <div class="button b-blue b-explain-03">
+                        <h3 class="b-explain">EXPLAIN</h3>
                     </div>
                     <div class="button b-purple b-links">
                         <h3 class="b-link">LINKS</h3>
@@ -779,22 +780,23 @@
                     <p>
                         As we move on, we will need to expand the interactive proof idea from our Arthur-Merlin argument. We remain in the verifier seat, but this time question two provers at once.
                         This setup is called a multiprover interactive proof. The provers can setup a common strategy beforehand, but cannot communicate once the protocol starts.
-                        The notion is that this allows us to cross check their answers and be more certain in our analysis.
+                        The notion is that this allows us to cross-check their answers and be more certain in our analysis.
                     </p>
                     <p>
-                        We will only have 2 provers and a single round of interaction (1 question to each prover and their answer). This class is called \(MIP(2,1)\), and \(MIP(2,1) = MIP\), so any
-                        other setup, with more provers and more rounds, can be smartly reduced to ours. This system can also be reformulated as a so-called Nonlocal game.
+                        We will only have 2 provers and a single round of interaction (1 question to each prover and their answer). This class is called \(MIP(2,1)\) 
+                        (it also turns out that any larger number of provers or rounds can be reduced down to 2 provers and 1 round, but that's beyond our current discussion). 
+                        This system can also be reformulated as a so-called Nonlocal game.
                     </p>
                     <p>
-                        In this game, our two provers are players, and the verifier is a referee. The referee sends the players each a question, and based on their answers decides whether they win.
-                        The players know the full rules of the game and can setup a strategy together beforehand, but cannot communicate once the game starts.
-                        However, since the referee's questions are probabilistic (drawn from a known distribution), the players can't be sure that they always win.
+                        In this game, our two provers are players, and the verifier is a referee. The referee sends each player a question, and based on their answers decides whether they win.
+                        The players know the full rules of the game and can setup a strategy, but cannot communicate once the game starts.
+                        However, since the referee's questions are probabilistic (drawn from a known distribution), the players generally can't be sure that they always win.
                     </p>
                     <p>
                         Instead, their goal is to setup the best strategy possible that would win them the highest percentage of games. Their best strategy success rate is called the value of the game.
                     </p>
                     <p>
-                        Finding the value of the game is an optimization problem; to turn it into a decision problem, we instead ask whether the game's value is \(\geq\frac{2}{3}\).
+                        Finding the value of the game is an optimization problem; to turn it into a decision problem, we instead ask whether the game's value is for example \(\geq\frac{2}{3}\).
                         This way, we can use our decision problem complexity classes to categorize a game. Let's see an example on the next page.
                     </p>
                 </div>
@@ -903,8 +905,9 @@
                 <div class="main-intro">
                     <p>
                         Our two provers-players are Alice and Bob. Before playing, they can select a strategy to follow in the game.
-                        You are the verifier-referee. As the game starts, you send a random bit x to Alice and a random bit y to Bob. They respond according to their strategy.
-                        Alice and Bob win the game if \(x \wedge y = a \oplus b\). In words, they win if the sum of their answers modulo 2 equals the product of the inputs.
+                        You are the verifier-referee. As the game starts, you send a random bit \(x\) to Alice and a random bit \(y\) to Bob. 
+                        They respond according to their strategy. Alice and Bob win the game if \(x \wedge y = a \oplus b\). 
+                        In words, they win if the sum of their answers modulo 2 equals the product of the inputs.
                     </p>
                 </div>
                 <div class="main-act s04_main">
@@ -1032,8 +1035,8 @@
                     </div>
                 </div>
                 <div class="plot-butt">
-                    <div class="button b-blue b-explains">
-                        <h3 class="b-explain-04">EXPLAIN</h3>
+                    <div class="button b-blue b-explain-04">
+                        <h3 class="b-explain">EXPLAIN</h3>
                     </div>
                     <div class="button b-purple b-links">
                         <h3 class="b-link">LINKS</h3>
@@ -1041,20 +1044,21 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        You should see a set of simulations ran for a few select strategies appear on the chart on the right. With a large number of games played,
+                        You should see a set of simulations ran for a few selected strategies appear on the chart on the right. With a large number of games played,
                         we can see statistical results as their win percentages stabilize. Some strategies lead to a very poor performance, winning just around a quarter of the games.
                     </p>
                     <p>
                         The best of the strategies shown, A4B4 is Alice and Bob completely ignoring the question and just answering \(1\) every time.
-                        Its win probability is 75%, and in fact this is the highest probability of win that Bob and Alice can achieve. You are welcome to try and find other strategies with the same win percentage, but you won't be able to beat it.
-                        You can even enumerate all 16 strategies (or accompany it by the "both-Alice-and-Bob-answer-randomly" strategy!), and evaluate their chances against the 4 question sets.
+                        Its win probability is 75%, and in fact this is the highest winning probability that Bob and Alice can achieve. You are welcome to try and find other strategies with the same win percentage, but you won't be able to beat it.
+                        You can even enumerate all 16 strategies (or accompany it by the "both-Alice-and-Bob-answer-randomly" strategy!), and evaluate their chances against the 4 question pairs.
                     </p>
                     <p>
-                        You will find out that 75% is the best Alice and Bob can do, which makes \(0.75\) the classical value of the game.
+                         Since 75% is the best Alice and Bob can do, we say that \(0.75\) is the classical value of the CHSH game.
                     </p>
                     <p>
                         Obviously, the example is fairly simplistic, but it illustrates the idea of multi-prover interactive proofs.
-                        In more complicated set-ups, the verifier is cross-checking both provers' answers - for example, having two merlins in the previous problem of graph non-isomorphism would allow you to draw your conclusion as soon as the two Merlins disagree!
+                        In more complicated setups, the verifier is cross-checking both provers' answers.
+                        For example, think through how having two Merlins in the previous problem of graph non-isomorphism would allow you to draw your conclusion as soon as the two Merlins disagree!
                     </p>
                 </div>
                 <div class="overlay hide overlay_links">
@@ -1118,21 +1122,26 @@
                 </div>
                 <div class="main-full">
                     <p>
-                        We're finally arriving at the crux of the exploration. We now have two provers whose answers need to be coordinated, but who aren't allowed to communicate.
-                        One way they can achieve this correlation is via quantum entaglement. There's limited space to explain here, so let's layout the basics and feel free to consult the linked resources for further explanations!
+                        We're finally arriving at the crux of our exploration. We now have two provers whose answers need to be coordinated, but who aren't allowed to communicate.
+                        One way they can improve their correlation is via quantum entaglement. There's limited space to explain here, so let's layout the basics and feel free to consult the linked resources for further explanations!
                     </p>
                     <p>
                         Until now, we've worked in the classical world, where bits are either \(0\) or \(1\). A qubit, on the other hand, can be in a superposition of \(\ket{0}\) and \(\ket{1}\), with a certain probability of us observing either of the two when we measure it.
-                        For example, a qubit could be in the state \(\psi = \frac{\ket{0}}{\sqrt{2}} + \frac{\ket{1}}{\sqrt{2}}\). When measured, it has a 50% chance of showing up as \(\ket{0}\), calculated as \( |\braket{0\vert\psi}|^2 = | \begin{bmatrix}1 & 0\end{bmatrix}\begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix} |^2 = 0.5\),
-                        where we use matrix notation with the basis \(\begin{bmatrix} \ket{0} \\ \ket{1} \end{bmatrix}\).
+                        For example, a qubit could be in the state \(\ket{\psi} = \frac{\ket{0}}{\sqrt{2}} + \frac{\ket{1}}{\sqrt{2}}\). When measured, it has a 50% chance of showing a \(\ket{0}\). Refer to the linked sources to see how this is calculated from the state description!
                     </p>
                     <p>
-                        If we have two qubits, we can describe their state at once with a tensor product, e.g. \(\ket{\psi}_A \otimes \ket{\phi}_B\). For example, if \(\ket{\psi} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}\) and \(\ket{\phi} = \ket{0}\), 
-                        then \(\ket{\psi} \otimes \ket{\phi} = \frac{\ket{00}}{\sqrt{2}} + 0\times \ket{01} + \frac{\ket{10}}{\sqrt{2}} + 0\times \ket{11}\).
+                        If we have two qubits, we can describe their state at once with a so-called tensor product, e.g. \(\ket{\psi}_A \otimes \ket{\phi}_B\). For example, if \(\ket{\psi} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}\) and \(\ket{\phi} = \ket{0}\), 
+                        then \(\ket{\psi} \otimes \ket{\phi} = \frac{\ket{0} + \ket{1}}{\sqrt{2}} \otimes \ket{0} = \frac{\ket{00} + \ket{10}}{\sqrt{2}}\).
                     </p>
                     <p>
-                        However, some states cannot be split into a tensor product. Take for example \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\) - no matter how hard you try, you won't find a tensor product to generate it. This is called an entangled state. If we calculate the measurement probabilities, we find out that there is a 50% chance of measuring \(\ket{00}\)
-                        and 50% chance of measuring \(\ket{11}\). If we give the two qubits to Alice and Bob while entangled, and Alice measures a \(\ket{0}\) state on her qubit, Bob's MUST be also \(\ket{0}\), because the probability of a \(\ket{01}\) state is 0%!
+                        However, some states cannot be split into a tensor product. Take for example \(\ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}\). No matter how hard you try, you won't find a tensor product to generate it. This is called an entangled state. 
+                        If we calculate the measurement probabilities, we find out that there is a 50% chance of measuring \(\ket{00}\) and 50% chance of measuring \(\ket{11}\). 
+                        If we give the two qubits to Alice and Bob while entangled, and Alice measures a \(\ket{0}\) state on her qubit, Bob's MUST be also \(\ket{0}\), because from the formula the probability of a \(\ket{01}\) state is 0%!
+                    </p>
+                    <p>
+                        Finally, it's possible to measure in different ways than just to figure out zeros and ones. Depending on the axis of measurement, you can determine other directions of the qubit's spin.
+                        We measured along the \(\ket{0}, \ket{1}\) axis, but you could for example measure along the \(\ket{+} = \frac{\ket{0}}{\sqrt{2}} + \frac{\ket{1}}{\sqrt{2}}, \ket{-} = \frac{\ket{0}}{\sqrt{2}} - \frac{\ket{1}}{\sqrt{2}}\) axis. 
+                        The only important thing in choosing the axis is to ensure that its two states are perpendicular (which you can check using their vector representations, or by reading the linked resources).
                     </p>
                 </div>
                 <div class="plot">
@@ -1175,6 +1184,16 @@
                             <canvas></canvas>
                             <p>Nonlocal games and Tsirelson's theorem</p>
                             <p class="link_src">University of Waterloo</p>
+                        </a>
+                        <a class="link" href="https://www2.ph.ed.ac.uk/~ldeldebb/docs/QM/lect1.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Quantum States</p>
+                            <p class="link_src">University of Edinburgh</p>
+                        </a>
+                        <a class="link" href="https://indico.cern.ch/event/970909/attachments/2165159/3654057/PIQC%20Lecture%207.pdf" target="_blank">
+                            <canvas></canvas>
+                            <p>Practical Introduction to Quantum Computing</p>
+                            <p class="link_src">Elías F. Combarro</p>
                         </a>
                     </div>
                     <h3>Advanced Study</h3>
@@ -1241,14 +1260,14 @@
                     <div class="s05_b s05_abob">
                         <h3>Bob's qubit</h3>
                         <div class="gate bgate">
-                            <div class="sq sqA">\(\ket{A_0}\)</div>
-                            <div class="sq sqB">\(\ket{B_1}\)</div>
-                            <div class="sq sqa">\(\ket{a_0}\)</div>
-                            <div class="sq sqb">\(\ket{b_1}\)</div>
+                            <div class="sq sqA">\(\ket{a_0}\)</div>
+                            <div class="sq sqB">\(\ket{b_1}\)</div>
+                            <div class="sq sqa">\(\ket{A_0}\)</div>
+                            <div class="sq sqb">\(\ket{B_1}\)</div>
                         </div>
                         <p>
-                            If I receive \(x=0\), I'll measure along the \(\ket{A}, \ket{B}\) axis,
-                            otherwise along the \(\ket{a}, \ket{b}\) axis.
+                            If I receive \(x=0\), I'll measure along the \(\ket{a}, \ket{b}\) axis,
+                            otherwise along the \(\ket{A}, \ket{B}\) axis.
                         </p>
                     </div>
                 </div>
@@ -1266,8 +1285,8 @@
                     </div>
                 </div>
                 <div class="plot-butt">
-                    <div class="button b-blue b-explains">
-                        <h3 class="b-explain-05">EXPLAIN</h3>
+                    <div class="button b-blue b-explain-05">
+                        <h3 class="b-explain">EXPLAIN</h3>
                     </div>
                     <div class="button b-purple b-links">
                         <h3 class="b-link">LINKS</h3>
@@ -1275,7 +1294,16 @@
                 </div>
                 <div class="overlay hide overlay_explains">
                     <p>
-                        Compare the quantum strategy to some of the classical strategies Alice and Bob employed previously. They are doing much better now! With a single quantum-entangled qubit and some smart measuring axis, they upped the value of the game to 85%.
+                        Alice is using simple axes to measure her qubit. If she receives \(x=0\), she'll measure along the \(\ket{0}, \ket{1}\) axis. 
+                        On the other hand if she receives \(x=1\), she'll use the \(\ket{+} = \frac{\ket{0}}{\sqrt{2}} + \frac{\ket{1}}{\sqrt{2}}, \ket{-} = \frac{\ket{0}}{\sqrt{2}} - \frac{\ket{1}}{\sqrt{2}}\) axis.
+                        In either case, she'll respond with a \(0\) or \(1\), respectively, depending on the outcome of her measurement.
+                        Bob is using more complicaed axes pairs. For a question \(y=0\), he'll use the \(\ket{a} = \cos{\frac{\pi}{8}}\ket{0} + \sin{\frac{\pi}{8}}\ket{1}, \ket{b} = -\sin{\frac{\pi}{8}}\ket{0} + \cos{\frac{\pi}{8}}\ket{1}\) axis,
+                        responding with \(0\) if he measures \(\ket{a}\) and \(1\) if he measures \(\ket{b}\).
+                        Similarly, if he is asked \(y=1\), he will measure along \(\ket{A} = \cos{\frac{\pi}{8}}\ket{0} - \sin{\frac{\pi}{8}}\ket{1}, \ket{B} = \sin{\frac{\pi}{8}}\ket{0} + \cos{\frac{\pi}{8}}\ket{1}\) axis,
+                        again adequately responding \(0\) or \(1\).
+                    </p>
+                    <p>
+                        Look at the experimental results chart and compare the quantum strategy to some of the classical strategies Alice and Bob employed previously. They are doing much better now! With a single quantum-entangled qubit and some smart measuring axis, they upped the value of the game to 85%.
                     </p>
                     <p>
                         Let's translate the nonlocal games language back into a complexity class now.
@@ -1362,6 +1390,11 @@
                             <p>Consequences and Limits of Nonlocal Strategies</p>
                             <p class="link_src">Cleve et al.</p>
                         </a>
+                        <a class="link" href="https://www.tau.ac.il/~tsirel/download/qbell80.pdf" targer="_blank">
+                            <canvas></canvas>
+                            <p>Quantum Generalizations of Bell's Inequality</p>
+                            <p class="link_src">Boris S. Cirel'son</p>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -1399,8 +1432,8 @@
                     <p>Solvable by a Turing machine in polynomial time</p>
                     <h5>Class BPP</h5>
                     <p>Solvable with an error bound by a Turing machine in polynomial time</p>
-                    <h5>Class IP</h5>
-                    <p>Verifiable with an error bound by a Turing machine in an interactive proof protocol</p>
+                    <h5>Class (M)IP</h5>
+                    <p>Verifiable with an error bound by a Turing machine in a (multiprover) interactive proof protocol</p>
                     <h5>Class MIP*</h5>
                     <p>Verifiable with an error bound by a Turing machine against multiple provers sharing quantum entanglement</p>
                 </div>
@@ -1477,6 +1510,11 @@
                             <canvas></canvas>
                             <p>Consequences and Limits of Nonlocal Strategies</p>
                             <p class="link_src">Cleve et al.</p>
+                        </a>
+                        <a class="link" href="https://www.tau.ac.il/~tsirel/download/qbell80.pdf" targer="_blank">
+                            <canvas></canvas>
+                            <p>Quantum Generalizations of Bell's Inequality</p>
+                            <p class="link_src">Boris S. Cirel'son</p>
                         </a>
                     </div>
                 </div>
